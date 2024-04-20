@@ -1,5 +1,4 @@
 # FCT_Limpieza
-FCT Limpieza
 
 - Participantes del proyecto:
 
@@ -8,4 +7,4 @@ FCT Limpieza
     +David Mendoza
   
     +Esteban Dominguez
-  
+    
