@@ -19,6 +19,8 @@
         npm install; ng serve --o
 
 **3º BackEnd - Https & DataBases**
+   
+   - Open the project with Visual Studio
 
    - Install the .NET Develop Certificate
 
