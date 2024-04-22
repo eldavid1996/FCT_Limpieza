@@ -1,0 +1,19 @@
+<section fxLayoutAlign="center">
+  <mat-card>
+    <form fxLayout="column" #f ="ngForm" fxLayoutAlign="center center" fxLayoutGap="10px"
+    (ngSubmit)="loginUsuario(f)"
+    >
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" required name ="email" ngModel/>
+        <mat-error>Debe ingresar un email</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" required name="passwd" ngModel />
+        <mat-error>Debe ingresar una password</mat-error>
+      </mat-form-field>
+      <button type="submit" mat-raised-button color="primary">Login</button>
+    </form>
+  </mat-card>
+</section>

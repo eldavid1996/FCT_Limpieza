@@ -1,0 +1,10 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px; /* Agregamos un margen inferior para separar los campos */
+}
+
+mat-card {
+  width: 500px; /* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
+  margin: 20px auto;
+  padding: 20px;
+}
