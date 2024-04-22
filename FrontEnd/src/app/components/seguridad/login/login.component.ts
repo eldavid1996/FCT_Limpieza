@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MaterialModule } from '../../edbmaterial.module';
+import { MaterialModule } from '../../../edbmaterial.module';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import {FlexLayoutModule} from '@angular/flex-layout';

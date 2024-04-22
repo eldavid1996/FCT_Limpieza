@@ -9,5 +9,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './root.component.css'
 })
 export class RootComponent {
-  title = 'FrontEnd'; // Varible used for tests only // 
+  title = 'FrontEnd'; // Varible used for tests only //
 }
