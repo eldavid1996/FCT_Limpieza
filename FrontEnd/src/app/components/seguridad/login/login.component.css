@@ -1,10 +1,23 @@
+/* Estilos para centrar la sección en la página */
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Esto asegura que la sección ocupe toda la altura de la ventana */
+}
+
+/* Estilos para los campos de entrada más pequeños */
 mat-form-field {
   width: 100%;
-  margin-bottom: 20px; /* Agregamos un margen inferior para separar los campos */
+  margin-bottom: 10px; /* Reducimos el margen inferior para separar los campos */
+}
+
+mat-form-field input {
+  font-size: 14px; /* Tamaño de la fuente más pequeño */
 }
 
 mat-card {
-  width: 500px; /* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
-  margin: 20px auto;
+  max-width: 500px; /* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
+  margin: 20px; /* Quitamos 'auto' y ajustamos el margen */
   padding: 20px;
 }

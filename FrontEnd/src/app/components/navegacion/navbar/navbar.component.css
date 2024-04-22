@@ -1,0 +1,16 @@
+a {
+  color: white; /* Define el color de texto blanco para los enlaces */
+  text-decoration: none; /* Elimina la subrayado predeterminado de los enlaces */
+}
+
+a:hover,
+a:active {
+  color: red; /* Cambia el color del texto a rojo cuando el enlace está en hover o activo */
+}
+
+ul,
+li {
+  list-style: none; /* Elimina los estilos de lista predeterminados */
+  padding: 0;
+  margin: 0;
+}

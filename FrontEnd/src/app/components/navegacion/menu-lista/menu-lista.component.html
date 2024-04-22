@@ -1,0 +1,47 @@
+<mat-nav-list>
+  <a
+    mat-list-item
+    routerLink="/"
+    (click)="onCerrarMenu()"
+    *ngIf="estadoUsuario"
+  >
+    <mat-icon>home</mat-icon> <span class="nav-list-label">Inicio</span></a
+  >
+  <a
+    mat-list-item
+    routerLink="/libros"
+    (click)="onCerrarMenu()"
+    *ngIf="estadoUsuario"
+  >
+    <mat-icon>book</mat-icon> <span class="nav-list-label">Libros</span></a
+  >
+  <a
+  mat-list-item
+  routerLink="/books"
+  (click)="onCerrarMenu()"
+  *ngIf="estadoUsuario"
+>
+  <mat-icon>book</mat-icon> <span class="nav-list-label">Books</span></a
+>
+  <a
+    mat-list-item
+    routerLink="/login"
+    (click)="onCerrarMenu()"
+    *ngIf="!estadoUsuario"
+  >
+    <mat-icon>man</mat-icon> <span class="nav-list-label">Login</span></a
+  >
+  <a
+    mat-list-item
+    routerLink="/registrar"
+    (click)="onCerrarMenu()"
+    *ngIf="!estadoUsuario"
+  >
+    <mat-icon>how_to_reg</mat-icon><span class="nav-list-label">Registrar</span>
+  </a>
+
+  <a mat-list-item (click)="terminarSesionMenu()" *ngIf="estadoUsuario">
+    <mat-icon>eject</mat-icon>
+    <span class="nav-list-label">Salir</span>
+  </a>
+</mat-nav-list>

@@ -1,5 +1,11 @@
-<section fxLayoutAlign="center">
-  <mat-card>
+<section fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card fxFlex="50">
+    <img mat-card-image src="../../../images/hotel.jpg" alt="Imagen">
+
+  </mat-card>
+  <!-- Card con el formulario de login -->
+  <mat-card fxFlex="50">
     <form fxLayout="column" #f ="ngForm" fxLayoutAlign="center center" fxLayoutGap="10px"
     (ngSubmit)="loginUsuario(f)"
     >
@@ -16,4 +22,7 @@
       <button type="submit" mat-raised-button color="primary">Login</button>
     </form>
   </mat-card>
+
+  <!-- Card con la imagen -->
+
 </section>
