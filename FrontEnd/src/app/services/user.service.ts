@@ -1,4 +1,4 @@
-import { User } from "./user.model";
+import { User } from "../components/user-table/user.model";
 
 export class UserService{
   private userList: User[] = [
@@ -46,5 +46,15 @@ export class UserService{
 
   getUsers(){
     return this.userList.slice();//Para que devuelva una copia
+  }
+
+  getUser(id: string): User | null {
+    const filteredUsers = this.userList.filter(user => user.id === id);
+
+    if (filteredUsers.length > 0) {
+      return filteredUsers[0]; // Devuelve el primer usuario que cumpla la condición
+    } else {
+      return null; // Devuelve null si no se encuentra ningún usuario con ese id
+    }
   }
 }

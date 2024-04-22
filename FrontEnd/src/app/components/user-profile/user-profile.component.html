@@ -1,0 +1,32 @@
+<section>
+    <div class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 bg-blue-100 ">
+        <div class="grid grid-cols-4  grid-rows-4 gap-5 text-center p-10">
+            <div class="row-span-2">
+                <img src="assets/source/prueba1.png" alt="" >
+            </div>
+            <div class="row-span-1 col-span-3 flex-column gap-5">
+                <div class="text-5xl text-center">Datos Personales</div>
+            </div>
+            <div class="row-span-2 col-span-1 text-2xl text-right" >
+                <div>
+                    <mat-label>
+                        <p>Nombre</p>
+                    </mat-label>
+                    <p>{{ userData.name }}</p>
+                </div>
+                <div>
+                    <h3>Correo Electrónico</h3>
+                    <p>{{ userData.email }}</p>
+                </div>
+                <div>
+                    <h3>Telefono</h3>
+                    <p>{{ userData.phone }}</p>
+                </div>
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+</section>
