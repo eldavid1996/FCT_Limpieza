@@ -6,5 +6,5 @@ import { RootComponent } from './root.component';
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'empleados' , component:UserTableComponent},
-    {path:'',component:RootComponent}
+    //{path:'',component:RootComponent}
 ];

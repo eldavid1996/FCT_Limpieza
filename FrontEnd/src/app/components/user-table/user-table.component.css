@@ -1,0 +1,9 @@
+.position{
+    position: relative;
+    top:2px;
+}
+.boton-nuevo{
+    background-color: blue !important;
+    border-radius: 60px;
+
+}

@@ -1,60 +1,83 @@
 <section class="p-5">
-  <div class="w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3">
-    <div class="px-6 py-4">
+  <div
+    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3"
+  >
+    <div class="px-6 py-4 flex justify-between">
       <div class="font-bold text-xl mb-2">Empleados con turno hoy</div>
-      <span><form>
-        <div class="w-full flex">
-          <div class="mb-4">
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="search" type="text" placeholder="Buscar...">
+      <span
+        ><form>
+          <div class="w-full flex">
+            <div class="mb-4 flex">
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="search"
+                type="text"
+                placeholder="Buscar..."
+              />&nbsp;
+              <button class="rounded-full px-1.5 py-0.5 bg-gray-700 text-white">
+                <mat-icon class="position">search</mat-icon>
+              </button>
+            </div>
           </div>
-        </div>
-      </form></span>
+        </form></span
+      >
     </div>
     <div>
-      <table mat-table [dataSource] = "dataSource">
-
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="ordenarColumna($event)"
+      >
         <!-- Id Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
         </ng-container>
 
         <!-- Floor Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
         <!-- Phone Column -->
         <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
         </ng-container>
 
         <!-- Icons Column -->
         <ng-container>
-          <th mat-header-cell *matHeaderCellDef> Icons </th>
-          <td mat-cell *matCellDef="let element"> iconos</td>
+          <th mat-header-cell *matHeaderCellDef>Icons</th>
+          <td mat-cell *matCellDef="let element">iconos</td>
         </ng-container>
 
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[2, 10, 20]"
-                     showFirstLastButtons
-                     aria-label="Select page of periodic elements">
-      </mat-paginator>
+      <!-- Paginacion -->
+      <mat-paginator
+        (page)="eventoPaginador($event)"
+        #paginacion
+        [pageSize]="usersPorPagina"
+        [pageSizeOptions]="paginaCombo"
+        [length]="totalLibros"
+      ></mat-paginator>
     </div>
-    <div class="px-6 pt-4 pb-2 grid" >
-      <div class="place-self-end"><button mat-raised-button>Nuevo usario<mat-icon>person</mat-icon></button></div>
+    <div class="px-6 pt-4 pb-2 grid">
+      <div class="place-self-end">
+        <button class="boton-nuevo" mat-flat-button color="primary">
+          Añadir Empleado<mat-icon>person</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </section>
