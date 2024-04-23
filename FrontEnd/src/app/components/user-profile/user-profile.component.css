@@ -1,15 +1,15 @@
 .imagen{
     object-fit: contain;
     width: 169px;
-    
+
 }
 .position{
     position: relative;
     top:5px;
 }
 .profile-icons{
-    font-size: 18px;
+    font-size: 17px;
     position: relative;
-    top: 9px;
+    top: 10px;
 
 }
