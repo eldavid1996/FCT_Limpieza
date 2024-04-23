@@ -10,30 +10,35 @@ import { HttpClient } from "@angular/common/http";
   providedIn:'root'
 })
 export class SeguridadService {
-
+  private token : string | any;
   baseUrl = environment.baseUrl;
   seguridadCambio = new Subject<boolean>();
   private usuario?: Usuario;
 
+
+  obtenerToken():string | any{
+    return this.token;
+  }
   constructor(private router: Router, private http : HttpClient) {}
 
-  registrarUsuario(usr: Usuario) {
-    this.usuario = {
-      email: usr.email,
-      userId: Math.round(Math.random() * 1000).toString(),
-      nombre: usr.nombre,
-      apellidos: usr.apellidos,
-      username: usr.username,
-      password:''
-    };
 
-    this.seguridadCambio.next(true);
-    this.router.navigate(['/']);
-  }
+
 
   login(loginData: LoginData) {
-    this.http.post(this.baseUrl + 'usuario/login', loginData).subscribe((data)=>{
-      console.log('login respuesta', data)
+    this.http.post<Usuario>(this.baseUrl + 'usuario/login', loginData).subscribe((data)=>{
+      console.log('login respuesta', data);
+
+      this.token = data.token
+      this.usuario = {
+        email:data.email,
+        nombre:data.nombre,
+        apellidos:data.apellidos,
+        token:data.token,
+        password:'',
+        username:data.username,
+        userId:data.userId
+      };
+      this.seguridadCambio.next(true);
     });
   }
 

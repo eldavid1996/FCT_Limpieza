@@ -4,11 +4,12 @@ section {
   justify-content: center;
   align-items: center;
   height: 100vh; /* Esto asegura que la sección ocupe toda la altura de la ventana */
+  background-color: brown;
 }
 
 /* Estilos para los campos de entrada más pequeños */
 mat-form-field {
-  width: 100%;
+  width: 450px;
   margin-bottom: 10px; /* Reducimos el margen inferior para separar los campos */
 }
 
@@ -16,8 +17,53 @@ mat-form-field input {
   font-size: 14px; /* Tamaño de la fuente más pequeño */
 }
 
-mat-card {
-  max-width: 500px; /* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
-  margin: 20px; /* Quitamos 'auto' y ajustamos el margen */
-  padding: 20px;
+.login {
+  display: flex;
+  flex-direction: column; /* Establece la dirección de los elementos a columna */
+  justify-content: center; /* Alinea verticalmente al centro */
+  align-items: center; /* Alinea horizontalmente al centro */
+  height: 100%;
+  width: 100%;/* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
+}
+
+/* Cambios para la imagen */
+.full-height-image-container {
+  width: 70%; /* La imagen ocupará todo el ancho de su contenedor */
+  height: 100%; /* Establece la altura del contenedor al 100% del contenedor padre */
+}
+
+.full-height-image {
+  width: 90%; /* La imagen ocupará todo el ancho de su contenedor */
+  height: 100%; /* La imagen ocupará todo el alto del contenedor */
+  object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
+}
+
+.titulo {
+  text-align: center;
+  padding: auto;
+  margin-bottom: 50px;
+}
+h1 {
+  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 120px;
+  letter-spacing: 6px;
+}
+h3 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 30px;
+  letter-spacing: 10px;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 50px;
+  padding-right: 20px;
+}
+
+footer p {
+  margin: 0;
 }

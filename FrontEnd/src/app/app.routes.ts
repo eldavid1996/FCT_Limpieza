@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RootComponent } from './root.component'; // Asegúrate de importar RootComponent
 import { LoginComponent } from './components/seguridad/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 // Definición de las rutas
 export const routes: Routes = [
     { path: 'login', component: LoginComponent }, // Ruta para el componente LoginComponent
+    { path: 'dashboard', component: DashboardComponent },
 ];
 
 @NgModule({

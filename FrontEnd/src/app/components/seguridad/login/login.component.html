@@ -1,28 +1,33 @@
 <section fxLayout="row" fxLayoutAlign="center center">
-
-  <mat-card fxFlex="50">
-    <img mat-card-image src="../../../images/hotel.jpg" alt="Imagen">
-
-  </mat-card>
+ <!-- Card con la imagen -->
+ <div class="full-height-image-container">
+  <img src="../../../../assets/images/hotel.jpg" alt="Imagen" class="full-height-image">
+</div>
   <!-- Card con el formulario de login -->
-  <mat-card fxFlex="50">
+  <div class="login">
+    <div class="titulo">
+      <h1>NOVOTEL</h1>
+      <h3>HOTELS, SUITES & RESORTS</h3>
+    </div>
     <form fxLayout="column" #f ="ngForm" fxLayoutAlign="center center" fxLayoutGap="10px"
     (ngSubmit)="loginUsuario(f)"
     >
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput type="email" required name ="email" ngModel/>
-        <mat-error>Debe ingresar un email</mat-error>
+        <input matInput type="email" required name ="email" ngModel class="px-4 py-3"/>
+        <mat-error style="color: aliceblue;">Debe ingresar un email</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Password</mat-label>
         <input matInput type="password" required name="passwd" ngModel />
-        <mat-error>Debe ingresar una password</mat-error>
+        <mat-error style="color: aliceblue;">Debe ingresar una password</mat-error>
       </mat-form-field>
+      <!--<div *ngIf="errorLogin" style="color: red;">Error: Usuario o contraseña incorrectos</div>-->
+
       <button type="submit" mat-raised-button color="primary">Login</button>
     </form>
-  </mat-card>
-
-  <!-- Card con la imagen -->
-
+  </div>
+  <footer>
+    <p>by BRoom</p>
+  </footer>
 </section>

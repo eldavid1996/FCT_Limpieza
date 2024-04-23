@@ -6,6 +6,7 @@ export interface Usuario {
   email: string;
   userId: string;
   password:string;
+  token:string
 
 
 }
