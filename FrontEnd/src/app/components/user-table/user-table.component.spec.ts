@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserTableComponent } from './user-table.component';
 
 describe('UserTableComponent', () => {
