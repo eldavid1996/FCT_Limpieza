@@ -1,86 +1,85 @@
 <section>
   <div
-    class="sm:w-full lg:w-1/3 mx-auto rounded overflow-hidden shadow-lg py-3 bg-white"
+    class="sm:w-full lg:w-1/3 mx-auto rounded overflow-hidden shadow-lg  bg-white"
   >
     <div class="grid flex gap-5 text-center p-10">
       <div class="w-full">
+        <img src="assets/source/prueba1.png" alt="" class="imagen mx-auto mb-3" />
         <h1><strong>Datos Personales</strong></h1>
-        <img src="assets/source/prueba1.png" alt="" class="imagen mx-auto" />
+
       </div>
-      <div class="flex gap-3 px-5 grid grid-cols-2 grid-rows-7 justify-items-start items-center">
-        <div>
-          <p>
-            <mat-icon class="profile-icons">account_circle</mat-icon
-            ><strong >Nombre:</strong>
-          </p>
+      <div class="flex  grid grid-cols-1 sm:grid-cols-2 gap-3 justify-items-center items-center">
+        <!-- Primer grupo de datos -->
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">account_circle</mat-icon>
+            <strong class="ml-2">Nombre:</strong>
+          </div>
+          <div>
+            <p>{{ userData.name }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">lens</mat-icon>
+            <strong class="ml-2">Apellido:</strong>
+          </div>
+          <div>
+            <p>{{ userData.surname }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">fingerprint</mat-icon>
+            <strong class="ml-2">DNI:</strong>
+          </div>
+          <div>
+            <p>{{ userData.dni }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">email</mat-icon>
+            <strong class="ml-2">Correo Electrónico:</strong>
+          </div>
+          <div>
+            <p>{{ userData.email }}</p>
+          </div>
         </div>
-        <div>
-          <p>{{ userData.name }}</p>
-        </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">lens</mat-icon
-            ><strong>Apellido:</strong>
-          </p>
-        </div>
-        <div>
-          <p>{{ userData.surname }}</p>
-        </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">email</mat-icon
-            ><strong>Correo Electrónico:</strong>
-          </p>
-        </div>
-
-      <div>
-        <p>{{ userData.email }}</p>
-      </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">date_range</mat-icon
-            ><strong>Fecha de nacimiento:</strong>
-          </p>
-        </div>
-
-      <div>
-        <p>{{ userData.birthDate | date : "dd/MM/YYYY" }}</p>
-      </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">lens</mat-icon
-            ><strong>Código Postal:</strong>
-          </p>
-        </div>
-        <div>
-          <p>{{ userData.pc }}</p>
-        </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">business</mat-icon
-            ><strong>Ciudad:</strong>
-          </p>
-        </div>
-
-      <div>
-        <p>{{ userData.city }}</p>
-      </div>
-
-        <div>
-          <p>
-            <mat-icon class="profile-icons">phone</mat-icon
-            ><strong>Teléfono:</strong>
-          </p>
-        </div>
-        <div>
-          <p>{{ userData.phone }}</p>
+      
+        <!-- Segundo grupo -->
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">date_range</mat-icon>
+            <strong class="ml-2">Fecha de nacimiento:</strong>
+          </div>
+          <div>
+            <p>{{ userData.birthDate | date : "dd/MM/YYYY" }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">lens</mat-icon>
+            <strong class="ml-2">Código Postal:</strong>
+          </div>
+          <div>
+            <p>{{ userData.pc }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">business</mat-icon>
+            <strong class="ml-2">Ciudad:</strong>
+          </div>
+          <div>
+            <p>{{ userData.city }}</p>
+          </div>
+      
+          <div class="flex items-center">
+            <mat-icon class="profile-icons">phone</mat-icon>
+            <strong class="ml-2">Teléfono:</strong>
+          </div>
+          <div>
+            <p>{{ userData.phone }}</p>
+          </div>
         </div>
       </div>
+      
 
 
 

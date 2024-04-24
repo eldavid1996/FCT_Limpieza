@@ -1,6 +1,7 @@
 .position{
     position: relative;
     top:2px;
+    left: -2px;
 }
 .boton-nuevo{
     background-color: #4f46e5 !important;

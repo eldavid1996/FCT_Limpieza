@@ -4,9 +4,11 @@ export interface User{
   surname:string;
   password:string;
   email: string;
+  dni:string;
   phone: string;
   birthDate: Date;
   pc:string;
   city:string;
+  admin:number;
   token:string;
 }

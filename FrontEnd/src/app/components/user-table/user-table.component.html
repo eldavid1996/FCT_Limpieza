@@ -1,4 +1,4 @@
-<section class="p-5 ">
+<section class="p-5">
   <div
     class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 bg-white"
   >
@@ -14,7 +14,9 @@
                 type="text"
                 placeholder="Buscar..."
               />&nbsp;
-              <button class="rounded-full px-1.5 py-0.5 bg-indigo-600 text-white">
+              <button
+                class="rounded-full px-1.5 py-0.5 hover:bg-indigo-600 hover:text-white text-indigo-700 border-2 border-indigo-600 bg-white overflow-hidden"
+              >
                 <mat-icon class="position">search</mat-icon>
               </button>
             </div>
@@ -38,12 +40,12 @@
         <!-- Floor Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.name }}  {{element.surname}} </td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <th mat-header-cell *matHeaderCellDef>Correo Electrónico</th>
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
 
@@ -54,11 +56,25 @@
         </ng-container>
 
         <!-- Icons Column -->
-        <ng-container>
-          <th mat-header-cell *matHeaderCellDef>Icons</th>
-          <td mat-cell *matCellDef="let element">iconos</td>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="editarEmpleado(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="eliminarEmpleado(element.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
         </ng-container>
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
@@ -74,7 +90,7 @@
     </div>
     <div class="px-6 pt-4 pb-2 grid">
       <div class="place-self-end">
-        <button class="boton-nuevo" mat-flat-button >
+        <button class="boton-nuevo" mat-flat-button>
           Añadir Empleado<mat-icon>person</mat-icon>
         </button>
       </div>

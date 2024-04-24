@@ -28,7 +28,7 @@ export class UserTableComponent implements OnInit {
   sort = 'id';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns= ["id","name","email","phone"];
+  displayedColumns= ["id","name","email","phone","actions"];
   
   dataSource =  new MatTableDataSource<User>();
 
@@ -50,6 +50,14 @@ export class UserTableComponent implements OnInit {
     this.sortDirection = event.direction;
     //this.booksService.obtenerLibros(this.librosPorPagina, this.pagina, event.active, event.direction, this.filterValue);
     this.userService.getUsers();
+  }
+
+  editarEmpleado(empleado: User) {
+    console.log(empleado);
+  }
+  
+  eliminarEmpleado(id: number) {
+    console.log(id)
   }
 
 
