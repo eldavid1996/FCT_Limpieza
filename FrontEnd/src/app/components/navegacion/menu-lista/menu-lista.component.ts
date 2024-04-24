@@ -7,11 +7,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { SeguridadService } from '../../seguridad/seguriad.service';
 import { Subscription } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'root-menu-lista',
   standalone: true,
-  imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],  templateUrl: './menu-lista.component.html',
+  imports:[NavbarComponent,MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],  templateUrl: './menu-lista.component.html',
   styleUrl: './menu-lista.component.css'
 })
 export class MenuListaComponent implements OnDestroy {

@@ -8,45 +8,58 @@ import { RouterModule } from '@angular/router';
 import { SeguridadService } from '../../seguridad/seguriad.service';
 import { Subscription } from 'rxjs';
 import { unsubscribe } from 'diagnostics_channel';
+import { MenuListaComponent } from '../menu-lista/menu-lista.component';
 
 
 @Component({
   selector: 'root-navbar',
   standalone: true,
   imports: [
-    [MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],
+    [MenuListaComponent,MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],
   ],  templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnDestroy{
+export class NavbarComponent implements OnDestroy {
 
-  @Output() menuToggle = new EventEmitter;
+  @Output() menuToggle = new EventEmitter();
   estadoUsuario?: boolean;
-  usuarioSubscription?:Subscription;
+  usuarioSubscription?: Subscription;
+  currentTimeAndDate: string|any;
 
-  constructor(private seguridadServicio: SeguridadService) {
+  constructor(private seguridadServicio: SeguridadService) {}
 
-
-   }
   ngOnInit(): void {
-    this.usuarioSubscription=this.seguridadServicio.seguridadCambio.subscribe(status =>{
+    this.usuarioSubscription = this.seguridadServicio.seguridadCambio.subscribe(status => {
       this.estadoUsuario = status;
-
     });
+    this.getCurrentTimeAndDate();
   }
 
   onMenuToggleDispatch() {
     this.menuToggle.emit();
   }
 
-  ngOnDestroy(){
+  getCurrentTimeAndDate(): string {
+    const currentDate = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    };
+    return currentDate.toLocaleDateString('en-US', options);
+  }
+
+  ngOnDestroy() {
     if (this.usuarioSubscription) {
       this.usuarioSubscription.unsubscribe();
     }
   }
-  logOut(){
+
+  logOut() {
     this.seguridadServicio.salirSesion();
   }
-
-
 }

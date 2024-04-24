@@ -1,47 +1,14 @@
-<mat-nav-list>
-  <a
-    mat-list-item
-    routerLink="/"
-    (click)="onCerrarMenu()"
-    *ngIf="estadoUsuario"
-  >
-    <mat-icon>home</mat-icon> <span class="nav-list-label">Inicio</span></a
-  >
-  <a
-    mat-list-item
-    routerLink="/libros"
-    (click)="onCerrarMenu()"
-    *ngIf="estadoUsuario"
-  >
-    <mat-icon>book</mat-icon> <span class="nav-list-label">Libros</span></a
-  >
-  <a
-  mat-list-item
-  routerLink="/books"
-  (click)="onCerrarMenu()"
-  *ngIf="estadoUsuario"
->
-  <mat-icon>book</mat-icon> <span class="nav-list-label">Books</span></a
->
-  <a
-    mat-list-item
-    routerLink="/login"
-    (click)="onCerrarMenu()"
-    *ngIf="!estadoUsuario"
-  >
-    <mat-icon>man</mat-icon> <span class="nav-list-label">Login</span></a
-  >
-  <a
-    mat-list-item
-    routerLink="/registrar"
-    (click)="onCerrarMenu()"
-    *ngIf="!estadoUsuario"
-  >
-    <mat-icon>how_to_reg</mat-icon><span class="nav-list-label">Registrar</span>
-  </a>
+<section class="md:w-1/24 lg:w-1/24">
+  <mat-nav-list class="mt-20">
+    <a href="/tareas" mat-list-item><mat-icon>task</mat-icon></a>
+    <a href="/habitaciones" mat-list-item><mat-icon>king_bed</mat-icon></a>
+    <a href="/empleados" mat-list-item><mat-icon>person</mat-icon></a>
+    <a href="/horario" mat-list-item><mat-icon>calendar_month</mat-icon></a>
+  </mat-nav-list>
+</section>
 
-  <a mat-list-item (click)="terminarSesionMenu()" *ngIf="estadoUsuario">
-    <mat-icon>eject</mat-icon>
-    <span class="nav-list-label">Salir</span>
-  </a>
-</mat-nav-list>
+
+<!--    <div mat-list-item [routerLink]="/tareas"><mat-icon>task</mat-icon></div>
+    <div mat-list-item [routerLink]="/habitaciones"><mat-icon>king_bed</mat-icon></div>
+    <div mat-list-item [routerLink]="/empleados"><mat-icon>person</mat-icon></div>
+    <div mat-list-item [routerLink]="/horario"><mat-icon>calendar_month</mat-icon></div>-->

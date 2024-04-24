@@ -1,10 +1,13 @@
 
-.nav-menu{
-  list-style:none;
-  padding: 0;
-  margin: 0;
+mat-icon {
+  color: #aec3b0;
 }
-.nav-list-label{
-  display: inline-block;
-  padding-left:6px ;
+section {
+  background-color: #01161e;
+  position: absolute;
+  height: 100%;
+  left: 0; /* Asegúrate de que el elemento comience desde el borde izquierdo */
 }
+
+
+

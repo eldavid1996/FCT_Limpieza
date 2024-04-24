@@ -4,3 +4,11 @@ mat-sidenav-container,mat-sidenav-content,mat-sidenav{
 mat-sidenav{
   width: 250px;
 }
+
+.paleta-colores{
+  color:#aec3b0;
+  color:#01161e;
+  color:#124559;
+  color:#598392;
+  color:#eff6e0;
+}
