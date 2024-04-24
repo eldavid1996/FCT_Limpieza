@@ -16,6 +16,7 @@
     "@angular/common": "^17.3.0",
     "@angular/compiler": "^17.3.0",
     "@angular/core": "^17.3.0",
+    "@angular/flex-layout": "^15.0.0-beta.42",
     "@angular/forms": "^17.3.0",
     "@angular/material": "^17.3.5",
     "@angular/platform-browser": "^17.3.0",
@@ -42,7 +43,9 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+
     "postcss": "^8.4.38",
+
     "tailwindcss": "^3.4.3",
     "typescript": "~5.4.2"
   }

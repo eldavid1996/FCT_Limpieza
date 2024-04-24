@@ -1,15 +1,37 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { UserTableComponent } from './components/user-table/user-table.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+
+
+import { FormsModule } from '@angular/forms'; // Importa FormsModule aquí
+import { MaterialModule } from './edbmaterial.module';
+import { AppRoutingModule } from './app.routes';
+import { RouterLink, RouterModule, RouterOutlet } from '@angular/router';
+import { LoginComponent } from './components/seguridad/login/login.component';
+import { FlexLayoutServerModule } from '@angular/flex-layout/server';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navegacion/navbar/navbar.component';
+import { MenuListaComponent } from './components/navegacion/menu-lista/menu-lista.component';
+
+
 
 @Component({
-  selector: 'app-root',
+  selector: 'root-root',
   standalone: true,
-  imports: [RouterOutlet,UserTableComponent,UserProfileComponent],
+
+  imports: [RouterOutlet, MaterialModule, FlexLayoutServerModule, FlexLayoutModule,
+    AppRoutingModule,
+    RouterLink,
+    FormsModule, RootComponent,
+    LoginComponent,
+    NavbarComponent,
+    RouterModule,
+    HttpClientModule,
+    MenuListaComponent],
   templateUrl: './root.component.html',
-  styleUrl: './root.component.css'
+  styleUrl: './root.component.css',
 })
 export class RootComponent {
-  title = 'FrontEnd'; // Varible used for tests only //
+
+  abrirMenu = false;
+
 }
