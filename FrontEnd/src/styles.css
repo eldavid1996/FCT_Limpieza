@@ -2,5 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #183446;}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #aec3b0;
+}
+
+h1{
+    
+        font-family: "Francois One", sans-serif !important;
+        font-weight: 400 !important;
+        font-style: normal;
+      
+}

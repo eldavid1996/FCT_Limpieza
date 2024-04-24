@@ -1,105 +1,65 @@
-<section>
-  <div
-    class="sm:w-full lg:w-1/3 mx-auto rounded overflow-hidden shadow-lg  bg-white"
-  >
-    <div class="grid flex gap-5 text-center p-10">
-      <div class="w-full">
-        <img src="assets/source/prueba1.png" alt="" class="imagen mx-auto mb-3" />
-        <h1><strong>Datos Personales</strong></h1>
+<div class="flex flex-col md:grid md:grid-cols-2 md:grid-rows-2 w-2/3 mx-auto rounded overflow-hidden shadow-lg bg-white mt-10 py-3 text-wrap max-sm:w-full max-sm:px-3 md:px-10">
+  
+  <!-- Encabezado -->
+  <div class="mx-auto text-center col-span-2">
+    <img src="assets/source/prueba1.png" alt="" class="imagen mx-auto mb-3" />
+    <h1><strong>Datos Personales</strong></h1>
+  </div>
 
-      </div>
-      <div class="flex  grid grid-cols-1 sm:grid-cols-2 gap-3 justify-items-center items-center">
-        <!-- Primer grupo de datos -->
-        <div class="space-y-4">
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">account_circle</mat-icon>
-            <strong class="ml-2">Nombre:</strong>
-          </div>
-          <div>
-            <p>{{ userData.name }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">lens</mat-icon>
-            <strong class="ml-2">Apellido:</strong>
-          </div>
-          <div>
-            <p>{{ userData.surname }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">fingerprint</mat-icon>
-            <strong class="ml-2">DNI:</strong>
-          </div>
-          <div>
-            <p>{{ userData.dni }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">email</mat-icon>
-            <strong class="ml-2">Correo Electrónico:</strong>
-          </div>
-          <div>
-            <p>{{ userData.email }}</p>
-          </div>
-        </div>
-      
-        <!-- Segundo grupo -->
-        <div class="space-y-4">
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">date_range</mat-icon>
-            <strong class="ml-2">Fecha de nacimiento:</strong>
-          </div>
-          <div>
-            <p>{{ userData.birthDate | date : "dd/MM/YYYY" }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">lens</mat-icon>
-            <strong class="ml-2">Código Postal:</strong>
-          </div>
-          <div>
-            <p>{{ userData.pc }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">business</mat-icon>
-            <strong class="ml-2">Ciudad:</strong>
-          </div>
-          <div>
-            <p>{{ userData.city }}</p>
-          </div>
-      
-          <div class="flex items-center">
-            <mat-icon class="profile-icons">phone</mat-icon>
-            <strong class="ml-2">Teléfono:</strong>
-          </div>
-          <div>
-            <p>{{ userData.phone }}</p>
-          </div>
-        </div>
-      </div>
-      
+  <!-- Primer grupo de datos -->
+  <div class="space-y-4">
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">account_circle</mat-icon>
+      <p><strong class="ml-2">Nombre:</strong> {{ userData.name }}</p>
+    </div>
 
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">lens</mat-icon>
+      <p><strong class="ml-2">Apellido:</strong> {{ userData.surname }}</p>
+    </div>
 
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">fingerprint</mat-icon>
+      <p><strong class="ml-2">DNI:</strong> {{ userData.dni }}</p>
+    </div>
 
-
-
-
-
-      <div>
-        <button class="rounded-full p-2 w-full bg-indigo-600 text-white">
-          <mat-icon class="position">password</mat-icon>&nbsp; Cambiar
-          contraseña
-        </button>
-      </div>
-      <div>
-        <button
-          class="rounded-full p-2 w-full border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white"
-        >
-          <mat-icon class="position">person</mat-icon>&nbsp; Editar usuario
-        </button>
-      </div>
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">email</mat-icon>
+      <p><strong class="ml-2">Correo Electrónico:</strong> {{ userData.email }}</p>
     </div>
   </div>
-</section>
+
+  <!-- Segundo grupo de datos -->
+  <div class="space-y-4 min-sm:row-span-2 md:px-10">
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">date_range</mat-icon>
+      <p><strong class="ml-2">Fecha de nacimiento:</strong> {{ userData.birthDate | date : "dd/MM/YYYY" }}</p>
+    </div>
+
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">lens</mat-icon>
+      <p><strong class="ml-2">Código Postal:</strong> {{ userData.pc }}</p>
+    </div>
+
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">business</mat-icon>
+      <p><strong class="ml-2">Ciudad:</strong> {{ userData.city }}</p>
+    </div>
+
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">phone</mat-icon>
+      <p><strong class="ml-2">Teléfono:</strong> {{ userData.phone }}</p>
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="flex md:col-span-2 justify-between mt-5 md:text-l md:w-full">
+    <button class="rounded-full p-2 w-1/3 bg-indigo-600 text-white md:w-full sm:w-1/2 ">
+      <mat-icon class="position">password</mat-icon>&nbsp; Cambiar contraseña
+    </button>
+    &nbsp;
+    <button class="rounded-full p-2 w-1/3 border-2 border-indigo-600 text-indigo-600 sm:w-1/2 hover:bg-indigo-600 hover:text-white md:w-full">
+      <mat-icon class="position">person</mat-icon>&nbsp; Editar usuario
+    </button>
+  </div>
+</div>

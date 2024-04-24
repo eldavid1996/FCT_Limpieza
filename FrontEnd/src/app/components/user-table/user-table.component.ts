@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from './user.model';
+import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { MaterialModule } from './material.module';
-import { PaginationUser } from './paginationUser.model';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
