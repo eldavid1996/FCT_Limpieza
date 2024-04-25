@@ -1,34 +1,28 @@
-<section>
- <!-- Card con la imagen -->
- <div class="full-height-image-container">
-  <img src="../../../../assets/images/hotel.jpg" alt="Imagen" class="full-height-image">
-</div>
-  <!-- Card con el formulario de login -->
+<div class="full-login-container">
+  <div class="full-height-image-container">
+    <img src="../../../../assets/images/hotel.jpg" alt="Imagen" class="full-height-image">
+  </div>
   <div class="login">
     <div class="titulo">
       <h1>NOVOTEL</h1>
       <h3>HOTELS, SUITES & RESORTS</h3>
     </div>
-    <form #f ="ngForm"
-    (ngSubmit)="loginUsuario(f)"
-    ><div class="flex flex-col gap-1 ">
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput type="email" required name ="email" ngModel class="px-4 py-3"/>
-        <mat-error style="color: aliceblue;">Debe ingresar un email</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" required name="passwd" ngModel />
-        <mat-error style="color: aliceblue;">Debe ingresar una password</mat-error>
-      </mat-form-field>
-      <!--<div *ngIf="errorLogin" style="color: red;">Error: Usuario o contraseña incorrectos</div>-->
+    <form #f="ngForm" (ngSubmit)="loginUsuario(f)">
+      <div class="flex flex-col gap-1 ">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" required name="email" ngModel class="px-4 py-3" />
+          <mat-error style="color: aliceblue;">Debe ingresar un email</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" required name="passwd" ngModel />
+          <mat-error style="color: aliceblue;">Debe ingresar una password</mat-error>
+        </mat-form-field>
+        <!--<div *ngIf="errorLogin" style="color: red;">Error: Usuario o contraseña incorrectos</div>-->
 
-      <button type="submit" mat-raised-button color="primary" class="w-1/3 mx-auto">Login</button>
-    </div>
+        <button type="submit" mat-raised-button color="primary" class="w-1/3 mx-auto">Login</button>
+      </div>
     </form>
   </div>
-  <footer>
-    <p>by BRoom</p>
-  </footer>
-</section>
+</div>

@@ -6,14 +6,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../navegacion/navbar/navbar.component';
 import { MenuListaComponent } from '../navegacion/menu-lista/menu-lista.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'root-dashboard',
+  selector: 'app-dashboard',
   standalone: true,
-  imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,NavbarComponent,MenuListaComponent],
+  imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,NavbarComponent,MenuListaComponent,HttpClientModule], // Agrega HttpClientModule aquí
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+  constructor(private http: HttpClient) {} // Inyecta HttpClient en el constructor
 }

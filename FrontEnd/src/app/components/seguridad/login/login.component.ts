@@ -7,7 +7,7 @@ import { FormsModule, NgForm } from '@angular/forms'; // Importa FormsModule aqu
 import { SeguridadService } from '../seguriad.service';
 
 @Component({
-  selector: 'root-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
   standalone:true,
   imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule],

@@ -10,9 +10,10 @@ import { Subscription } from 'rxjs';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'root-menu-lista',
+  selector: 'app-menu-lista',
   standalone: true,
-  imports:[NavbarComponent,MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],  templateUrl: './menu-lista.component.html',
+  imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],
+  templateUrl: './menu-lista.component.html',
   styleUrl: './menu-lista.component.css'
 })
 export class MenuListaComponent implements OnDestroy {

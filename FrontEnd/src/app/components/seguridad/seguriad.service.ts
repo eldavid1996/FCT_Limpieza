@@ -21,9 +21,6 @@ export class SeguridadService {
   }
   constructor(private router: Router, private http : HttpClient) {}
 
-
-
-
   login(loginData: LoginData) {
     this.http.post<Usuario>(this.baseUrl + 'usuario/login', loginData).subscribe((data)=>{
       console.log('login respuesta', data);

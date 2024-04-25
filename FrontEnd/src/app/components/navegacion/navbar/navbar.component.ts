@@ -7,16 +7,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { SeguridadService } from '../../seguridad/seguriad.service';
 import { Subscription } from 'rxjs';
-import { unsubscribe } from 'diagnostics_channel';
 import { MenuListaComponent } from '../menu-lista/menu-lista.component';
 
 
 @Component({
-  selector: 'root-navbar',
+  selector: 'app-navbar',
   standalone: true,
   imports: [
     [MenuListaComponent,MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule,RouterModule],
-  ],  templateUrl: './navbar.component.html',
+  ],
+  templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnDestroy {

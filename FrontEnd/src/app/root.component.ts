@@ -13,7 +13,7 @@ import { MenuListaComponent } from './components/navegacion/menu-lista/menu-list
 
 
 @Component({
-  selector: 'root-root',
+  selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, MaterialModule, FlexLayoutServerModule, FlexLayoutModule,
     AppRoutingModule,
@@ -29,4 +29,6 @@ import { MenuListaComponent } from './components/navegacion/menu-lista/menu-list
 })
 export class RootComponent {
   abrirMenu = false;
+  title: any;
+  ngOnInit: any;
 }

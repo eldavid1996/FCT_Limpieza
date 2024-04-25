@@ -1,10 +1,11 @@
 /* Estilos para centrar la sección en la página */
-section {
+.full-login-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Separa los dos elementos */
   align-items: center;
   height: 100vh; /* Esto asegura que la sección ocupe toda la altura de la ventana */
-  background-color: brown;
+  background-color: #598392;
+  padding: 50px;
 }
 
 /* Estilos para los campos de entrada más pequeños */
@@ -24,16 +25,20 @@ mat-form-field input {
   align-items: center; /* Alinea horizontalmente al centro */
   height: 100%;
   width: 100%;/* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
+  background-color: brown;
+  flex: 1; /* Ocupa todo el espacio disponible */
 }
 
 /* Cambios para la imagen */
 .full-height-image-container {
-  width: 70%; /* La imagen ocupará todo el ancho de su contenedor */
+  width: 40%; /* La imagen ocupará el 40% del ancho del contenedor */
   height: 100%; /* Establece la altura del contenedor al 100% del contenedor padre */
+  position: relative;
+  order: -1; /* Muestra la imagen antes que el formulario de login */
 }
 
 .full-height-image {
-  width: 90%; /* La imagen ocupará todo el ancho de su contenedor */
+  width: 100%; /* La imagen ocupará todo el ancho de su contenedor */
   height: 100%; /* La imagen ocupará todo el alto del contenedor */
   object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
 }
@@ -66,4 +71,37 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .full-login-container {
+    flex-direction: column; /* Cambia la dirección de los elementos a columna */
+    justify-content: center; /* Alinea los elementos al centro verticalmente */
+    padding: 20px; /* Reducimos el relleno */
+  }
+  h1 {
+    font-size: 60px; /* Tamaño de letra más pequeño para h1 en dispositivos móviles */
+  }
+
+  h3 {
+    font-size: 20px; /* Tamaño de letra más pequeño para h3 en dispositivos móviles */
+  }
+
+  .full-height-image-container {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: 40%; /* Reducimos la altura de la imagen */
+    order: 0; /* Muestra la imagen después del formulario de login */
+    margin-bottom: 20px; /* Agregamos espacio entre la imagen y el formulario de login */
+  }
+
+  .login {
+    width: 100%; /* El formulario de login ocupará todo el ancho */
+    padding: 20px; /* Reducimos el relleno */
+    margin-bottom: 20px; /* Agregamos espacio entre el formulario y la imagen */
+  }
+
+  mat-form-field {
+    width: 100%; /* Los campos de entrada ocuparán todo el ancho */
+  }
 }
