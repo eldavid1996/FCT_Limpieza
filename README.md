@@ -12,9 +12,9 @@
     
 ## TABLE OF CONTENTS
 
-* [About the project](#about-the-project)
-* [Features](#features)
-* [Installation](#installation-develop)
+* [About the project](#-about-the-project)
+* [Features](#%EF%B8%8F-features)
+* [Installation](#%EF%B8%8F-installation-develop)
 
 ## 🔥 About the project
 
