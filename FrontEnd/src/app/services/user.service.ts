@@ -1,6 +1,13 @@
+import { Subject } from "rxjs";
 import { User } from "../models/user.model";
+import { PaginationUser } from "../models/paginationUser.model";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../environment/environment";
+import { Injectable } from "@angular/core";
 
-export class UserService{
+@Injectable()
+export class UserService {
+  baseUrl = environment.baseUrl;
   private userList: User[] = [
     {
       "id": "1",
@@ -58,19 +65,55 @@ export class UserService{
       "admin":0,
       "token": "token4"  // Ejemplo de token
     }
+    // ... tus usuarios aquí
   ];
+  
+  
 
-  getUsers(){
-    return this.userList.slice();//Para que devuelva una copia
+  userSubject = new Subject();
+
+  userPagination: PaginationUser | undefined;
+  userPaginationSubject = new Subject<PaginationUser>();
+
+  constructor(private http: HttpClient){}
+
+  obtenerUsers(librosPorPagina: number, paginaActual: number, sort: string, sortDirection: string, filterValue: any):void{
+    const request =  {
+      pageSize: librosPorPagina,
+      page: paginaActual,
+      sort,
+      sortDirection,
+      filterValue
+    }
+
+    this.http.post<PaginationUser>(this.baseUrl + 'Libro/pagination', request).subscribe((response)=>{
+      this.userPagination = response;
+      this.userPaginationSubject.next(this.userPagination);
+    });
   }
 
-  getUser(id: string): User | null {
-    const filteredUsers = this.userList.filter(user => user.id === id);
+  obtenerActualListener(){
+    return this.userPaginationSubject.asObservable(); // este es el metodo que devuelve los datos
+  }
 
-    if (filteredUsers.length > 0) {
-      return filteredUsers[0]; // Devuelve el primer usuario que cumpla la condición
-    } else {
-      return null; // Devuelve null si no se encuentra ningún usuario con ese id
+  guardarUser(user: User){
+    this.http.post(this.baseUrl + 'Libro' , user ).subscribe((response)=>{
+      this.userSubject.next(response);//y devuelvo la lista actualizada
+    });
+  }
+
+  guardarLibroListener(){
+    return this.userSubject.asObservable();
+  }
+
+  getUser(id:string){
+    const filteredUser = this.userList.filter(user=> user.id === id);
+    if(filteredUser.length > 0){
+      return filteredUser[0];
     }
+    return null;
+  }
+  getUsers(){
+    return this.userList.slice();
   }
 }
