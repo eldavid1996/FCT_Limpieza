@@ -2,3 +2,16 @@
   position: relative;
   top:-4px;
 }
+
+mat-icon {
+  color: #aec3b0;
+}
+section {
+  background-color: #01161e;
+  position: absolute;
+  height: 100%;
+  left: 0; 
+  top:0;
+}
+
+

@@ -8,3 +8,14 @@
     border-radius: 60px;
     color: white !important;
 }
+@media screen and (max-width: 650px) {
+    #col-telf{
+        display: none;
+    }
+    
+}
+@media (max-width: 767px) {
+    .col-telf {
+      display: none !important;
+    }
+  }

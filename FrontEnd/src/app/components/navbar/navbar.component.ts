@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output, OnDestroy, OnInit} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MaterialModule } from '../user-table/material.module';
+import { SeguridadService } from '../../services/seguriad.service';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -11,7 +11,7 @@ import { MaterialModule } from '../user-table/material.module';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    [MaterialModule,CommonModule,FormsModule,RouterModule],
+    [MaterialModule,RouterModule, CommonModule],
   ],  templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -22,18 +22,18 @@ export class NavbarComponent implements OnInit,OnDestroy {
   usuarioSubscription?: Subscription;
   currentTimeAndDate: string|any;
 
-  //constructor(private seguridadServicio: SeguridadService) {}
+  constructor(private seguridadServicio: SeguridadService, private router: Router) {}
 
   ngOnInit(): void {
-  //   this.usuarioSubscription = this.seguridadServicio.seguridadCambio.subscribe(status => {
-  //     this.estadoUsuario = status;
-  //   });
-  //   this.getCurrentTimeAndDate();
+    this.usuarioSubscription = this.seguridadServicio.seguridadCambio.subscribe(status => {
+      this.estadoUsuario = status;
+    });
+    this.getCurrentTimeAndDate();
   }
 
-  // onMenuToggleDispatch() {
-  //   this.menuToggle.emit();
-  // }
+  onMenuToggleDispatch() {
+     this.menuToggle.emit();
+   }
 
   getCurrentTimeAndDate(): string {
     const currentDate = new Date();
@@ -50,12 +50,16 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
-  //   if (this.usuarioSubscription) {
-  //     this.usuarioSubscription.unsubscribe();
-  //   }
+    if (this.usuarioSubscription) {
+      this.usuarioSubscription.unsubscribe();
+    }
+   }
+   showNavBar(){
+    return this.router.url !== '/login';
+
    }
 
-  // logOut() {
-  //   this.seguridadServicio.salirSesion();
-  // }
+  logOut() {
+    this.seguridadServicio.salirSesion();
+  }
 }

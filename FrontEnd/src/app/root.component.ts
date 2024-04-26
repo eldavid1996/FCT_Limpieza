@@ -3,15 +3,16 @@ import { RouterOutlet } from '@angular/router';
 import { UserTableComponent } from './components/user-table/user-table.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MenuListaComponent } from './components/menu-lista/menu-lista.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,UserTableComponent,UserProfileComponent,NavbarComponent,MenuListaComponent],
+  imports: [RouterOutlet,UserTableComponent,UserProfileComponent,NavbarComponent,DashboardComponent],
   templateUrl: './root.component.html',
   styleUrl: './root.component.css'
 })
 export class RootComponent {
-  title = 'FrontEnd'; // Varible used for tests only //
+  title = 'FrontEnd'; 
+  
 }

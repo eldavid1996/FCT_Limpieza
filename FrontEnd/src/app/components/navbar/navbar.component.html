@@ -1,6 +1,42 @@
-<nav style="background-color:#01161e;color:#aec3b0;" class="w-full flex items-between">
+
+<section class="md:w-1/24 lg:w-1/24" *ngIf="showNavBar()">
+  <!-- <div class="mt-20 flex flex-col gap-5 items-center justify-center px-4">
+    <a href="/empleados"><mat-icon>task</mat-icon></a>
+    <a><mat-icon>king_bed</mat-icon></a>
+    <a routerLink="empleados"><mat-icon>person</mat-icon></a>
+    <a routerLink="empleado"><mat-icon>calendar_month</mat-icon></a>
+  </div> -->
   <div class="flex items-center place-self-center h-12 w-14" style="background-color: white;">
-    <a href="" class="flex w-full h-full justify-center">
+    <a routerLink="" class="flex w-full h-full justify-center">
+      <img src="../../../../assets/source/logo.png" alt="Inicio" class="icon-image w-8 h-8 object-contain place-self-center">
+    </a>
+  </div>
+  <mat-nav-list>
+    <mat-list-item>
+      <a routerLink="empleados" class="flex w-full h-full justify-center">
+        <mat-icon>task</mat-icon>
+      </a>
+    </mat-list-item>
+    <mat-list-item>
+      <a routerLink="empleados" class="flex w-full h-full justify-center">
+        <mat-icon>person</mat-icon>
+      </a>
+    </mat-list-item>
+    <mat-list-item>
+      <a routerLink="" class="flex w-full h-full justify-center">
+        <mat-icon>hotel</mat-icon>
+      </a>
+    </mat-list-item>
+    <mat-list-item>
+      <a routerLink="" class="flex w-full h-full justify-center">
+        <mat-icon>calendar_month</mat-icon>
+      </a>
+    </mat-list-item>
+  </mat-nav-list>
+</section>
+<nav style="background-color:#01161e;color:#aec3b0;" class="w-full flex items-between" *ngIf="showNavBar()">
+  <div class="flex items-center place-self-center h-12 w-14" style="background-color: white;">
+    <a routerLink="empleados" class="flex w-full h-full justify-center">
       <img src="../../../../assets/source/logo.png" alt="Inicio" class="icon-image w-8 h-8 object-contain place-self-center">
     </a>
   </div>
