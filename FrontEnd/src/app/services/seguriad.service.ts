@@ -48,7 +48,7 @@ export class SeguridadService {
   salirSesion() {
     this.usuario = undefined;
     this.seguridadCambio.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   obtenerUsuario() {

@@ -8,7 +8,7 @@ export const routes: Routes = [
 
     { path: 'empleados' , component:UserTableComponent},
     { path:'empleado',component:UserProfileComponent},
-    { path: 'login', component: LoginComponent }, // Ruta para el componente LoginComponent
-    { path: '', component: DashboardComponent },
+    { path: '', component: LoginComponent }, // Ruta para el componente LoginComponent
+    { path: 'dashboard', component: DashboardComponent },
 ];
 

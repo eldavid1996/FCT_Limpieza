@@ -14,12 +14,7 @@ section {
 
 }
 
-.titulo {
-  text-align: center;
-  padding: auto;
-  margin-bottom: 50px; /* Reduce el margen inferior del título */
-  color:#01161e;
-}
+
 
 .image-container {
   margin-top: 50px; /* Ajusta el margen superior del contenedor de imágenes */
@@ -40,13 +35,19 @@ h1 {
   text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 90px;
   letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: 50px; /* Reduce el margen inferior del título */
+  color:#01161e;
 }
 h3 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 30px;
   letter-spacing: 10px;
+  text-align: center;
 }
 .container{
   margin-bottom: 200px;
 }
+
+
 

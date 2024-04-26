@@ -8,6 +8,9 @@
     border-radius: 60px;
     color: white !important;
 }
+.beige{
+    background-color: #eff6e0;
+}
 @media screen and (max-width: 650px) {
     #col-telf{
         display: none;
@@ -18,4 +21,12 @@
     .col-telf {
       display: none !important;
     }
+  }
+
+  tr:hover{
+    background-color: #eff6e0;
+    cursor:pointer
+  }
+  th{
+    cursor: default;
   }

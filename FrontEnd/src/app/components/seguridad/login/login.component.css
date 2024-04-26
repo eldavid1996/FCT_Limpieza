@@ -24,6 +24,11 @@ mat-form-field input {
   width: 100%;/* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
   background-color: brown;
   flex: 1; /* Ocupa todo el espacio disponible */
+  border-left: 25px solid white;
+  border-right: 5px solid rgb(250, 108, 108);
+  border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+
 }
 
 /* Cambios para la imagen */
@@ -40,20 +45,23 @@ mat-form-field input {
   object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
 }
 
-.titulo {
-  text-align: center;
-  padding: auto;
-  margin-bottom: 50px;
-}
 h1 {
   text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 120px;
+  font-size: 90px;
   letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: 50px; /* Reduce el margen inferior del título */
+  color:#01161e;
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
 }
 h3 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 30px;
   letter-spacing: 10px;
+  text-align: center;
 }
 footer {
   position: fixed;
@@ -73,29 +81,37 @@ footer p {
 /* Media queries para dispositivos móviles */
 @media (max-width: 768px) {
   .full-login-container {
-    flex-direction: column; /* Cambia la dirección de los elementos a columna */
-    justify-content: center; /* Alinea los elementos al centro verticalmente */
-    padding: 20px; /* Reducimos el relleno */
+    flex-direction: column; 
+    justify-content: center; 
+    width: 100%;
   }
   h1 {
-    font-size: 60px; /* Tamaño de letra más pequeño para h1 en dispositivos móviles */
+    font-size: 32px;
+    margin-top: 40px;
   }
 
   h3 {
-    font-size: 20px; /* Tamaño de letra más pequeño para h3 en dispositivos móviles */
+    font-size: 18px;
   }
 
   .full-height-image-container {
-    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
-    height: 40%; /* Reducimos la altura de la imagen */
-    order: 0; /* Muestra la imagen después del formulario de login */
-    margin-bottom: 20px; /* Agregamos espacio entre la imagen y el formulario de login */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  
   }
 
   .login {
-    width: 100%; /* El formulario de login ocupará todo el ancho */
-    padding: 20px; /* Reducimos el relleno */
-    margin-bottom: 20px; /* Agregamos espacio entre el formulario y la imagen */
+    width: 85%; /* El formulario de login ocupará todo el ancho */
+    height: 75%;
+    position: absolute;
+    top: 0;
+    border: 0;
+    font-size: 13px;
+    border-bottom-left-radius: 10px;
+
+
+
   }
 
   mat-form-field {

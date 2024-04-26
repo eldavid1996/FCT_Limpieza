@@ -7,11 +7,12 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-table',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule ],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css',
 })
@@ -30,7 +31,7 @@ export class UserTableComponent implements OnInit {
   displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,private router: Router) {}
   ngOnInit(): void {
     // this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
     // this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
@@ -87,5 +88,8 @@ export class UserTableComponent implements OnInit {
     console.log('Hola mi amor');
     // Actualizamos el dataSource con los usuarios filtrados
     //this.dataSource.data = filteredUsers;
+  }
+  redirectTo(route:string){
+    this.router.navigate([route]);
   }
 }

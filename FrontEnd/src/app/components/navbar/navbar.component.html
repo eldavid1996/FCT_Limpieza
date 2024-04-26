@@ -1,13 +1,7 @@
 
-<section class="md:w-1/24 lg:w-1/24" *ngIf="showNavBar()">
-  <!-- <div class="mt-20 flex flex-col gap-5 items-center justify-center px-4">
-    <a href="/empleados"><mat-icon>task</mat-icon></a>
-    <a><mat-icon>king_bed</mat-icon></a>
-    <a routerLink="empleados"><mat-icon>person</mat-icon></a>
-    <a routerLink="empleado"><mat-icon>calendar_month</mat-icon></a>
-  </div> -->
+<section class="md:w-1/24 lg:w-1/24 max-md:invisible" *ngIf="showNavBar()">
   <div class="flex items-center place-self-center h-12 w-14" style="background-color: white;">
-    <a routerLink="" class="flex w-full h-full justify-center">
+    <a routerLink="/dashboard" class="flex w-full h-full justify-center">
       <img src="../../../../assets/source/logo.png" alt="Inicio" class="icon-image w-8 h-8 object-contain place-self-center">
     </a>
   </div>

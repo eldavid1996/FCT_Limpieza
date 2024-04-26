@@ -1,6 +1,6 @@
 <section class="p-5 mt-10">
   <div
-    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 bg-white"
+    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 beige"
   >
     <div class="px-6 py-4 flex justify-between">
       <div class="font-bold text-xl mb-2">Empleados con turno hoy</div>
@@ -37,25 +37,25 @@
         <!-- Id Column -->
         <ng-container matColumnDef="id" class="hover:bg-gray-700">
           <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado')" > {{ element.id }}</td>
         </ng-container>
 
         <!-- Floor Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
-          <td mat-cell *matCellDef="let element"> <a routerLink="empleado">{{ element.name }}  {{element.surname}}</a> </td>
+          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado')" > {{ element.name }}  {{element.surname}} </td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email" class=" max-md:invisible col-telf" >
           <th mat-header-cell *matHeaderCellDef>Correo Electrónico</th>
-          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado')" >{{ element.email }}</td>
         </ng-container>
-<div class="max-md:invisible">
+<div>
         <!-- Phone Column -->
         <ng-container matColumnDef="phone"  >
           <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado')" >{{ element.phone }}</td>
         </ng-container>
       </div>
         <!-- Icons Column -->
