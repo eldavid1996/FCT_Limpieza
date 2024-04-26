@@ -1,10 +1,7 @@
 
 /* Estilos para centrar la sección en la página */
 section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Esto asegura que la sección ocupe toda la altura de la ventana */
+ /* Esto asegura que la sección ocupe toda la altura de la ventana */
   background-color: #aec3b0;
 }
 

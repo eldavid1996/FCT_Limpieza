@@ -6,9 +6,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 // Importa el arreglo de rutas desde su ubicación
 import { routes } from './app.routes';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { SeguridadInterceptor } from './components/seguridad/seguridad-interceptor';
+import { UserService } from './services/user.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(), provideAnimationsAsync(),{provide:HTTP_INTERCEPTORS, useClass:SeguridadInterceptor, multi:true}]
+  providers: [
+    provideRouter(routes),
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: SeguridadInterceptor, multi: true },
+    UserService
+  ],
 };

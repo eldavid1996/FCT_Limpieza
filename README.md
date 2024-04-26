@@ -6,7 +6,7 @@
   
 + David Mendoza
   
-+ Esteban Dominguez bbbbb
++ Esteban Dominguez
 
 ## INSTALL INSTRUCTIONS
 

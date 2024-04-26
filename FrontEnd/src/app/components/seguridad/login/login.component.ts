@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MaterialModule } from '../../../edbmaterial.module';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutServerModule } from '@angular/flex-layout/server';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import { FormsModule, NgForm } from '@angular/forms'; // Importa FormsModule aquí
-import { SeguridadService } from '../seguriad.service';
+import { SeguridadService } from '../../../services/seguriad.service';
+import { MaterialModule } from '../../user-table/material.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone:true,
-  imports:[MaterialModule,CommonModule,FlexLayoutServerModule,FlexLayoutModule,FormsModule],
+  imports:[MaterialModule,CommonModule,FormsModule],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private seguridadService: SeguridadService) {
+  constructor(private seguridadService: SeguridadService, private router: Router) {
 
 
   }
@@ -28,6 +27,11 @@ export class LoginComponent implements OnInit {
       email: form.value.email,
       password: form.value.password
     });
+  }
+
+  login(){
+    this.seguridadService.onSesion();
+    this.router.navigate(['/']);
   }
 
 }
