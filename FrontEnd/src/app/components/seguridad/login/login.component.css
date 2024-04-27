@@ -3,13 +3,11 @@
   display: flex;
   justify-content: space-between; /* Separa los dos elementos */
   align-items: center;
-  background-color: #598392;
-  width: 100%;
   height: 100vh;
-  padding: 50px;
+  padding-bottom: 5px;
+  padding-left: 20%;
+  padding-right: 20%;
 }
-
-
 
 mat-form-field input {
   font-size: 14px; /* Tamaño de la fuente más pequeño */
@@ -22,10 +20,10 @@ mat-form-field input {
   align-items: center; /* Alinea horizontalmente al centro */
   height: 100%;
   width: 100%;/* Cambiamos 'width' a 'max-width' para que no exceda este tamaño */
-  background-color: brown;
+  background-color: #01161e;
   flex: 1; /* Ocupa todo el espacio disponible */
-  border-left: 25px solid white;
-  border-right: 5px solid rgb(250, 108, 108);
+  color: white;
+  border-right: 5px solid rgb(108, 200, 250);
   border-bottom-right-radius: 10px;
   border-bottom-right-radius: 10px;
 
@@ -37,6 +35,8 @@ mat-form-field input {
   height: 100%; /* Establece la altura del contenedor al 100% del contenedor padre */
   position: relative;
   order: -1; /* Muestra la imagen antes que el formulario de login */
+  border-bottom-left-radius: 10px;
+  border-left: 5px solid rgba(0, 50, 42, 0.39);
 }
 
 .full-height-image {
@@ -50,7 +50,7 @@ h1 {
   font-size: 90px;
   letter-spacing: 6px;
   text-align: center;
-  margin-bottom: 50px; /* Reduce el margen inferior del título */
+  margin-bottom: 50px; 
   color:#01161e;
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
@@ -103,7 +103,7 @@ footer p {
 
   .login {
     width: 85%; /* El formulario de login ocupará todo el ancho */
-    height: 75%;
+    height: 90%;
     position: absolute;
     top: 0;
     border: 0;
@@ -116,5 +116,6 @@ footer p {
 
   mat-form-field {
     width: 100%; /* Los campos de entrada ocuparán todo el ancho */
+    background-color: #2c4048 !important;
   }
 }
