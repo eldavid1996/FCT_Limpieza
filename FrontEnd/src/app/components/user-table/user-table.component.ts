@@ -66,11 +66,11 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  editarEmpleado(empleado: User) {
+  editarEmpleado(empleado: User):void {
     console.log(empleado);
   }
 
-  eliminarEmpleado(id: number) {
+  eliminarEmpleado(id: number): void {
     console.log(id);
   }
 
@@ -85,7 +85,6 @@ export class UserTableComponent implements OnInit {
     //     user.email.toLowerCase().includes(filtroMinusculas) ||
     //     user.phone.toLowerCase().includes(filtroMinusculas)
     // );
-    console.log('Hola mi amor');
     // Actualizamos el dataSource con los usuarios filtrados
     //this.dataSource.data = filteredUsers;
   }

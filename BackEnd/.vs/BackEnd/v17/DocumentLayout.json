@@ -1,12 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|c:\\users\\david.mendoza\\onedrive - gabitel ingenieros\\escritorio\\backend\\services.api.security\\controllers\\userservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|solutionrelative:services.api.security\\controllers\\userservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserServiceController.cs",
+              "DocumentMoniker": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Security\\Controllers\\UserServiceController.cs",
+              "RelativeDocumentMoniker": "Services.API.Security\\Controllers\\UserServiceController.cs",
+              "ToolTip": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Security\\Controllers\\UserServiceController.cs",
+              "RelativeToolTip": "Services.API.Security\\Controllers\\UserServiceController.cs",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAAAHIAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-26T06:44:08.538Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
