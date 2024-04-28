@@ -1,4 +1,9 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using Services.API.Hotel.Core;
+using Services.API.Hotel.Core.Entities;
 using Services.API.Hotel.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +37,31 @@ builder.Services.AddCors(opt =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+// Create indexs for MongoDB
+using (var context = app.Services.CreateScope())
+{
+    var services = context.ServiceProvider;
+    try
+    {
+        var client = new MongoClient(builder.Configuration.GetSection("MongoDB:ConnectionString").Value);
+
+        var cmdStr = "{ createIndexes: 'Room', indexes: [ { key: { RoomNumber: 1 }, name: 'RoomNumber-1', unique: true } ] }";
+        var cmd = BsonDocument.Parse(cmdStr);
+        var resultRoom = client.GetDatabase(builder.Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
+        Console.WriteLine(resultRoom);
+
+        cmdStr = "{ createIndexes: 'Task', indexes: [ { key: { 'Room.RoomNumber': 1 }, name: 'TaskRoomNumber-1', unique: true } ] }";
+        cmd = BsonDocument.Parse(cmdStr);
+        var resultTask = client.GetDatabase(builder.Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
+        Console.WriteLine(resultTask);
+
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
 
 app.UseHttpsRedirection();
 

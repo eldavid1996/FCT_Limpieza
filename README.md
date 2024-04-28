@@ -54,7 +54,18 @@ Additionally, a web application made in ``Angular 17`` with standalone component
 
    - Install the .NET Develop Certificate
 
-   - Use Docker containers for MongoDB and SQL Database (In progress, soon on github https://hub.docker.com/u/orugamendoza)
+   - Install SQL Server Docker Container:
+
+
+        ``docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=StrongPassword1!" -p 1433:1433  --name SQLServerSecurity -d mcr.microsoft.com/mssql/server``
+
+   - Start project ``'Services.API.Security'`` as first project with Docker Container started for auto-execute migrations in the docker database
+   - Install MongoDB Docker Container:
+
+
+         ``docker run -d -p 27017:27017 --name MongoDBHotel mongo``
+
+   - Start project ``'Services.API.Hotel'`` as first project with Docker Container started for auto-set unique index in collections
 
 ## ⭐️ GIVE IT A STAR
 

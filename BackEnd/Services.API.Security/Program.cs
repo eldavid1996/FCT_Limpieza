@@ -16,7 +16,7 @@ builder.Services.AddDbContext<SQLServerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetSection("SQLServer:ConnectionString").Value);
 });
 
-// Add methods for UserEntity for IdentityCore (SQL DB methods)
+// Add methods to UserEntity for IdentityCore (SQL DB methods)
 var identity = builder.Services.AddIdentityCore<UserEntity>();
 // Entity Framework Core (for map the data grom IdentityCore)
 var identityBuilder = new IdentityBuilder(identity.UserType, identity.Services);
@@ -28,10 +28,10 @@ identityBuilder.AddSignInManager<SignInManager<UserEntity>>();
 builder.Services.TryAddSingleton(TimeProvider.System);
 
 // Inject UserRegisterCommand class for controllers
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(Register.UserRegisterCommand)));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(RegisterUpdate.UserRegisterCommand)));
 
 // Inject IMapper
-builder.Services.AddAutoMapper(typeof(Register.UserRegisterHandler));
+builder.Services.AddAutoMapper(typeof(RegisterUpdate.UserRegisterHandler));
 
 builder.Services.AddControllers();
 

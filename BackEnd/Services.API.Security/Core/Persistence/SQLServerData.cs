@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Services.API.Security.Core.Entities;
 
 namespace Services.API.Security.Core.Persistence
@@ -8,6 +9,7 @@ namespace Services.API.Security.Core.Persistence
     {
         public static async Task InsertUser(SQLServerContext context, UserManager<UserEntity> userManager)
         {
+            context.Database.Migrate();
             if (!userManager.Users.Any())
             {
                 var userDefault = new UserEntity

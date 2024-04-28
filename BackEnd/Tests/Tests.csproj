@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Services.API.Hotel\Services.API.Hotel.csproj" />
+    <ProjectReference Include="..\Services.API.Security\Services.API.Security.csproj" />
   </ItemGroup>
 
   <ItemGroup>
