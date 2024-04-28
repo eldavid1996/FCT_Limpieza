@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.API.Hotel.Core.Dto;
 using Services.API.Hotel.Core.Entities;
 using Services.API.Hotel.Repository;
 using System.Threading.Tasks;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.API.Hotel.Core.Dto;
 using Services.API.Hotel.Core.Entities;
 using Services.API.Hotel.Repository;
 
@@ -47,6 +48,21 @@ namespace Services.API.Hotel.Controllers
                 return NotFound("Esta Habitación no existe.");
             }
 
+            // Check if user exists
+            var httpClient = new HttpClient();
+            string urlUser = "https://localhost:7275/api/UserService/" + task.User.Id;
+            try
+            {
+                var response = await httpClient.GetAsync(urlUser); if (!response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return NotFound(content);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+
+
             await _taskRepository.InsertDocument(task);
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
@@ -69,6 +85,19 @@ namespace Services.API.Hotel.Controllers
             {
                 return BadRequest("El id de la habitación no se puede modificar");
             }
+
+            // Check if user exists
+            var httpClient = new HttpClient();
+            string urlUser = "https://localhost:7275/api/UserService/" + task.User.Id;
+            try
+            {
+                var response = await httpClient.GetAsync(urlUser); if (!response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return NotFound(content);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
             await _taskRepository.UpdateDocument(newtask);
             return CreatedAtAction(nameof(GetById), new { id = newtask.Id }, newtask);

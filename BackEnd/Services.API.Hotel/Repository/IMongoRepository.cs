@@ -1,4 +1,5 @@
-﻿using Services.API.Hotel.Core.Entities;
+﻿using Services.API.Hotel.Core.Dto;
+using Services.API.Hotel.Core.Entities.PropertiesShared;
 
 namespace Services.API.Hotel.Repository
 {

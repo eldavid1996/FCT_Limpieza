@@ -1,4 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Services.API.Hotel.Core.Dto;
+using Services.API.Hotel.Core.Entities.PropertiesShared;
 using System.ComponentModel.DataAnnotations;
 
 namespace Services.API.Hotel.Core.Entities
@@ -12,7 +14,7 @@ namespace Services.API.Hotel.Core.Entities
         public required RoomEntity Room { get; set; }
 
         [BsonElement("User")]
-        public required string User { get; set; }
+        public required RegisteredUserDto User { get; set; }
 
         [BsonElement("Priority")]
         public string? Priority { get; set; }
