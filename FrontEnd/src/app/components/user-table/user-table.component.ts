@@ -7,7 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
-import { UserModalNuevoComponent } from './user-modal-nuevo.component';
+import { UserModalNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

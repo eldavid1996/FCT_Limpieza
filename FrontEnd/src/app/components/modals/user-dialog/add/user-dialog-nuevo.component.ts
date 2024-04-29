@@ -6,10 +6,10 @@ import { MatOption, MatSelectChange } from "@angular/material/select";
 import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 @Component({
-  selector: 'app-user-modal-nuevo',
+  selector: 'app-user-dialog-nuevo',
   standalone:true,
   imports:[CommonModule,FormsModule],
-  templateUrl: 'user-modal-nuevo.component.html'
+  templateUrl: 'user-dialog-nuevo.component.html'
 })
 
 export class UserModalNuevoComponent implements OnInit ,OnDestroy {
