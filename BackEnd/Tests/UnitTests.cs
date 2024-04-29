@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Moq;
@@ -12,12 +10,12 @@ using Services.API.Hotel.Repository;
 namespace Hotel
 {
     // Room Tests
-    public class RoomTests
+    public class RoomsTests
     {
         private readonly Mock<IMongoRepository<RoomEntity>> _mockRoomRepository;
         private readonly RoomServiceController _roomController;
 
-        public RoomTests()
+        public RoomsTests()
         {
             _mockRoomRepository = new Mock<IMongoRepository<RoomEntity>>();
             _roomController = new RoomServiceController(_mockRoomRepository.Object);
@@ -153,6 +151,148 @@ namespace Hotel
         }
     }
 
+    // Users Tests (in progress)
+    public class UsersTests
+    {
+        private readonly Mock<IMongoRepository<RoomEntity>> _mockRoomRepository;
+        private readonly RoomServiceController _roomController;
+
+        public UsersTests()
+        {
+            _mockRoomRepository = new Mock<IMongoRepository<RoomEntity>>();
+            _roomController = new RoomServiceController(_mockRoomRepository.Object);
+        }
+
+        [Fact]
+        public async Task GetAll_ReturnsListOfUsers()
+        {
+            var rooms = new List<RoomEntity> {
+            new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Ocupada" },
+            new RoomEntity { RoomNumber = "2", Floor = "2", Type = "Matrimonio", Status = "Vacia" }
+            };
+            _mockRoomRepository.Setup(repo => repo.GetAll()).ReturnsAsync(rooms);
+
+            var result = await _roomController.GetAll();
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnedRooms = Assert.IsAssignableFrom<IEnumerable<RoomEntity>>(okResult.Value);
+            Assert.Equal(rooms.Count, returnedRooms.Count());
+        }
+
+        [Fact]
+        public async Task GetById_ExistingUser_ReturnsUser()
+        {
+            var roomId = "1";
+            var room = new RoomEntity { Id = roomId, RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Ocupada" };
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync(room);
+
+            var result = await _roomController.GetById(roomId);
+
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnedRoom = Assert.IsAssignableFrom<RoomEntity>(okResult.Value);
+            Assert.Equal(room, returnedRoom);
+        }
+
+        [Fact]
+        public async Task GetById_NonExistingUser_ReturnsNotFound()
+        {
+            var roomId = "nonexistent";
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync((RoomEntity)null);
+
+            var result = await _roomController.GetById(roomId);
+
+            Assert.IsType<NotFoundObjectResult>(result.Result);
+        }
+
+        [Fact]
+        public async Task Insert_ValidUser_ReturnsCreatedAtAction()
+        {
+            var room = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
+
+            var result = await _roomController.Insert(room);
+
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.Equal(nameof(RoomServiceController.GetById), createdAtActionResult.ActionName);
+            Assert.Equal(room.Id, createdAtActionResult.RouteValues["id"]);
+            Assert.Equal(room, createdAtActionResult.Value);
+        }
+
+        [Fact]
+        public async Task Insert_InvalidUser_ReturnsBadRequest()
+        {
+            var room = new RoomEntity { RoomNumber = null };
+
+            var result = await _roomController.Insert(room);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Update_ExistingUser_ReturnsCreatedAtAction()
+        {
+            var roomId = "1";
+            var room = new RoomEntity { Id = roomId, RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Ocupada" };
+            var updatedRoom = new RoomEntity { Id = roomId, RoomNumber = "2", Floor = "2", Type = "Matrimonio", Status = "Disponible" };
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync(room);
+
+            var result = await _roomController.Update(roomId, updatedRoom);
+
+            var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+            Assert.Equal(nameof(RoomServiceController.GetById), createdAtActionResult.ActionName);
+            Assert.Equal(updatedRoom.Id, createdAtActionResult.RouteValues["id"]);
+            Assert.NotEqual(room, createdAtActionResult.Value);
+        }
+
+        [Fact]
+        public async Task Update_NonExistingUser_ReturnsNotFound()
+        {
+            var roomId = "nonexistent";
+            var updatedRoom = new RoomEntity { Id = roomId, RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync((RoomEntity)null);
+
+            var result = await _roomController.Update(roomId, updatedRoom);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Update_ExistingUser_ReturnsBadRequest()
+        {
+            // URL Id and Room Id must be the same (and not null, obviously)
+            var roomId = "1";
+            var room = new RoomEntity { Id = roomId, RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Ocupada" };
+            var updatedRoom = new RoomEntity { Id = "2", RoomNumber = "2", Floor = "2", Type = "Matrimonio", Status = "Disponible" };
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync(room);
+
+            var result = await _roomController.Update(roomId, updatedRoom);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Delete_ExistingUser_ReturnsOk()
+        {
+            var roomId = "1";
+            var room = new RoomEntity { Id = roomId, RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Ocupada" };
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync(room);
+
+            var result = await _roomController.Delete(roomId);
+
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async Task Delete_NonExistingUser_ReturnsNotFound()
+        {
+            var roomId = "nonexistent";
+            _mockRoomRepository.Setup(repo => repo.GetById(roomId)).ReturnsAsync((RoomEntity)null);
+
+            var result = await _roomController.Delete(roomId);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+        }
+    }
+
     // Tasks Tests
     public class TasksTests
     {
@@ -176,8 +316,16 @@ namespace Hotel
         {
             var tasks = new List<TaskEntity>
             {
-                new TaskEntity { User = "1", Room = new RoomEntity { RoomNumber = "1" }, Priority = "Baja", Observations = "Cambiar colchón" },
-                new TaskEntity { User = "1", Room = new RoomEntity { RoomNumber = "2" }, Priority = "Alta", Observations = "" }
+                new TaskEntity { User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1", Name = "1", Surname = "1", Email = "1", RoleAdmin = false
+                },
+                    Room = new RoomEntity { RoomNumber = "1" }, Priority = "Baja", Observations = "Cambiar colchón" },
+                new TaskEntity { User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1", Name = "1", Surname = "1", Email = "1", RoleAdmin = false
+                },
+                    Room = new RoomEntity { RoomNumber = "1" }, Priority = "Baja", Observations = "Cambiar colchón" }
             };
             _mockTaskRepository.Setup(repo => repo.GetAll()).ReturnsAsync(tasks);
 
@@ -192,7 +340,20 @@ namespace Hotel
         public async Task GetById_ExistingTask_ReturnsTask()
         {
             var taskId = "1";
-            var task = new TaskEntity { User = "1", Room = new RoomEntity { RoomNumber = "1" }, Priority = "Baja", Observations = "Cambiar colchón" };
+            var task = new TaskEntity
+            {
+                User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1",
+                    Name = "1",
+                    Surname = "1",
+                    Email = "1",
+                    RoleAdmin = false
+                },
+                Room = new RoomEntity { RoomNumber = "1" },
+                Priority = "Baja",
+                Observations = "Cambiar colchón"
+            };
             _mockTaskRepository.Setup(repo => repo.GetById(taskId)).ReturnsAsync(task);
 
             var result = await _taskController.GetById(taskId);
@@ -231,7 +392,20 @@ namespace Hotel
             var taskId = "1";
             var taskUser = "1";
             var taskRoom = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
-            var task = new TaskEntity { Id = taskId, User = taskUser, Room = taskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
+            var task = new TaskEntity
+            {
+                User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1",
+                    Name = "1",
+                    Surname = "1",
+                    Email = "1",
+                    RoleAdmin = false
+                },
+                Room = new RoomEntity { RoomNumber = "1" },
+                Priority = "Baja",
+                Observations = "Cambiar colchón"
+            };
 
             var result = await taskController.Insert(task);
 
@@ -266,9 +440,29 @@ namespace Hotel
             var taskUser = "1";
             var taskRoom = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
 
-            var task = new TaskEntity { Id = taskId, User = taskUser, Room = taskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
+            var task = new TaskEntity
+            {
+                User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1",
+                    Name = "1",
+                    Surname = "1",
+                    Email = "1",
+                    RoleAdmin = false
+                },
+                Room = new RoomEntity { RoomNumber = "1" },
+                Priority = "Baja",
+                Observations = "Cambiar colchón"
+            };
 
-            var updatedUserRoom = "2";
+            var updatedUserRoom = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+            {
+                Id = "1",
+                Name = "1",
+                Surname = "1",
+                Email = "1",
+                RoleAdmin = false
+            };
             var updatedTaskRoom = new RoomEntity { RoomNumber = "2", Floor = "2", Type = "Individual", Status = "Disponible" };
             var updatedTask = new TaskEntity { Id = taskId, User = updatedUserRoom, Room = updatedTaskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
             _mockTaskRepository.Setup(repo => repo.GetById(taskId)).ReturnsAsync(task);
@@ -284,7 +478,14 @@ namespace Hotel
         public async Task Update_NonExistingTask_ReturnsNotFound()
         {
             var taskId = "nonexistent";
-            var taskUser = "1";
+            var taskUser = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+            {
+                Id = "1",
+                Name = "1",
+                Surname = "1",
+                Email = "1",
+                RoleAdmin = false
+            };
             var taskRoom = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
 
             var task = new TaskEntity { Id = taskId, User = taskUser, Room = taskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
@@ -302,9 +503,29 @@ namespace Hotel
             var taskUser = "1";
             var taskRoom = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
 
-            var task = new TaskEntity { User = taskUser, Room = taskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
+            var task = new TaskEntity
+            {
+                User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1",
+                    Name = "1",
+                    Surname = "1",
+                    Email = "1",
+                    RoleAdmin = false
+                },
+                Room = new RoomEntity { RoomNumber = "1" },
+                Priority = "Baja",
+                Observations = "Cambiar colchón"
+            };
 
-            var updatedUserRoom = "2";
+            var updatedUserRoom = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+            {
+                Id = "1",
+                Name = "1",
+                Surname = "1",
+                Email = "1",
+                RoleAdmin = false
+            };
             var updatedTaskRoom = new RoomEntity { RoomNumber = "2", Floor = "2", Type = "Individual", Status = "Disponible" };
             var updatedTask = new TaskEntity { User = updatedUserRoom, Room = updatedTaskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
 
@@ -322,7 +543,20 @@ namespace Hotel
             var taskUser = "1";
             var taskRoom = new RoomEntity { RoomNumber = "1", Floor = "1", Type = "Individual", Status = "Disponible" };
 
-            var task = new TaskEntity { User = taskUser, Room = taskRoom, Priority = "Baja", Observations = "Cambiar colchón" };
+            var task = new TaskEntity
+            {
+                User = new Services.API.Hotel.Core.Dto.RegisteredUserDto
+                {
+                    Id = "1",
+                    Name = "1",
+                    Surname = "1",
+                    Email = "1",
+                    RoleAdmin = false
+                },
+                Room = new RoomEntity { RoomNumber = "1" },
+                Priority = "Baja",
+                Observations = "Cambiar colchón"
+            };
             _mockTaskRepository.Setup(repo => repo.GetById(taskId)).ReturnsAsync(task);
 
             var result = await _taskController.Delete(taskId);

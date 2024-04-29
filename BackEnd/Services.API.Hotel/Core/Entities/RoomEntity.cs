@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Services.API.Hotel.Core.Entities.PropertiesShared;
 using System.ComponentModel.DataAnnotations;
 
 namespace Services.API.Hotel.Core.Entities

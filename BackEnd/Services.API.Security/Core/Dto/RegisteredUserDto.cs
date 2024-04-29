@@ -13,7 +13,7 @@
         // User properties
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string RoleAdmin { get; set; }
+        public bool RoleAdmin { get; set; }
 
         // Optional User properties for register
         public DateTime? BirthDate { get; set; }

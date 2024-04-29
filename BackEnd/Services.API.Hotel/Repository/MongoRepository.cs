@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Services.API.Hotel.Core;
-using Services.API.Hotel.Core.Entities;
 using MongoDB.Bson;
+using Microsoft.Extensions.Logging;
+using Services.API.Hotel.Core.Dto;
+using Services.API.Hotel.Core.Entities.PropertiesShared;
 
 namespace Services.API.Hotel.Repository
 {
@@ -73,7 +75,7 @@ namespace Services.API.Hotel.Repository
                                     .Skip((pagination.Page - 1) * pagination.PageSize)
                                     .Limit(pagination.PageSize)
                                     .ToListAsync();
-               totalDocuments = (await _collection.Find(p => true).ToListAsync()).Count();
+                totalDocuments = (await _collection.Find(p => true).ToListAsync()).Count();
             }
             else
             {
@@ -96,5 +98,6 @@ namespace Services.API.Hotel.Repository
 
             return pagination;
         }
+
     }
 }
