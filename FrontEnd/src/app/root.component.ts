@@ -13,6 +13,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   styleUrl: './root.component.css'
 })
 export class RootComponent {
-  title = 'FrontEnd'; 
-  
+  title = 'FrontEnd';
+
 }

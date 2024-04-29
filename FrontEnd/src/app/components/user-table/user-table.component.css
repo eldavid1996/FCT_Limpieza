@@ -3,16 +3,51 @@
     top:2px;
     left: -2px;
 }
-.boton-nuevo{
-    background-color: #4f46e5 !important;
-    border-radius: 60px;
-    color: white !important;
+table {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+tr:hover {
+  background-color: #f0f8ff; /* Celeste */
+}
+
+/* Estilos alternativos para filas */
+tr:nth-child(even) {
+  background-color: #f4f4f4; /* Gris claro */
+}
+
+/* Estilos para botones de acción */
+button.mat-icon-button {
+  background-color: #ff6f61; /* Rojo */
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button.mat-icon-button:hover {
+  background-color: #e94e47; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Estilos para el botón "Añadir Empleado" */
+.boton-nuevo {
+  background-color: #4f46e5; /* Púrpura */
+  border-radius: 60px;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.boton-nuevo:hover {
+  background-color: #3f38c5; /* Púrpura más oscuro al pasar el ratón */
 }
 @media screen and (max-width: 650px) {
     #col-telf{
         display: none;
     }
-    
+
 }
 @media (max-width: 767px) {
     .col-telf {

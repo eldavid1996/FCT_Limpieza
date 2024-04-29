@@ -6,11 +6,11 @@
   background-color: #598392;
   width: 100%;
   height: 100vh;
-  padding: 50px;
+  padding-top: 50px; /* Padding en la parte superior */
+  padding-right: 220px; /* Padding en el lado derecho */
+  padding-bottom: 50px; /* Padding en la parte inferior */
+  padding-left: 220px; /* Padding en el lado izquierdo */
 }
-
-
-
 mat-form-field input {
   font-size: 14px; /* Tamaño de la fuente más pequeño */
 }
@@ -33,6 +33,21 @@ mat-form-field input {
   position: relative;
   order: -1; /* Muestra la imagen antes que el formulario de login */
 }
+.powered-by {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+  color: black; /* Color de texto gris oscuro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente elegante */
+  text-transform: uppercase; /* Texto en mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  opacity: 0.7; /* Opacidad para un aspecto más suave */
+  transition: opacity 0.3s ease; /* Transición suave */
+}
+
+.powered-by:hover {
+  opacity: 1; /* Aumentar la opacidad al pasar el ratón */
+}
 
 .full-height-image {
   width: 100%; /* La imagen ocupará todo el ancho de su contenedor */
@@ -40,20 +55,19 @@ mat-form-field input {
   object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
 }
 
-.titulo {
-  text-align: center;
-  padding: auto;
-  margin-bottom: 50px;
-}
 h1 {
-  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 120px;
+  text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 90px;
   letter-spacing: 6px;
+  text-align: center;
+  margin-bottom: 50px; /* Reduce el margen inferior del título */
+  color:#01161e;
 }
 h3 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 30px;
   letter-spacing: 10px;
+  text-align: center;
 }
 footer {
   position: fixed;

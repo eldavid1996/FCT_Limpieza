@@ -1,4 +1,4 @@
-import { Component, input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -7,6 +7,8 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
+import { UserModalNuevoComponent } from './user-modal-nuevo.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-table',
@@ -16,8 +18,10 @@ import { PaginationUser } from '../../models/paginationUser.model';
   styleUrl: './user-table.component.css',
 })
 export class UserTableComponent implements OnInit {
+  [x: string]: any;
   @ViewChild(MatSort) ordenamiento?: MatSort | any;
   @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
+
   private userSubscription: Subscription | undefined;
 
   totalLibros = 0;
@@ -30,7 +34,7 @@ export class UserTableComponent implements OnInit {
   displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private dialog:MatDialog) {}
   ngOnInit(): void {
     // this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
     // this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
@@ -39,6 +43,15 @@ export class UserTableComponent implements OnInit {
     // })
     this.dataSource.data = this.userService.getUsers();
   }
+
+  abrirDialog() {
+    const dialogRef = this.dialog.open(UserModalNuevoComponent);
+    dialogRef.componentInstance.cerrarModalEvent.subscribe(() => {
+      dialogRef.close();
+    });
+  }
+
+
 
   // evento paginador
   eventoPaginador(event: PageEvent): void {

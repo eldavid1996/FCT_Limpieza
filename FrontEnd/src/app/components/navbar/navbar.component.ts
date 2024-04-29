@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
     }
    }
    showNavBar(){
-    return this.router.url !== '/login';
+    return this.router.url !== '/';
 
    }
 

@@ -1,6 +1,6 @@
-<section class="p-5 mt-10">
+<section class="p-5 mt-10" id="crud-modal">
   <div
-    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 bg-white"
+    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3"style="background-color: #eff6e0;"
   >
     <div class="px-6 py-4 flex justify-between">
       <div class="font-bold text-xl mb-2">Empleados con turno hoy</div>
@@ -93,7 +93,7 @@
     </div>
     <div class="px-6 pt-4 pb-2 grid">
       <div class="place-self-end">
-        <button class="boton-nuevo" mat-flat-button>
+        <button class="boton-nuevo" mat-flat-button  (click)="abrirDialog()">
           Añadir Empleado<mat-icon>person</mat-icon>
         </button>
       </div>

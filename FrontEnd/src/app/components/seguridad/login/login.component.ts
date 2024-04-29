@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.seguridadService.onSesion();
-    this.router.navigate(['/']);
+    this.router.navigate(['dashboard']);
   }
 
 }
