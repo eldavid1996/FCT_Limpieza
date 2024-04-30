@@ -14,11 +14,14 @@ namespace Services.API.Security.Core.Entities
         // Required
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string DNI { get; set; }
         public bool RoleAdmin { get; set; }
 
         // Optional
         public DateTime? BirthDate { get; set; }
         public string? City { get; set; }
         public string? CP { get; set; }
+
+        public string? urlImage { get; set; }
     }
 }

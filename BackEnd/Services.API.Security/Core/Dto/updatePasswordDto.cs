@@ -1,6 +1,6 @@
 ﻿namespace Services.API.Security.Core.Dto
 {
-    public class updatePasswordDto
+    public class UpdatePasswordDto
     {
 
         public string oldPassword { get; set; }

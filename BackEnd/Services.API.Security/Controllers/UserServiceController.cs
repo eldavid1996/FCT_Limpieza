@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,13 +23,15 @@ namespace Services.API.Security.Controllers
 
         private readonly UserManager<UserEntity> _userManager;
 
+        private readonly PasswordHasher<IdentityUser> _passwordHasher;
 
-        public UserServiceController(IMediator mediator, SQLServerContext context, IMapper mapper, UserManager<UserEntity> userManager)
+        public UserServiceController(IMediator mediator, SQLServerContext context, IMapper mapper, UserManager<UserEntity> userManager, PasswordHasher<IdentityUser> passwordHasher)
         {
             _mediator = mediator;
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -54,13 +55,25 @@ namespace Services.API.Security.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RegisteredUserDto>> Insert(RegisterUpdate.UserRegisterCommand options)
+        public async Task<ActionResult<RegisteredUserDto>> Insert(Register.UserRegisterCommand options)
         {
             return await _mediator.Send(options);
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<RegisteredUserDto>> Login(Login.UserLoginCommand options)
+        {
+            return await _mediator.Send(options);
+        }
+
+        [HttpPost("loggedUser")]
+        public async Task<ActionResult<RegisteredUserDto>> LoggedUser()
+        {
+            return await _mediator.Send(new LoggedInUser.LoggedInUserCommand());
+        }
+
         [HttpPut("{idUser}")]
-        public async Task<ActionResult<RegisteredUserDto>> Update(string idUser, RegisterUpdate.UserUpdateCommand options)
+        public async Task<ActionResult<RegisteredUserDto>> Update(string idUser, Update.UserUpdateCommand options)
         {
             options.idUser = idUser;
             return await _mediator.Send(options);
@@ -122,9 +135,9 @@ namespace Services.API.Security.Controllers
             return Ok(parameters);
         }
 
-        // Logged in user, not work yet (need token)
+        // Logged in user (need old password)
         [HttpPost("updatePassword")]
-        public async Task<IActionResult> UpdatePassword([FromBody] updatePasswordDto updatePasswordModel)
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordDto updatePasswordModel)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -149,5 +162,34 @@ namespace Services.API.Security.Controllers
 
             return Ok("Contraseña cambiada exitosamente");
         }
+
+        // For the admin (no need old password)
+        [HttpPost("resetPassword/{id}")]
+        public async Task<IActionResult> UpdatePassword(string id, [FromBody] ResetPasswordDto resetPasswordModel)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+            if (user == null)
+            {
+                return NotFound("Usuario no encontrado");
+            }
+
+
+            user.PasswordHash = _passwordHasher.HashPassword(user, resetPasswordModel.newPassword);
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(500, "Error al cambiar la contraseña");
+            }
+
+            return Ok("Contraseña cambiada exitosamente");
+        }
+
     }
 }

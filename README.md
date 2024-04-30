@@ -63,7 +63,7 @@ Additionally, a web application made in ``Angular 17`` with standalone component
    - Install MongoDB Docker Container:
 
 
-         ``docker run -d -p 27017:27017 --name MongoDBHotel mongo``
+         docker run -d -p 27017:27017 --name MongoDBHotel mongo
 
    - Start project ``'Services.API.Hotel'`` as first project with Docker Container started for auto-set unique index in collections
 

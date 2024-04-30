@@ -15,7 +15,7 @@ namespace Services.API.Hotel.Core
 
         public async Task Invoke(HttpContext context)
         {
-            if (!context.Response.HasStarted && !IsRoomEndpoint(context.Request.Path) && !IsTaskEndpoint(context.Request.Path))
+            if (!context.Response.HasStarted && !IsRoomEndpoint(context.Request.Path) && !IsTaskEndpoint(context.Request.Path) && !IsTaskHistoryEndpoint(context.Request.Path))
             {
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
                 await context.Response.WriteAsync("La URL solicitada no es válida.");
@@ -67,6 +67,10 @@ namespace Services.API.Hotel.Core
         private bool IsTaskEndpoint(PathString path)
         {
             return path.StartsWithSegments("/api/TaskService");
+        }
+        private bool IsTaskHistoryEndpoint(PathString path)
+        {
+            return path.StartsWithSegments("/api/TaskHistoryService");
         }
     }
 }
