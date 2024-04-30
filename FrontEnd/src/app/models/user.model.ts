@@ -1,14 +1,13 @@
 export interface User{
-  id: string | null;
+  id: string | any;
   name:string;
   surname:string;
-  password:string;
   email: string;
   dni:string;
-  phone: string;
+  phoneNumber: string;
   birthDate: Date;
-  pc:string;
+  cp:string;
   city:string;
-  admin:number;
+  roleAdmin:boolean;
   token:string;
 }

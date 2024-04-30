@@ -31,14 +31,13 @@ export class SeguridadService {
           id: data.id,
           name: data.name,
           surname: data.surname,
-          password: '',
           email: data.email,
           dni: data.dni,
-          phone: data.phone,
+          phoneNumber: data.phoneNumber,
           birthDate: data.birthDate,
-          pc: data.pc,
+          cp: data.cp,
           city: data.city,
-          admin: data.admin,
+          roleAdmin: data.roleAdmin,
           token: data.token,
         };
         this.seguridadCambio.next(true);

@@ -7,8 +7,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 export const routes: Routes = [
 
     { path: 'empleados' , component:UserTableComponent},
-    { path:'empleado',component:UserProfileComponent},
-    { path: '', component: LoginComponent }, // Ruta para el componente LoginComponent
+    { path:'empleado/:id',component:UserProfileComponent},
+    { path: '', component: LoginComponent }, 
     { path: 'dashboard', component: DashboardComponent },
 ];
 

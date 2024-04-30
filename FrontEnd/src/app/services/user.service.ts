@@ -8,14 +8,18 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserService {
   baseUrl = environment.baseUrl;
-  private userList: User[] = [];
-
   userSubject = new Subject();
 
   userPagination: PaginationUser | undefined;
   userPaginationSubject = new Subject<PaginationUser>();
 
   constructor(private http: HttpClient) {}
+  
+  obtenerUsuarioPorId(id: string) {
+    return this.http.get<User>(this.baseUrl + 'api/userservice/' + id);
+  }
+
+  
 
   obtenerUsers(
     librosPorPagina: number,
@@ -25,7 +29,7 @@ export class UserService {
     filterValue: any
   ): void {
 
-    
+
     const request = {
       pageSize: librosPorPagina,
       page: paginaActual,

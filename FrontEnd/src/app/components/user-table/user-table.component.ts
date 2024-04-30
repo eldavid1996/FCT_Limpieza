@@ -1,4 +1,4 @@
-import { Component, input, OnInit, ViewChild } from '@angular/core';
+import { Component, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -16,11 +16,12 @@ import { Router } from '@angular/router';
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.css',
 })
-export class UserTableComponent implements OnInit {
+export class UserTableComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) ordenamiento?: MatSort | any;
   @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
   private userSubscription: Subscription | undefined;
 
+  timeout: any = null;
   totalLibros = 0;
   usersPorPagina = 2;
   paginaCombo = [1, 2, 5, 10, 100];
@@ -28,17 +29,41 @@ export class UserTableComponent implements OnInit {
   sort = 'name';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];
+  displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];//Cambiar id por dni o ciudad
   dataSource = new MatTableDataSource<User>();
 
   constructor(private userService: UserService,private router: Router) {}
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
+  }
   ngOnInit(): void {
     this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
     this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
       this.dataSource = new MatTableDataSource<User>(pagination.data);
       this.totalLibros = pagination.totalRows;
     })
-    //this.dataSource.data = this.userService.getUsers();
+  }
+
+  hacerFiltro(event: any): void {
+    clearTimeout(this.timeout);
+    const $this = this;
+    //Este metodo hace que  el request se envie cuando llevemos un segundo sin escribir y va a buscar titulos
+    this.timeout = setTimeout( ()  => {
+
+      if (event.keyCode != 13) {
+        const filterValueLocal = {
+          propiedad: 'titulo',
+          valor: event.target.value,
+        };
+
+        $this.filterValue = filterValueLocal;
+        $this.userService.obtenerUsers($this.usersPorPagina, $this.pagina, $this.sort, $this.sortDirection, filterValueLocal);
+      }
+    }, 1000)
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.ordenamiento;
+    this.dataSource.paginator = this.paginacion;
   }
 
   // evento paginador
@@ -51,7 +76,7 @@ export class UserTableComponent implements OnInit {
       this.sort,
       this.sortDirection,
       this.filterValue
-    ); //Esto se utiliza para enviar al back el request
+    ); 
   }
 
   ordenarColumna(event: Sort): void {
@@ -74,12 +99,6 @@ export class UserTableComponent implements OnInit {
     console.log(id);
   }
 
-  hacerFiltro(filter: string): void {
-    // Convertimos el filtro a minúsculas para hacer la búsqueda insensible a mayúsculas y minúsculas
-    console.log('Se quería hacer filtro con: ' + filter)
-
-   
-  }
   redirectTo(route:string){
     this.router.navigate([route]);
   }

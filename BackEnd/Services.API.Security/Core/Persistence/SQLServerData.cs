@@ -10,29 +10,29 @@ namespace Services.API.Security.Core.Persistence
         public static async Task InsertUser(SQLServerContext context, UserManager<UserEntity> userManager)
         {
             context.Database.Migrate();
-            //if (!userManager.Users.Any())
-            //{
+            if (!userManager.Users.Any())
+            {
                 var userDefault = new UserEntity
                 {
                     // Optional properties
 
                     BirthDate = DateTime.Now,
                     City = "Huelva",
-                    CP = "21002",
+                    CP = "21006",
 
 
                     // user properties
-                    Name = "Jose",
-                    Surname = "Vélez",
+                    Name = "David",
+                    Surname = "Mendoza",
                     RoleAdmin = true,
 
                     // identity properties
-                    PhoneNumber = "798798789",
-                    Email = "josec@gmail.com",
-                    UserName = "JoseC",
+                    PhoneNumber = "123456789",
+                    Email = "david.mendoza@gmail.com",
+                    UserName = "DavidMendoza",
                 };
-                await userManager.CreateAsync(userDefault, "Capela@360");
+                await userManager.CreateAsync(userDefault, "StrongPassword1!");
             }
-        //}
+        }
     }
 }
