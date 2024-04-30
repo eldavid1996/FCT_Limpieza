@@ -16,6 +16,14 @@ builder.Services.AddDbContext<SQLServerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetSection("SQLServer:ConnectionString").Value);
 });
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsRule", rule =>
+    {
+        rule.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
+
 // Add methods to UserEntity for IdentityCore (SQL DB methods)
 var identity = builder.Services.AddIdentityCore<UserEntity>();
 // Entity Framework Core (for map the data grom IdentityCore)
@@ -63,6 +71,7 @@ app.UseHttpsRedirection();
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseAuthorization();
+app.UseCors("CorsRule");
 
 app.MapControllers();
 

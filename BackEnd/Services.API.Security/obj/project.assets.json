@@ -4446,19 +4446,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\josve\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+      "projectUniqueName": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
       "projectName": "Services.API.Security",
-      "projectPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
+      "projectPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+      "packagesPath": "C:\\Users\\josve\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\josve\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

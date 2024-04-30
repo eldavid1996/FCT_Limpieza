@@ -1,9 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\",
+  "WorkspaceRootPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E7A942A-ED14-452C-B4E4-37B7396DAB1C}|Tests\\Tests.csproj|c:\\users\\admin\\desktop\\fct_limpieza\\backend\\tests\\unittests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|c:\\users\\josve\\desktop\\tfg\\fct_limpieza\\backend\\services.api.security\\core\\persistence\\sqlserverdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|solutionrelative:services.api.security\\core\\persistence\\sqlserverdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|c:\\users\\josve\\desktop\\tfg\\fct_limpieza\\backend\\services.api.security\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|solutionrelative:services.api.security\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|c:\\users\\josve\\desktop\\tfg\\fct_limpieza\\backend\\services.api.security\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF405DB6-0781-4EF9-A20F-6F47C28BCCD9}|Services.API.Security\\Services.API.Security.csproj|solutionrelative:services.api.security\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{89F510D8-D0A0-4C44-AFCD-68A0156D9282}|Services.API.Gateway\\Services.API.Gateway.csproj|c:\\users\\josve\\desktop\\tfg\\fct_limpieza\\backend\\services.api.gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{89F510D8-D0A0-4C44-AFCD-68A0156D9282}|Services.API.Gateway\\Services.API.Gateway.csproj|solutionrelative:services.api.gateway\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E7A942A-ED14-452C-B4E4-37B7396DAB1C}|Tests\\Tests.csproj|c:\\users\\josve\\desktop\\tfg\\fct_limpieza\\backend\\tests\\unittests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E7A942A-ED14-452C-B4E4-37B7396DAB1C}|Tests\\Tests.csproj|solutionrelative:tests\\unittests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -19,15 +35,65 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UnitTests.cs",
-              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Tests\\UnitTests.cs",
-              "RelativeDocumentMoniker": "Tests\\UnitTests.cs",
-              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Tests\\UnitTests.cs",
-              "RelativeToolTip": "Tests\\UnitTests.cs",
-              "ViewState": "AQIAAJQAAAAAAAAAAAASwKAAAAAJAAAA",
+              "Title": "SQLServerData.cs",
+              "DocumentMoniker": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Core\\Persistence\\SQLServerData.cs",
+              "RelativeDocumentMoniker": "Services.API.Security\\Core\\Persistence\\SQLServerData.cs",
+              "ToolTip": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Core\\Persistence\\SQLServerData.cs*",
+              "RelativeToolTip": "Services.API.Security\\Core\\Persistence\\SQLServerData.cs*",
+              "ViewState": "AQIAABIAAAAAAAAAAADwvx8AAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-28T14:27:58.859Z",
+              "WhenOpened": "2024-04-30T06:42:29.95Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Services.API.Security\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Services.API.Security\\Properties\\launchSettings.json",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-04-30T06:12:58.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Program.cs",
+              "RelativeDocumentMoniker": "Services.API.Security\\Program.cs",
+              "ToolTip": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Program.cs",
+              "RelativeToolTip": "Services.API.Security\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEkAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T20:19:38.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Program.cs",
+              "RelativeDocumentMoniker": "Services.API.Gateway\\Program.cs",
+              "ToolTip": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Program.cs",
+              "RelativeToolTip": "Services.API.Gateway\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T20:19:02.771Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UnitTests.cs",
+              "DocumentMoniker": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Tests\\UnitTests.cs",
+              "RelativeDocumentMoniker": "Tests\\UnitTests.cs",
+              "ToolTip": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Tests\\UnitTests.cs",
+              "RelativeToolTip": "Tests\\UnitTests.cs",
+              "ViewState": "AQIAAC8BAAAAAAAAAIA+wDkBAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T14:27:58.859Z"
             }
           ]
         }

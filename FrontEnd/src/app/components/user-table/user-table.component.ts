@@ -25,7 +25,7 @@ export class UserTableComponent implements OnInit {
   usersPorPagina = 2;
   paginaCombo = [1, 2, 5, 10, 100];
   pagina = 1;
-  sort = 'id';
+  sort = 'name';
   sortDirection = 'asc';
   filterValue: any = null;
   displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];
@@ -33,12 +33,12 @@ export class UserTableComponent implements OnInit {
 
   constructor(private userService: UserService,private router: Router) {}
   ngOnInit(): void {
-    // this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
-    // this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
-    //   this.dataSource = new MatTableDataSource<User>(pagination.data);
-    //   this.totalLibros = pagination.totalRows;
-    // })
-    this.dataSource.data = this.userService.getUsers();
+    this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+    this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
+      this.dataSource = new MatTableDataSource<User>(pagination.data);
+      this.totalLibros = pagination.totalRows;
+    })
+    //this.dataSource.data = this.userService.getUsers();
   }
 
   // evento paginador
@@ -76,17 +76,9 @@ export class UserTableComponent implements OnInit {
 
   hacerFiltro(filter: string): void {
     // Convertimos el filtro a minúsculas para hacer la búsqueda insensible a mayúsculas y minúsculas
-    const filtroMinusculas = filter.toLowerCase();
+    console.log('Se quería hacer filtro con: ' + filter)
 
-    // Filtramos los usuarios basados en el filtro de nombre, email o teléfono
-    // const filteredUsers = this.userService.obtenerUsers()
-    // .filter(user =>
-    //     user.name.toLowerCase().includes(filtroMinusculas) ||
-    //     user.email.toLowerCase().includes(filtroMinusculas) ||
-    //     user.phone.toLowerCase().includes(filtroMinusculas)
-    // );
-    // Actualizamos el dataSource con los usuarios filtrados
-    //this.dataSource.data = filteredUsers;
+   
   }
   redirectTo(route:string){
     this.router.navigate([route]);
