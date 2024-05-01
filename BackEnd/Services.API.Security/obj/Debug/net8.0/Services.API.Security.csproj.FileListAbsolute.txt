@@ -435,3 +435,4 @@ C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Security\obj\Debug\net8
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Security\obj\Debug\net8.0\Services.API.Security.genruntimeconfig.cache
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Security\obj\Debug\net8.0\ref\Services.API.Security.dll
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\BackEnd\Services.API.Security\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Security\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

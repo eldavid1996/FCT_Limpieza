@@ -1,13 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\",
+  "WorkspaceRootPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B04937C7-FDA9-4739-BF80-486EBBF007E6}|Services.API.Hotel\\Services.API.Hotel.csproj|c:\\users\\david.mendoza\\onedrive - gabitel ingenieros\\escritorio\\backend\\services.api.hotel\\controllers\\taskhistoryservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B04937C7-FDA9-4739-BF80-486EBBF007E6}|Services.API.Hotel\\Services.API.Hotel.csproj|solutionrelative:services.api.hotel\\controllers\\taskhistoryservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B04937C7-FDA9-4739-BF80-486EBBF007E6}|Services.API.Hotel\\Services.API.Hotel.csproj|c:\\users\\david.mendoza\\onedrive - gabitel ingenieros\\escritorio\\backend\\services.api.hotel\\controllers\\taskservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B04937C7-FDA9-4739-BF80-486EBBF007E6}|Services.API.Hotel\\Services.API.Hotel.csproj|c:\\users\\admin\\desktop\\fct_limpieza\\backend\\services.api.hotel\\controllers\\taskservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B04937C7-FDA9-4739-BF80-486EBBF007E6}|Services.API.Hotel\\Services.API.Hotel.csproj|solutionrelative:services.api.hotel\\controllers\\taskservicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -23,25 +19,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TaskHistoryServiceController.cs",
-              "DocumentMoniker": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Hotel\\Controllers\\TaskHistoryServiceController.cs",
-              "RelativeDocumentMoniker": "Services.API.Hotel\\Controllers\\TaskHistoryServiceController.cs",
-              "ToolTip": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Hotel\\Controllers\\TaskHistoryServiceController.cs",
-              "RelativeToolTip": "Services.API.Hotel\\Controllers\\TaskHistoryServiceController.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAA5wCwAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-30T11:40:22.715Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "TaskServiceController.cs",
-              "DocumentMoniker": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Hotel\\Controllers\\TaskServiceController.cs",
+              "DocumentMoniker": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Controllers\\TaskServiceController.cs",
               "RelativeDocumentMoniker": "Services.API.Hotel\\Controllers\\TaskServiceController.cs",
-              "ToolTip": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\BackEnd\\Services.API.Hotel\\Controllers\\TaskServiceController.cs",
+              "ToolTip": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Controllers\\TaskServiceController.cs",
               "RelativeToolTip": "Services.API.Hotel\\Controllers\\TaskServiceController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEUAAAAhAAAA",
+              "ViewState": "AQIAAGYAAAAAAAAAAAAowHcAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-30T10:49:32.748Z",
               "EditorCaption": ""
