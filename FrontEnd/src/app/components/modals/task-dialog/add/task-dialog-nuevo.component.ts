@@ -6,6 +6,7 @@ import { Subscription } from "rxjs";
 import { TaskService,  } from "../../../../services/task.service";
 import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+import { Task } from "../../../../models/task.model";
 
 
 @Component({
@@ -20,64 +21,100 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
 
   taskForm: FormGroup | any;
   taskSubscription: Subscription = new Subscription();
-  birthDate: any;
+  users: any[] = []; // Aquí deberías tener la lista de usuarios obtenida del servidor
+  rooms: any[] = []; // Aquí deberías tener la lista de habitaciones obtenida del servidor
+  priorityOptions = [
+    { label: 'Alta', value: 'alta' },
+    { label: 'Media', value: 'media' },
+    { label: 'Baja', value: 'baja' }
+  ];
 
   constructor(private taskService: TaskService, private dialogRef: MatDialog, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-      this.taskForm = this.formBuilder.group({
-          name: ['', Validators.required],
-          surname: ['', Validators.required],
-          email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]],
-          phoneNumber: ['', Validators.required],
-          city: ['', Validators.required],
-          pc: ['', Validators.required],
-          birthDate: ['', Validators.required],
-          taskname: ['', Validators.required]
-      });
+    this.taskForm = this.formBuilder.group({
+      userId: ['', Validators.required],
+      roomId: ['', Validators.required],
+      priority: ['', Validators.required]
+    });
+    this.loadUsers();
+    this.loadRooms();
   }
-  checkPasswordStrength(control: FormControl) {
-    const password = control.value;
-    console.log('Password being validated:', password); // Agregar para depuración
-    const strongRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-    if (!strongRegex.test(password)) {
-        console.log('Weak password detected.'); // Agregar para depuración
-        return { weakPassword: true };
-    } else {
-        console.log('Strong password detected.'); // Agregar para depuración
-        return null;
-    }
-}
-
-  guardarTask(form: NgForm) {
-      console.log('Add task button clicked'); // Log agregado
-
-      if (form.valid) {
-          console.log('Formulario válido:', form.value);
-
-          const taskRequest = {
-              id: '',
-
-          };
-
-          console.log('Enviando solicitud para guardar tarea:', taskRequest);
-          this.taskService.guardarTask(taskRequest);
-
-          this.taskSubscription = this.taskService.guardarTaskListener().subscribe(
-              () => {
-                  this.dialogRef.closeAll();
-                  console.log('Tarea guardado exitosamente.');
-              },
-              error => {
-                  console.error('Error al guardar el tarea:', error);
-                  this.dialogRef.closeAll();
-              }
-          );
-      } else {
-          console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
+  loadUsers() {
+    this.taskService.getUsers().subscribe(
+      users => {
+        this.users = users;
+      },
+      error => {
+        console.error('Error al cargar usuarios:', error);
       }
+    );
   }
+
+  loadRooms(){
+    this.taskService.getRooms().subscribe(
+      rooms => {
+        this.rooms = rooms;
+      },
+      error => {
+        console.error('Error al cargar habitaciones:', error);
+      }
+    );
+  }
+  guardarTarea(form: NgForm) {
+    console.log('Add Task button clicked'); // Log agregado
+
+    if (form.valid) {
+      console.log('Formulario válido:', form.value);
+
+      const tareaRequest: Task = {
+        id: '', // Debes obtener este ID del servidor, si es un campo requerido
+        room: {
+          roomNumber: '', // Asumiendo que roomId es el id de la habitación
+          floor: '', // Aquí puedes agregar el número del piso si es relevante
+          type: '', // Debes obtener este tipo del servidor, si es un campo requerido
+          status: '', // Debes obtener este estado del servidor, si es un campo requerido
+          id: form.value.roomId, // Debes obtener este ID del servidor, si es un campo requerido
+          createdDate: new Date() // Puedes establecer la fecha de creación aquí si es relevante
+        },
+        user: {
+          name: '', // Debes obtener este nombre del servidor, si es un campo requerido
+          surname: '', // Debes obtener este apellido del servidor, si es un campo requerido
+          username: '', // Debes obtener este nombre de usuario del servidor, si es un campo requerido
+          birthDate: new Date(), // Debes obtener esta fecha de nacimiento del servidor, si es un campo requerido
+          password: '', // Debes obtener esta contraseña del servidor, si es un campo requerido
+          email: '', // Debes obtener este correo electrónico del servidor, si es un campo requerido
+          phoneNumber: '', // Debes obtener este número de teléfono del servidor, si es un campo requerido
+          cp: '', // Debes obtener este código postal del servidor, si es un campo requerido
+          city: '', // Debes obtener esta ciudad del servidor, si es un campo requerido
+          id: form.value.userId, // Debes obtener este ID del servidor, si es un campo requerido
+        },
+        priority: form.value.priority, // Prioridad obtenida del formulario
+        observations: form.value.observations, // Puedes agregar las observaciones aquí si es necesario
+        createdDate: new Date() // Puedes establecer la fecha de creación aquí si es relevante
+      };
+
+      console.log('Enviando solicitud para guardar tarea:', tareaRequest);
+      this.taskService.guardarTask(tareaRequest);
+
+      this.taskSubscription = this.taskService.guardarTaskListener().subscribe(
+        () => {
+          this.dialogRef.closeAll();
+          console.log('Tarea guardada exitosamente.');
+          // Puedes agregar lógica adicional aquí si es necesario
+        },
+        error => {
+          console.error('Error al guardar la tarea:', error);
+          this.dialogRef.closeAll();
+        }
+      );
+    } else {
+      console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
+    }
+  }
+
+
+
 
   cerrarDialog() {
       this.dialogRef.closeAll();
