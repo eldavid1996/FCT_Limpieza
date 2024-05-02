@@ -1,0 +1,113 @@
+<h1 class="mat-dialog-title">Create New User</h1>
+
+<div mat-dialog-content>
+  <form #f="ngForm" (ngSubmit)="guardarTask(f)">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Campo de nombre -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input id="name" matInput name="name" ngModel required type="text" />
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Campo de apellido -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Surname</mat-label>
+          <input
+            id="surname"
+            matInput
+            name="surname"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>Surname is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>UserName</mat-label>
+          <input
+            id="username"
+            matInput
+            name="username"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>Username is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Campo de email -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input id="email" matInput name="email" ngModel email type="email" />
+          <mat-error>Please enter a valid email address</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- Campo de teléfono -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>PhoneNumber</mat-label>
+          <input
+            id="phoneNumber"
+            matInput
+            name="phoneNumber"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>phoneNumber number is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>CP</mat-label>
+          <input id="cp" matInput name="cp" ngModel required type="text" />
+          <mat-error>CP is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>birthDateDate</mat-label>
+          <input
+            id="birthDate"
+            matInput
+            [matDatepicker]="picker"
+            name="birthDate"
+            [(ngModel)]="birthDate"
+            required
+            type="text"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>birthDate is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>City</mat-label>
+          <input id="city" matInput name="city" ngModel required type="text" />
+          <mat-error>City is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="cerrarDialog()">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary" [disabled]="f.invalid">
+          Add User
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

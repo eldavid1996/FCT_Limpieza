@@ -26,20 +26,20 @@ export class SeguridadService {
       .subscribe((data) => {
         console.log('login respuesta', data);
 
-        this.token = data.token;
+
         this.usuario = {
-          id: data.id,
+          id:'',
           name: data.name,
           surname: data.surname,
-          password: '',
+          password: data.password,
           email: data.email,
-          dni: data.dni,
-          phone: data.phone,
-          birthDate: data.birthDate,
-          pc: data.pc,
+          phoneNumber: data.phoneNumber,
+          cp: data.cp,
           city: data.city,
-          admin: data.admin,
-          token: data.token,
+          birthDate: data.birthDate,
+          username: data.username
+
+
         };
         this.seguridadCambio.next(true);
       });

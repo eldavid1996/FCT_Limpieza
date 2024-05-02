@@ -1,14 +1,12 @@
 export interface User{
-  id: string | null;
   name:string;
   surname:string;
+  username:string;
+  birthDate:Date;
   password:string;
   email: string;
-  dni:string;
-  phone: string;
-  birthDate: Date;
-  pc:string;
+  phoneNumber: string;
+  cp:string;
   city:string;
-  admin:number;
-  token:string;
+  id:string,
 }

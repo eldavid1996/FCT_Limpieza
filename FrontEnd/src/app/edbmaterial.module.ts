@@ -16,12 +16,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSort } from '@angular/material/sort';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   imports: [MatButtonModule, MatIconModule, MatInputModule,
     MatFormFieldModule, MatSidenavModule, MatToolbarModule,
     MatListModule, MatCardModule, MatTableModule,
-    MatSortModule, MatPaginatorModule, MatDialogModule, MatSelectModule, MatDatepickerModule,MatNativeDateModule,MatSort],
+    MatSortModule, MatPaginatorModule, MatDialogModule, MatSelectModule, MatDatepickerModule,MatNativeDateModule,MatSort,    ToastrModule.forRoot() // Agrega ToastrModule.forRoot() aquí
+  ],
   exports: [MatButtonModule, MatIconModule, MatInputModule,
     MatFormFieldModule, MatSidenavModule, MatToolbarModule,
     MatListModule, MatCardModule, MatTableModule,

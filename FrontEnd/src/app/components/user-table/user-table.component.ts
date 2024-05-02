@@ -7,7 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
-import { UserModalNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
+import { UserDialogNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -24,81 +24,57 @@ export class UserTableComponent implements OnInit {
 
   private userSubscription: Subscription | undefined;
 
-  totalLibros = 0;
-  usersPorPagina = 2;
+  totalUsers = 0;
+  usersPorPagina = 10;
   paginaCombo = [1, 2, 5, 10, 100];
-  pagina = 1;
-  sort = 'id';
+  paginaActual = 1;
+  sort = 'name';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];
+  displayedColumns = ['id', 'name', 'email', 'phoneNumber', 'actions'];
   dataSource = new MatTableDataSource<User>();
 
   constructor(private userService: UserService, private dialog:MatDialog) {}
   ngOnInit(): void {
-    // this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
-    // this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
-    //   this.dataSource = new MatTableDataSource<User>(pagination.data);
-    //   this.totalLibros = pagination.totalRows;
-    // })
-    this.dataSource.data = this.userService.getUsers();
-  }
 
-  abrirDialog() {
-    const dialogRef = this.dialog.open(UserModalNuevoComponent);
-    dialogRef.componentInstance.cerrarModalEvent.subscribe(() => {
-      dialogRef.close();
+    this.userService.obtenerUsers(this.usersPorPagina, this.paginaActual, this.sort, this.sortDirection, this.filterValue);
+    this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
+      this.dataSource = new MatTableDataSource<User>(pagination.data);
+      this.totalUsers = pagination.totalRows;
     });
   }
 
+  abrirDialog() {
+    const dialogRef = this.dialog.open(UserDialogNuevoComponent, {
 
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.paginaActual, this.sort, this.sortDirection, this.filterValue);
 
-  // evento paginador
+    });
+  }
+
   eventoPaginador(event: PageEvent): void {
     this.usersPorPagina = event.pageSize;
-    this.pagina = event.pageIndex + 1;
-    this.userService.obtenerUsers(
-      this.usersPorPagina,
-      this.pagina,
-      this.sort,
-      this.sortDirection,
-      this.filterValue
-    ); //Esto se utiliza para enviar al back el request
+    this.paginaActual = event.pageIndex + 1;
+    // Realizar alguna acción adicional si es necesario
   }
 
   ordenarColumna(event: Sort): void {
     this.sort = event.active;
     this.sortDirection = event.direction;
-    this.userService.obtenerUsers(
-      this.usersPorPagina,
-      this.pagina,
-      event.active,
-      event.direction,
-      this.filterValue
-    );
+    // Realizar alguna acción adicional si es necesario
   }
 
-  editarEmpleado(empleado: User) {
-    console.log(empleado);
+  editarEmpleado(empleado: User): void {
+    // Implementar la lógica para editar un empleado
   }
 
-  eliminarEmpleado(id: number) {
-    console.log(id);
+  eliminarEmpleado(id: number): void {
+    // Implementar la lógica para eliminar un empleado
   }
 
   hacerFiltro(filter: string): void {
-    // Convertimos el filtro a minúsculas para hacer la búsqueda insensible a mayúsculas y minúsculas
-    const filtroMinusculas = filter.toLowerCase();
-
-    // Filtramos los usuarios basados en el filtro de nombre, email o teléfono
-    // const filteredUsers = this.userService.obtenerUsers()
-    // .filter(user =>
-    //     user.name.toLowerCase().includes(filtroMinusculas) ||
-    //     user.email.toLowerCase().includes(filtroMinusculas) ||
-    //     user.phone.toLowerCase().includes(filtroMinusculas)
-    // );
-    console.log('Hola mi amor');
-    // Actualizamos el dataSource con los usuarios filtrados
-    //this.dataSource.data = filteredUsers;
+    // Implementar la lógica para filtrar los usuarios
   }
 }

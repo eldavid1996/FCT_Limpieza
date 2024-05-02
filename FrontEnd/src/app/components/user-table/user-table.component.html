@@ -43,7 +43,7 @@
         <!-- Floor Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
-          <td mat-cell *matCellDef="let element"> <a routerLink="empleado">{{ element.name }}  {{element.surname}}</a> </td>
+          <td mat-cell *matCellDef="let element"> <a routerLink="empleado">{{ element.name }}  {{element.surname}} {{element.userName}}</a> </td>
         </ng-container>
 
         <!-- Email Column -->
@@ -51,11 +51,11 @@
           <th mat-header-cell *matHeaderCellDef>Correo Electrónico</th>
           <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
-<div class="max-md:invisible">
+      <div class="max-md:invisible">
         <!-- Phone Column -->
-        <ng-container matColumnDef="phone"  >
+        <ng-container matColumnDef="phoneNumber"  >
           <th mat-header-cell *matHeaderCellDef>Teléfono</th>
-          <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
         </ng-container>
       </div>
         <!-- Icons Column -->
@@ -88,7 +88,7 @@
         #paginacion
         [pageSize]="usersPorPagina"
         [pageSizeOptions]="paginaCombo"
-        [length]="totalLibros"
+        [length]="totalUsers"
       ></mat-paginator>
     </div>
     <div class="px-6 pt-4 pb-2 grid">

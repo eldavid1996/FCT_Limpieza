@@ -1,52 +1,144 @@
+<h1 class="mat-dialog-title">Create New User</h1>
 
-<div id="crud-modal" tabindex="-1" aria-hidden="true" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-screen bg-gray-900 bg-opacity-50">
-  <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow">
-      <!-- Modal content -->
-      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Create New Product
-          </h3>
-          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-              </svg>
-              <span class="sr-only" >Close modal</span>
-          </button>
+<div mat-dialog-content>
+  <form #f="ngForm" (ngSubmit)="guardarUser(f)">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Campo de nombre -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input id="name" matInput name="name" ngModel required type="text" />
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
       </div>
-      <!-- Modal body -->
-      <form class="p-4 md:p-5">
-              <div class="grid gap-4 mb-4 grid-cols-2">
-                  <div class="col-span-2">
-                      <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                      <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
-                  </div>
-                  <div class="col-span-2 sm:col-span-1">
-                      <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                      <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-                  </div>
-                  <div class="col-span-2 sm:col-span-1">
-                      <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                      <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                          <option selected="">Select category</option>
-                          <option value="TV">TV/Monitors</option>
-                          <option value="PC">PC</option>
-                          <option value="GA">Gaming/Console</option>
-                          <option value="PH">Phones</option>
-                      </select>
-                  </div>
-                  <div class="col-span-2">
-                      <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                      <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
-                  </div>
+
+      <!-- Campo de apellido -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Surname</mat-label>
+          <input
+            id="surname"
+            matInput
+            name="surname"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>Surname is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>UserName</mat-label>
+          <input
+            id="username"
+            matInput
+            name="username"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>Username is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Campo de email -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            id="email"
+            matInput
+            name="email"
+            ngModel
+            required
+            email
+            type="email"
+          />
+          <mat-error>Please enter a valid email address</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4" [formGroup]="passwordForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+          <mat-error>
+            <div
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+            >
+              <div *ngIf="password.errors?.required">
+                La contraseña es obligatoria.
               </div>
-              <button (click)="cerrarModal()" type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                  <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                  Add new product
-              </button>
-          </form>
+              <div *ngIf="password.errors?.minlength">
+                La contraseña debe tener al menos 8 caracteres.
+              </div>
+              <div *ngIf="password.errors?.pattern">
+                La contraseña debe contener al menos una letra minúscula, una
+                letra mayúscula, un número y un carácter especial.
+              </div>
+            </div>
+          </mat-error>
+        </mat-form-field>
       </div>
-  </div>
 
+      <!-- Campo de teléfono -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>PhoneNumber</mat-label>
+          <input
+            id="phoneNumber"
+            matInput
+            name="phoneNumber"
+            ngModel
+            required
+            type="text"
+          />
+          <mat-error>phoneNumber number is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>CP</mat-label>
+          <input id="cp" matInput name="cp" ngModel required type="text" />
+          <mat-error>CP is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>BirthDateDate</mat-label>
+          <input
+            id="birthDate"
+            matInput
+            [matDatepicker]="picker"
+            name="birthDate"
+            [(ngModel)]="birthDate"
+            required
+            type="text"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>BirthDate is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field appearance="fill">
+          <mat-label>City</mat-label>
+          <input id="city" matInput name="city" ngModel required type="text" />
+          <mat-error>City is required</mat-error>
+        </mat-form-field>
+      </div>
 
-
-
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" (click)="cerrarDialog()">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary" [disabled]="!f.valid">
+          Add User
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

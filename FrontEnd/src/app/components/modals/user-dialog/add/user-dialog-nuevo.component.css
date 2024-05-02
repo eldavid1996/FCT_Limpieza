@@ -1,0 +1,98 @@
+
+
+/* Estilo para los campos de entrada */
+.mat-form-field {
+  width: 100%; /* Ancho completo */
+}
+
+/* Estilo para los mensajes de error */
+.mat-error {
+  font-size: 0.75rem; /* Tamaño de fuente más pequeño */
+  color: #c62828; /* Color rojo */
+}
+
+/* Estilo para los botones */
+.mat-dialog-actions button {
+  margin-right: 10px; /* Margen derecho entre botones */
+}
+
+/* Estilo para el botón de "Cancelar" */
+.mat-dialog-actions button:first-child {
+  color: #333; /* Color de texto oscuro */
+}
+
+/* Estilo para el botón de "Agregar Usuario" */
+.mat-dialog-actions button:last-child {
+  background-color: #1976d2; /* Color de fondo azul */
+  color: #fff; /* Color de texto blanco */
+}
+
+/* Estilo para los botones al estar deshabilitados */
+.mat-dialog-actions button:disabled {
+  opacity: 0.5; /* Opacidad reducida */
+  cursor: not-allowed; /* Cursor no permitido */
+}
+
+/* Agrega más espacio en blanco entre los elementos de la interfaz de usuario */
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+/* Usa una paleta de colores más cohesiva y atractiva */
+.mat-dialog-title {
+  color: #1976d2;
+}
+
+.mat-form-field {
+  color: #333;
+}
+
+
+.mat-dialog-actions button {
+  color: #fff;
+  background-color: #1976d2;
+}
+
+.mat-dialog-actions button:hover {
+  background-color: #0d53a2;
+}
+
+.mat-dialog-actions button:disabled {
+  background-color: #e0e0e0;
+  color: #8c8c8c;
+}
+
+/* Agrega animaciones y transiciones suaves */
+.mat-form-field {
+  transition: all 0.2s ease-in-out;
+}
+
+.mat-form-field:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-form-field:focus-within {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mat-dialog-actions button {
+  transition: all 0.2s ease-in-out;
+}
+
+.mat-dialog-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mat-dialog-actions button:disabled {
+  cursor: not-allowed;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Asegúrate de que el diseño sea responsivo */
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}

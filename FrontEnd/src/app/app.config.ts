@@ -9,6 +9,9 @@ import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { SeguridadInterceptor } from './components/seguridad/seguridad-interceptor';
 import { UserService } from './services/user.service';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     { provide: HTTP_INTERCEPTORS, useClass: SeguridadInterceptor, multi: true },
-    UserService
+    UserService,ToastrService
   ],
 };
