@@ -3,6 +3,7 @@ import { UserTableComponent } from './components/user-table/user-table.component
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LoginComponent } from './components/seguridad/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RoomTableComponent } from './components/room-table/room-table.component';
 
 export const routes: Routes = [
 
@@ -10,5 +11,6 @@ export const routes: Routes = [
     { path:'empleado/:id',component:UserProfileComponent},
     { path: '', component: LoginComponent }, 
     { path: 'dashboard', component: DashboardComponent },
+    { path: 'habitaciones', component: RoomTableComponent}
 ];
 

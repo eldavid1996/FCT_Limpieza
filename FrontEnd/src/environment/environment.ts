@@ -1,5 +1,7 @@
 export const  environment = {
     production:false,
-    baseUrl:'https://localhost:7275/'
+    baseUrl:'https://localhost:8563/',
+    roomUrl:'https://localhost:8562/'
+
   }
   

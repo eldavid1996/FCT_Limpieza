@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.API.Hotel.Core.Dto;
 using Services.API.Hotel.Core.Entities;
 using Services.API.Hotel.Repository;
+using System.Text.Json;
 
 namespace Services.API.Hotel.Controllers
 {
@@ -48,20 +49,31 @@ namespace Services.API.Hotel.Controllers
                 return NotFound("Esta Habitación no existe.");
             }
 
+            task.Room = room;
+
             // Check if user exists
             var httpClient = new HttpClient();
-            string urlUser = "https://localhost:7275/api/UserService/" + task.User.Id;
+            string urlUser = "https://localhost:8563/api/UserService/" + task.User.Id;
             try
             {
-                var response = await httpClient.GetAsync(urlUser); if (!response.IsSuccessStatusCode)
+                var response = await httpClient.GetAsync(urlUser);
+
+                if (!response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     return NotFound(content);
                 }
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                var userValid = JsonSerializer.Deserialize<RegisteredUserDto>(jsonString);
+
+                task.User = userValid;
+
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
-
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             await _taskRepository.InsertDocument(task);
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
@@ -81,23 +93,37 @@ namespace Services.API.Hotel.Controllers
                 return BadRequest("Los Identificadores no coinciden.");
             }
 
-            if (task.Room.Id != newtask.Room.Id)
+            var room = await _roomRepository.GetById(newtask.Room.Id);
+            if (room == null)
             {
-                return BadRequest("El id de la habitación no se puede modificar");
+                return NotFound("Esta Habitación no existe.");
             }
+
+            newtask.Room = room;
 
             // Check if user exists
             var httpClient = new HttpClient();
-            string urlUser = "https://localhost:7275/api/UserService/" + task.User.Id;
+            string urlUser = "https://localhost:8563/api/UserService/" + newtask.User.Id;
             try
             {
-                var response = await httpClient.GetAsync(urlUser); if (!response.IsSuccessStatusCode)
+                var response = await httpClient.GetAsync(urlUser);
+
+                if (!response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     return NotFound(content);
                 }
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                var userValid = JsonSerializer.Deserialize<RegisteredUserDto>(jsonString);
+
+                newtask.User = userValid;
+
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             await _taskRepository.UpdateDocument(newtask);
             return CreatedAtAction(nameof(GetById), new { id = newtask.Id }, newtask);

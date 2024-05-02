@@ -22,14 +22,14 @@ export class UserTableComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription | undefined;
 
   timeout: any = null;
-  totalLibros = 0;
+  totalUsers = 0;
   usersPorPagina = 2;
   paginaCombo = [1, 2, 5, 10, 100];
   pagina = 1;
   sort = 'name';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id', 'name', 'email', 'phone', 'actions'];//Cambiar id por dni o ciudad
+  displayedColumns = ['id', 'name', 'email', 'phoneNumber', 'actions'];//Cambiar id por dni o ciudad
   dataSource = new MatTableDataSource<User>();
 
   constructor(private userService: UserService,private router: Router) {}
@@ -40,7 +40,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
     this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
     this.userSubscription = this.userService.obtenerActualListener().subscribe((pagination: PaginationUser) => {
       this.dataSource = new MatTableDataSource<User>(pagination.data);
-      this.totalLibros = pagination.totalRows;
+      this.totalUsers = pagination.totalRows;
     })
   }
 

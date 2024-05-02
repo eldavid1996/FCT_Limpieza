@@ -17,19 +17,20 @@ namespace Services.API.Security.Core.Persistence
                     // Optional properties
 
                     BirthDate = DateTime.Now,
-                    City = "Huelva",
+                    City = "Admin",
                     CP = "21006",
-
+                    urlImage = "Admin",
 
                     // user properties
-                    Name = "David",
-                    Surname = "Mendoza",
+                    Name = "Admin",
+                    Surname = "Admin",
                     RoleAdmin = true,
+                    DNI = "Admin",
 
                     // identity properties
-                    PhoneNumber = "123456789",
-                    Email = "david.mendoza@gmail.com",
-                    UserName = "DavidMendoza",
+                    PhoneNumber = "Admin",
+                    Email = "Admin@gmail.com",
+                    UserName = "Admin",
                 };
                 await userManager.CreateAsync(userDefault, "StrongPassword1!");
             }

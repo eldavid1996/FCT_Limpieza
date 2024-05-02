@@ -32,7 +32,9 @@
       [dataSource]="dataSource"
       matSort
       (matSortChange)="ordenarColumna($event)"
-    
+      class="table w-full"
+      style="border-collapse: collapse;"
+      
       >
         <!-- Id Column -->
         <ng-container matColumnDef="id" class="hover:bg-gray-700">
@@ -54,7 +56,7 @@
         </ng-container>
 <div>
         <!-- Phone Column -->
-        <ng-container matColumnDef="phone"  >
+        <ng-container matColumnDef="phoneNumber"   >
           <th mat-header-cell *matHeaderCellDef>Teléfono</th>
           <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" >{{ element.phoneNumber }}</td>
         </ng-container>
@@ -89,7 +91,7 @@
         #paginacion
         [pageSize]="usersPorPagina"
         [pageSizeOptions]="paginaCombo"
-        [length]="totalLibros"
+        [length]="totalUsers"
       ></mat-paginator>
     </div>
     <div class="px-6 pt-4 pb-2 grid">
