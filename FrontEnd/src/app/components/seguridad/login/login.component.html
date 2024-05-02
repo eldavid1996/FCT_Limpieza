@@ -1,0 +1,35 @@
+<div class="full-login-container sm:wfull overflow-hidden bg-gradient-to-r from-green-300 via-blue-200 to-sky-950"> <!-- Agregamos la clase overflow-hidden -->
+  <div class="full-height-image-container overflow-hidden sm:h-full sm:w-full max-h-screen"> <!-- Agregamos la clase max-h-screen -->
+    <img src="../../../../assets/source/hotel.jpg" alt="Imagen" class="full-height-image">
+  </div>
+  <div class="login pt-5 flex flex-col gap-3">
+      <img src="../../../../assets/source/logo-hotel.svg" alt="logo del hotel resort" width="120px">
+      <h3>HOTELS, SUITES & RESORTS</h3>
+    <form #f="ngForm" (ngSubmit)="loginUsuario(f)" class="">
+      <div class="flex flex-col gap-1 mt-20 w-full">
+        <mat-form-field class="w-full"> 
+          <mat-label class="">Email</mat-label>
+          <input matInput type="email" required name="email" ngModel class="px-4 py-3 bg-red-700" />
+          <mat-error style="color: aliceblue;">Debe ingresar un email</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput type="password" required name="passwd" ngModel />
+          <mat-error style="color: aliceblue;">Debe ingresar una password</mat-error>
+        </mat-form-field>
+       
+        <button (click)="login()" mat-raised-button  class="w-full mx-auto">Login</button>
+      </div>
+    </form>
+    <div
+        class="flex items-center md:mt-5 opacity-40 max-md:text-white max-md:opacity-100"
+      >
+        <p>POWERED BY: </p>&nbsp;
+        <img
+          src="../../../../assets/source/logo-color.png"
+          alt="logo de BROOM"
+          class="h-10 relative bottom-2"
+        />
+      </div>
+  </div>
+</div>
