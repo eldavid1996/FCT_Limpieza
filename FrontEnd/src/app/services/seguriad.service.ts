@@ -39,6 +39,7 @@ export class SeguridadService {
           city: data.city,
           roleAdmin: data.roleAdmin,
           token: data.token,
+          urlImage:data.urlImage
         };
         this.seguridadCambio.next(true);
       });

@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     city: '',
     roleAdmin: false,
     token: '',
+    urlImage:''
   };//Necesario para evitar error de lectura de un valor NULO
   userSubscription : Subscription | undefined;
 
