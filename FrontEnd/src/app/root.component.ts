@@ -1,6 +1,3 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { UserTableComponent } from './components/user-table/user-table.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';

@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { PaginationUser } from '../models/paginationUser.model';
 import { HttpClient } from '@angular/common/http';
