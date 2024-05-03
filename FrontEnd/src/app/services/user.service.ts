@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { PaginationUser } from '../models/paginationUser.model';
 import { HttpClient } from '@angular/common/http';
@@ -7,19 +6,17 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserService {
-  baseUrl = environment.baseUrl;
+  baseUrl = environment.gatewayUrl;
   userSubject = new Subject();
 
   userPagination: PaginationUser | undefined;
   userPaginationSubject = new Subject<PaginationUser>();
 
   constructor(private http: HttpClient) {}
-  
-  obtenerUsuarioPorId(id: string) {
-    return this.http.get<User>(this.baseUrl + 'api/userservice/' + id);
-  }
 
-  
+  obtenerUsuarioPorId(id: string) {
+    return this.http.get<User>(this.baseUrl + 'User' + id);
+  }
 
   obtenerUsers(
     librosPorPagina: number,
@@ -28,8 +25,6 @@ export class UserService {
     sortDirection: string,
     filterValue: any
   ): void {
-
-
     const request = {
       pageSize: librosPorPagina,
       page: paginaActual,
@@ -39,10 +34,7 @@ export class UserService {
     };
 
     this.http
-      .post<PaginationUser>(
-        this.baseUrl + 'api/UserService/pagination',
-        request
-      )
+      .post<PaginationUser>(this.baseUrl + 'User/pagination', request)
       .subscribe((response) => {
         this.userPagination = response;
         this.userPaginationSubject.next(this.userPagination);

@@ -4,13 +4,29 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { LoginComponent } from './components/seguridad/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RoomTableComponent } from './components/room-table/room-table.component';
+import { SecurityRouter } from './components/seguridad/security.router';
 
 export const routes: Routes = [
-
-    { path: 'empleados' , component:UserTableComponent},
-    { path:'empleado/:id',component:UserProfileComponent},
-    { path: '', component: LoginComponent }, 
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'habitaciones', component: RoomTableComponent}
+  { path: '', component: LoginComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [SecurityRouter],
+  },
+  {
+    path: 'empleados',
+    component: UserTableComponent,
+    canActivate: [SecurityRouter],
+  },
+  {
+    path: 'empleado/:id',
+    component: UserProfileComponent,
+    canActivate: [SecurityRouter],
+  },
+  {
+    path: 'habitaciones',
+    component: RoomTableComponent,
+    canActivate: [SecurityRouter],
+  },
+  { path: '**', redirectTo: '' },
 ];
-
