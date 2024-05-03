@@ -6,10 +6,10 @@ import { PaginationRoom } from '../models/paginationRoom.model';
 import { Room } from '../models/room.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoomService {
-  baseUrl = environment.roomUrl;
+  baseUrl = environment.gatewayUrl;
   userSubject = new Subject<any>();
   roomPagination: PaginationRoom | undefined;
   roomPaginationSubject = new Subject<PaginationRoom>();
@@ -34,7 +34,7 @@ export class RoomService {
     };
 
     this.http
-      .post<PaginationRoom>(this.baseUrl + 'api/RoomService/pagination', request)
+      .post<PaginationRoom>(this.baseUrl + 'Room/pagination', request)
       .subscribe((response) => {
         this.roomPagination = response;
         this.roomPaginationSubject.next(this.roomPagination);

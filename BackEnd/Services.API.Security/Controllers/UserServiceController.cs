@@ -105,6 +105,20 @@ namespace Services.API.Security.Controllers
         {
             IQueryable<UserEntity> query = _context.Users;
 
+            
+            
+
+            if (!string.IsNullOrEmpty(parameters.Sort))
+            {
+                if (parameters.SortDirection == "desc")
+                {
+                    query = query.OrderByDescending((UserEntity doc) => EF.Property<object>(doc, parameters.Sort));
+                }
+                else
+                {
+                    query = query.OrderBy((UserEntity doc) => EF.Property<object>(doc, parameters.Sort));
+                }
+            }
             var filter = parameters.Filter;
 
             if (filter != null)

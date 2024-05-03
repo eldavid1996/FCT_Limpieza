@@ -1,4 +1,4 @@
 export interface LoginData{
-  email:string;
-  password:string;
+  Email:string;
+  Password:string;
 }

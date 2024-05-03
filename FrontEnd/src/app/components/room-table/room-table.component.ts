@@ -29,8 +29,8 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   timeout: any = null;
   totalRooms = 0;
-  roomsPorPagina = 2;
-  paginaCombo = [1, 2, 5, 10, 100];
+  roomsPorPagina = 5;
+  paginaCombo = [1, 3, 5, 8];
   pagina = 1;
   sort = 'name';
   sortDirection = 'asc';

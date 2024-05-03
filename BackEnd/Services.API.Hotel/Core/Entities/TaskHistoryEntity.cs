@@ -21,5 +21,8 @@ namespace Services.API.Hotel.Core.Entities
 
         [BsonElement("Observations")]
         public string? Observations { get; set; }
+
+        [BsonElement("Status")]
+        public string? Status { get; set; }
     }
 }
