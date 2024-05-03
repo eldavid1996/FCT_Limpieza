@@ -10,5 +10,5 @@ export interface User{
   city:string;
   roleAdmin:boolean;
   token:string;
-  urlImage: string;
+  urlImage:string;
 }

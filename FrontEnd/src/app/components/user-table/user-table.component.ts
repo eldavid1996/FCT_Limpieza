@@ -23,8 +23,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   timeout: any = null;
   totalUsers = 0;
-  usersPorPagina = 5;
-  paginaCombo = [1, 3, 5, 8];
+  usersPorPagina = 2;
+  paginaCombo = [1, 2, 5, 10, 100];
   pagina = 1;
   sort = 'name';
   sortDirection = 'asc';
@@ -52,7 +52,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
       if (event.keyCode != 13) {
         const filterValueLocal = {
-          propiedad: 'name',
+          propiedad: 'titulo',
           valor: event.target.value,
         };
 
@@ -95,8 +95,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
     console.log(empleado);
   }
 
-  eliminarEmpleado(id: string): void {
-   this.userService.eliminarUser(id);
+  eliminarEmpleado(id: number): void {
+    console.log(id);
   }
 
   redirectTo(route:string){

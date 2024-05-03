@@ -1,6 +1,7 @@
 export const  environment = {
-    production: false,
-    gatewayUrl: 'https://localhost:8561/',
-    hotelUrl: 'https://localhost:8562/',
-    securityUrl: 'https://localhost:8563/'
+    production:false,
+    baseUrl:'https://localhost:8563/',
+    roomUrl:'https://localhost:8562/'
+
   }
+  

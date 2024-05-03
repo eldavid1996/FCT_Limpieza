@@ -38,26 +38,26 @@
       >
         <!-- Id Column -->
         <ng-container matColumnDef="id" class="hover:bg-gray-700">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+          <th mat-header-cell *matHeaderCellDef>DNI</th>
           <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" > {{ element.id }}</td>
         </ng-container>
         <!-- CAMBIAR ID POR DNI O CIUDAD -->
 
         <!-- name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Completo</th>
-          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" > {{ element.Name }}  {{element.surname}} </td>
+          <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
+          <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" > {{ element.name }}  {{element.surname}} </td>
         </ng-container>
 
         <!-- Email Column -->
         <ng-container matColumnDef="email" class=" max-md:invisible col-telf" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo Electrónico</th>
+          <th mat-header-cell *matHeaderCellDef>Correo Electrónico</th>
           <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" >{{ element.email }}</td>
         </ng-container>
 <div>
         <!-- Phone Column -->
         <ng-container matColumnDef="phoneNumber"   >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+          <th mat-header-cell *matHeaderCellDef>Teléfono</th>
           <td mat-cell *matCellDef="let element" (click)="redirectTo('empleado/' + element.id)" >{{ element.phoneNumber }}</td>
         </ng-container>
       </div>
