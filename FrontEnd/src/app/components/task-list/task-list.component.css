@@ -1,0 +1,13 @@
+.position{
+  position: relative;
+  top:2px;
+  left: -2px;
+}
+.boton-nuevo{
+  background-color: #4f46e5 !important;
+  border-radius: 60px;
+  color: white !important;
+}
+.beige{
+  background-color: #eff6e0;
+}
