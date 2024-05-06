@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj": {}
+    "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj": {
+    "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
+        "projectUniqueName": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
         "projectName": "Services.API.Hotel",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\obj\\",
+        "projectPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
+        "packagesPath": "C:\\Users\\josve\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\josve\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.25.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj": {}
+    "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj": {
+    "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+        "projectUniqueName": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
         "projectName": "Services.API.Security",
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
+        "projectPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+        "packagesPath": "C:\\Users\\josve\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\josve\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -44,6 +44,50 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.11.2, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.5.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
