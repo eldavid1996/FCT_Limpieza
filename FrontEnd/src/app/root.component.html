@@ -1,6 +1,5 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!isLoginPage()"></app-navbar>
+
 <main>
-<router-outlet>
-  
-</router-outlet>
+  <router-outlet> </router-outlet>
 </main>

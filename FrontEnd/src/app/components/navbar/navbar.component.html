@@ -1,19 +1,19 @@
-
-<section class="md:w-1/24 lg:w-1/24" *ngIf="showNavBar()">
-  <!-- <div class="mt-20 flex flex-col gap-5 items-center justify-center px-4">
-    <a href="/empleados"><mat-icon>task</mat-icon></a>
-    <a><mat-icon>king_bed</mat-icon></a>
-    <a routerLink="empleados"><mat-icon>person</mat-icon></a>
-    <a routerLink="empleado"><mat-icon>calendar_month</mat-icon></a>
-  </div> -->
-  <div class="flex items-center place-self-center h-12 w-14" style="background-color: white;">
-    <a routerLink="" class="flex w-full h-full justify-center">
-      <img src="../../../../assets/source/logo.png" alt="Inicio" class="icon-image w-8 h-8 object-contain place-self-center">
+<section class="md:w-1/24 lg:w-1/24 max-md:invisible">
+  <div
+    class="flex items-center place-self-center h-12 w-14"
+    style="background-color: white"
+  >
+    <a routerLink="dashboard" class="flex w-full h-full justify-center">
+      <img
+        src="../../../../assets/source/logo.png"
+        alt="Inicio"
+        class="icon-image w-8 h-8 object-contain place-self-center"
+      />
     </a>
   </div>
   <mat-nav-list>
     <mat-list-item>
-      <a routerLink="task" class="flex w-full h-full justify-center">
+      <a routerLink="tareas" class="flex w-full h-full justify-center">
         <mat-icon>task</mat-icon>
       </a>
     </mat-list-item>
@@ -23,34 +23,64 @@
       </a>
     </mat-list-item>
     <mat-list-item>
-      <a routerLink="empleados" class="flex w-full h-full justify-center">
+      <a routerLink="habitaciones" class="flex w-full h-full justify-center">
         <mat-icon>hotel</mat-icon>
       </a>
     </mat-list-item>
     <mat-list-item>
-      <a routerLink="empleados" class="flex w-full h-full justify-center">
+      <a routerLink="dashboard" class="flex w-full h-full justify-center">
         <mat-icon>calendar_month</mat-icon>
       </a>
     </mat-list-item>
   </mat-nav-list>
+  <!-- Este div se mostrará solo en viewports menores a md -->
+
 </section>
-<nav style="background-color:#01161e;color:#aec3b0;" class="w-full flex items-between" *ngIf="showNavBar()">
-  <div class="flex items-center place-self-center h-12 w-14" style="background-color: white;">
+
+
+<nav
+  class="w-full flex items-between"
+>
+  <div
+    class="flex items-center place-self-center h-12 w-14"
+    style="background-color: white"
+  >
     <a routerLink="empleados" class="flex w-full h-full justify-center">
-      <img src="../../../../assets/source/logo.png" alt="Inicio" class="icon-image w-8 h-8 object-contain place-self-center">
+      <img
+        src="../../../../assets/source/logo.png"
+        alt="Inicio"
+        class="icon-image w-8 h-8 object-contain place-self-center"
+      />
     </a>
   </div>
   <div class="mx-auto place-self-center">
     <div>
-      <span>{{ getCurrentTimeAndDate() }}</span>
+      <app-clock></app-clock>
     </div>
   </div>
-
-    <div class="flex items-center place-self-center">
-      <a routerLink="user-profile" class="mx auto">
+  <div>
+    <div class="place-self-center flex gap-2 mr-1">
+      <button mat-icon-button>
         <mat-icon>account_circle</mat-icon>
+      </button>
+      <button (click)="logOut()" aria-label="Cerrar sesion" class="text-red-500 cursor-pointer"><mat-icon >logout</mat-icon></button>
+    </div>
+  </div>
+  <div class="md:hidden flex justify-center" >
+    <div class="flex">
+      <!-- Botones para navegación -->
+      <a routerLink="tareas" class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1">
+        <mat-icon>task</mat-icon>
+      </a>
+      <a routerLink="empleados" class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1">
+        <mat-icon>person</mat-icon>
+      </a>
+      <a routerLink="habitaciones" class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1">
+        <mat-icon>hotel</mat-icon>
+      </a>
+      <a routerLink="dashboard" class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1">
+        <mat-icon>Home</mat-icon>
       </a>
     </div>
-
+  </div>
 </nav>
-

@@ -1,12 +1,12 @@
-import { Task } from "./task.model";
+import { Room } from './room.model';
 
-export interface PaginationTask {
+export interface PaginationRoom {
   pageSize: string;
   page: number;
   sort: string;
   sortDirection: string;
   pagesQuantity: string;
-  data: Task[];
+  data: Room[];
   filterValue: {};
   totalRows: number;
 }

@@ -9,12 +9,14 @@
 }
 .profile-icons{
     font-size: 24px;
-    color: #B04A4A;
+    color: #1e40af;
     position: relative;
     top:-7px;
 
 }
-
+.color{
+    background: #01161e;
+}
 
 
     /* background-color: #598392;

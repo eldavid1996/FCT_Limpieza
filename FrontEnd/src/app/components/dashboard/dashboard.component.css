@@ -5,12 +5,15 @@ section {
   background-color: #aec3b0;
 }
 
+
+
 .image {
   width: 30%; /* La imagen ocupará todo el ancho de su contenedor */
   height: 30%; /* La imagen ocupará todo el alto del contenedor */
   object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
 
 }
+
 
 
 .image-container {
@@ -45,4 +48,6 @@ h3 {
 .container{
   margin-bottom: 200px;
 }
+
+
 
