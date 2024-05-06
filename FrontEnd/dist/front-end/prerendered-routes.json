@@ -1,0 +1,9 @@
+{
+  "routes": [
+    "/",
+    "/dashboard",
+    "/empleados",
+    "/task",
+    "/user-profile"
+  ]
+}
