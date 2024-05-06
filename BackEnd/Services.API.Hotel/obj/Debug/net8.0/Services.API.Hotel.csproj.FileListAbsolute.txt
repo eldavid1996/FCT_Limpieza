@@ -10,7 +10,6 @@ C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.AssemblyInfo.cs
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.csproj.CoreCompileInputs.cache
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.sourcelink.json
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\staticwebassets\msbuild.Services.API.Hotel.Microsoft.AspNetCore.StaticWebAssets.props

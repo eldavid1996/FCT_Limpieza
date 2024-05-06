@@ -45,7 +45,6 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.roomSubscription?.unsubscribe();
   }
   ngOnInit(): void {
-   
       this.roomService.obtenerRooms(
         this.roomsPorPagina,
         this.pagina,

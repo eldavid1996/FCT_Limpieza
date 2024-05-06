@@ -20,15 +20,14 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-
   loginstatus: boolean = true; // true default for not show error message at start
 
+  // Validators
   constructor(
     private securityService: SecurityService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    // Validators
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required],
@@ -43,13 +42,13 @@ export class LoginComponent implements OnInit {
       }
     }
 
-    // get login status for show error message
+    // suscribe to login status for show error message
     this.securityService.securityChange.subscribe((status: boolean) => {
       this.loginstatus = status;
     });
   }
 
-  // Send user data for login
+  // Button for send user data from the login form
   login(form: FormGroup): void {
     this.securityService.login({
       Email: form.value.email,

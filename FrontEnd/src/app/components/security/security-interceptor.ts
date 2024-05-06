@@ -4,7 +4,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 
-// For Bearer token in the request and have permission in the API
+// For send Bearer token in each request and get permission from the API (must be logged)
 export const SecurityInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
