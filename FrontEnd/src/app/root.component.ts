@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 import { UserTableComponent } from './components/user-table/user-table.component';
+import { TaskBoardComponent } from './components/task-board/task-board.component';
+import { UserDialogNuevoComponent } from './components/modals/user-dialog/add/user-dialog-nuevo.component';
+import { UserDialogDeleteComponent } from './components/modals/user-dialog/delete/user-dialog-delete.component';
+import { UserDialogChangeComponent } from './components/modals/user-dialog/change/user-dialog-change.component';
 
 
 @Component({
@@ -22,6 +26,10 @@ import { UserTableComponent } from './components/user-table/user-table.component
     UserTableComponent,
     UserProfileComponent,
     RoomTableComponent,
+    TaskBoardComponent,
+    UserDialogNuevoComponent,
+    UserDialogDeleteComponent,
+    UserDialogChangeComponent
   ],
   templateUrl: './root.component.html',
   styleUrl: './root.component.css',

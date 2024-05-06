@@ -18,7 +18,7 @@ import { PaginationTask } from '../../models/paginationTask.model';
 })
 
 export class TaskListComponent implements OnInit, OnDestroy, AfterViewInit {
-  [x: string]: any;
+
   @ViewChild(MatSort) ordenamiento?: MatSort | any;
   @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
 
