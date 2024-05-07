@@ -6,7 +6,6 @@ import { Subscription } from "rxjs";
 import { UserService } from "../../../../services/user.service";
 import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 
@@ -15,7 +14,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
   standalone: true,
   templateUrl: 'user-dialog-nuevo.component.html',
   styleUrl: './user-dialog-nuevo.component.css',
-  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule, ToastrModule]
+  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule]
 })
 
 export class UserDialogNuevoComponent implements OnInit, OnDestroy {
@@ -24,6 +23,8 @@ export class UserDialogNuevoComponent implements OnInit, OnDestroy {
   userSubscription: Subscription = new Subscription();
   birthDate: any;
   passwordForm: FormGroup | any;
+  dniForm: FormGroup | any;
+
 
   constructor(private userService: UserService, private dialogRef: MatDialog, private formBuilder: FormBuilder,) { }
 
@@ -41,12 +42,19 @@ export class UserDialogNuevoComponent implements OnInit, OnDestroy {
     this.passwordForm = this.formBuilder.group({
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/)]]
     });
+    this.dniForm = this.formBuilder.group({
+      dni: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$/)]]
+    });
 
   }
 
   get password() {
 
     return this.passwordForm.get('password');
+  }
+  get dni() {
+
+    return this.dniForm.get('dni');
   }
 
 
@@ -66,7 +74,11 @@ export class UserDialogNuevoComponent implements OnInit, OnDestroy {
         city: form.value.city,
         cp: form.value.cp,
         birthDate: form.value.birthDate,
-        username: form.value.username
+        username: form.value.username,
+        urlImage: '',
+        token: '',
+        roleAdmin: false,
+        dni: this.dniForm.value.dni
       };
 
       console.log('Enviando solicitud para guardar usuario:', userRequest);

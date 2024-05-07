@@ -1,64 +1,68 @@
-import { User } from '../models/user.model';
-import { PaginationUser } from '../models/paginationUser.model';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environment/environment';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from "rxjs";
+import { User } from "../models/user.model";
+import { PaginationUser } from "../models/paginationUser.model";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { environment } from "../../environment/environment";
+import { Injectable } from "@angular/core";
+
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root'
 })
 export class UserService {
-  baseUrl = environment.gatewayUrl;
-  userSubject = new Subject();
 
-  userPagination: PaginationUser | undefined;
+  userSubject = new Subject();
+  userPagination: PaginationUser | any;
   userPaginationSubject = new Subject<PaginationUser>();
 
-  constructor(private http: HttpClient) {}
+  baseUrlSecurity = environment.securityUrl;
 
-  obtenerUsuarioPorId(id: string) {
-    return this.http.get<User>(this.baseUrl + 'User' + id);
-  }
+  constructor(private http: HttpClient) { }
 
-  obtenerUsers(
-    librosPorPagina: number,
-    paginaActual: number,
-    sort: string,
-    sortDirection: string,
-    filterValue: any
-  ): void {
-    const request = {
-      pageSize: librosPorPagina,
+  obtenerUsers(usersPorPagina: number, paginaActual: number, sort: string, sortDirection: string, filterValue: any) {
+    const request = {//Objeto que se le envia al server
+      pageSize: usersPorPagina,
       page: paginaActual,
-      sort:"Name",
+      sort,
       sortDirection,
-      filterValue,
+      filterValue
     };
-
-    this.http
-      .post<PaginationUser>(this.baseUrl + 'User/pagination', request)
-      .subscribe((response) => {
-        this.userPagination = response;
-        this.userPaginationSubject.next(this.userPagination);
-      });
-  }
-
-  obtenerActualListener() {
-    return this.userPaginationSubject.asObservable(); // este es el metodo que devuelve los datos
-  }
-
-  guardarUser(user: User) {
-    this.http.post(this.baseUrl + 'Libro', user).subscribe((response) => {
-      this.userSubject.next(response); //y devuelvo la lista actualizada
+    this.http.post<PaginationUser>(this.baseUrlSecurity+'api/UserService/pagination', request).subscribe((data) => {
+      this.userPagination = data;
+      this.userPaginationSubject.next(this.userPagination);
     });
   }
+  obtenerUsuarioPorId(id: string) {
+    return this.http.get<User>(this.baseUrlSecurity + 'api/UserService/' + id);
+  }
+  obtenerActualListener() {
+    return this.userPaginationSubject.asObservable();
+  }
 
-  guardarLibroListener() {
+
+  guardarUser(user: User) {
+    console.log('Enviando solicitud para guardar usuario:', user);
+    this.http.post(this.baseUrlSecurity+'api/UserService', user).subscribe((data) => {
+      console.log('Respuesta del servidor:', data);
+      this.userSubject.next(user);
+    });
+  }
+  editarUser(user:User){
+    console.log('Enviando solicitud para ediatr usuario:', user);
+    this.http.put(this.baseUrlSecurity+'api/UserService', user).subscribe((data) => {
+      console.log('Respuesta del servidor:', data);
+      this.userSubject.next(user);
+    });
+  }
+  borrarUser(userId: string) {
+    console.log('Enviando solicitud para borrar usuario con ID:', userId);
+    return this.http.delete(this.baseUrlSecurity + 'api/UserService/' + userId);
+  }
+  editarUserListener() {
     return this.userSubject.asObservable();
   }
 
-  eliminarUser(id: string){
-    this.http.delete(this.baseUrl + 'api/userservice/' + id);
+  guardarUserListener() {
+    return this.userSubject.asObservable();
   }
 }

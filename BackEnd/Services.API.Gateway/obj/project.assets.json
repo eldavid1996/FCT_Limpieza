@@ -818,19 +818,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\josve\\.nuget\\packages\\": {}
+    "C:\\Users\\esteban.dominguez\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "projectUniqueName": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
       "projectName": "Services.API.Gateway",
-      "projectPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
-      "packagesPath": "C:\\Users\\josve\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
+      "projectPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "packagesPath": "C:\\Users\\esteban.dominguez\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\josve\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\esteban.dominguez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -889,7 +894,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

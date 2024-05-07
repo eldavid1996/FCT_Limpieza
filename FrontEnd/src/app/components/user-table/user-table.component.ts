@@ -8,6 +8,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
 import { Router } from '@angular/router';
+import { UserDialogNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserDialogDeleteComponent } from '../modals/user-dialog/delete/user-dialog-delete.component';
 
 @Component({
   selector: 'app-user-table',
@@ -32,7 +35,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
   displayedColumns = ['id', 'name', 'email', 'phoneNumber', 'actions'];//Cambiar id por dni o ciudad
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private userService: UserService,private router: Router) {}
+  constructor(private userService: UserService,private router: Router, private dialog:MatDialog) {}
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
   }
@@ -76,7 +79,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.sort,
       this.sortDirection,
       this.filterValue
-    ); 
+    );
   }
 
   ordenarColumna(event: Sort): void {
@@ -96,10 +99,28 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   eliminarEmpleado(id: string): void {
-   this.userService.eliminarUser(id);
+   this.userService.borrarUser(id);
   }
 
   redirectTo(route:string){
     this.router.navigate([route]);
+  }
+  abrirDialog() {
+    const dialogRef = this.dialog.open(UserDialogNuevoComponent, {
+
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+
+    });
+  }
+  abrirDialogBorrar() {
+    const dialogRef = this.dialog.open(UserDialogDeleteComponent, {
+
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+
+    });
   }
 }

@@ -80,6 +80,24 @@
           </mat-error>
         </mat-form-field>
       </div>
+      <div class="mb-4" [formGroup]="dniForm">
+        <mat-form-field>
+          <mat-label>DNI</mat-label>
+          <input matInput type="text" formControlName="dni" />
+          <mat-error>
+            <div
+              *ngIf="dni.invalid && (dni.dirty || dni.touched)"
+            >
+              <div *ngIf="dni.errors?.required">
+                El DNI es obligatorio.
+              </div>
+              <div *ngIf="dni.errors?.pattern">
+                El DNI no está bien formado
+              </div>
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
 
       <!-- Campo de teléfono -->
       <div class="mb-4">
