@@ -1,12 +1,13 @@
+import { PaginationFilter } from "./paginationFilter.model";
 import { Task } from "./task.model";
 
 export interface PaginationTask {
-  pageSize: string;
+  pageSize: number;
   page: number;
   sort: string;
   sortDirection: string;
-  pagesQuantity: string;
+  pagesQuantity: number;
   data: Task[];
-  filterValue: {};
+  filter: PaginationFilter;
   totalRows: number;
 }

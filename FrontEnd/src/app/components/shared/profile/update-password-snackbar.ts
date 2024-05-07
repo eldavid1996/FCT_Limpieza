@@ -1,5 +1,5 @@
 import { Component, Inject, inject } from '@angular/core';
-import { MaterialModule } from '../user-table/material.module';
+import { MaterialModule } from '../../../material.module';
 import {
   MAT_SNACK_BAR_DATA,
   MatSnackBarRef,

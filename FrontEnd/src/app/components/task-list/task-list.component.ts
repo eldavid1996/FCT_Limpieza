@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MaterialModule } from '../user-table/material.module';
+import { MaterialModule } from '../../material.module';
 import { TaskService } from '../../services/task.service';
 import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';

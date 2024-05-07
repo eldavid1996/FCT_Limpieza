@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.model';
+import { User } from '../../../models/user.model';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../user-table/material.module';
-import { SecurityService } from '../../services/security.service';
+import { MaterialModule } from '../../../material.module';
+import { SecurityService } from '../../../services/security.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdatePasswordModal } from './update-password-modal';
 

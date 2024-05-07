@@ -20,6 +20,7 @@ import {
   MatSnackBarActions,
   MatSnackBarLabel,
 } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import {
     MatSnackBarAction,
     MatSnackBarActions,
     MatSnackBarLabel,
+    MatRadioModule,
   ],
   exports: [
     MatButtonModule,
@@ -60,6 +62,7 @@ import {
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
   ],
 })
 export class MaterialModule {}

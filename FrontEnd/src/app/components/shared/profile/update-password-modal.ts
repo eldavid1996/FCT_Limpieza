@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MaterialModule } from '../user-table/material.module';
+import { MaterialModule } from '../../../material.module';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { passwordValidator } from './update-password-validators';
-import { SecurityService } from '../../services/security.service';
+import { SecurityService } from '../../../services/security.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdatePasswordSnackbar } from './update-password-snackbar';

@@ -2,7 +2,7 @@ import { Component, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from '../../material.module';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
@@ -76,7 +76,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.sort,
       this.sortDirection,
       this.filterValue
-    ); 
+    );
   }
 
   ordenarColumna(event: Sort): void {

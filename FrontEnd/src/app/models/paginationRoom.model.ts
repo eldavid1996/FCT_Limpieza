@@ -1,12 +1,13 @@
+import { PaginationFilter } from './paginationFilter.model';
 import { Room } from './room.model';
 
 export interface PaginationRoom {
-  pageSize: string;
+  pageSize: number;
   page: number;
   sort: string;
   sortDirection: string;
-  pagesQuantity: string;
+  pagesQuantity: number;
   data: Room[];
-  filterValue: {};
+  filter: PaginationFilter;
   totalRows: number;
 }

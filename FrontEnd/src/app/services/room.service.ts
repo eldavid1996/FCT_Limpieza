@@ -3,49 +3,34 @@ import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaginationRoom } from '../models/paginationRoom.model';
-import { Room } from '../models/room.model';
+import { Pagination } from '../models/Pagination.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
   baseUrl = environment.gatewayUrl;
-  userSubject = new Subject<any>();
-  roomPagination: PaginationRoom | undefined;
-  roomPaginationSubject = new Subject<PaginationRoom>();
 
-  private roomList: Room[] = [];
+  // Returned pagination model from request
+  roomPagination: PaginationRoom | undefined;
+
+  // Observable for send the room request data to components
+  roomPaginationSubject = new Subject<PaginationRoom>();
 
   constructor(private http: HttpClient) {}
 
-  obtenerRooms(
-    roomsPorPagina: number,
-    paginaActual: number,
-    sort: string,
-    sortDirection: string,
-    filterValue: any
-  ): void {
-    const request = {
-      pageSize: roomsPorPagina,
-      page: paginaActual,
-      sort,
-      sortDirection,
-      filterValue,
-    };
-
+  // Search rooms with filters
+  searchRooms(paginationRequest: Pagination): void {
     this.http
-      .post<PaginationRoom>(this.baseUrl + 'Room/pagination', request)
+      .post<PaginationRoom>(this.baseUrl + 'Room/pagination', paginationRequest)
       .subscribe((response) => {
         this.roomPagination = response;
         this.roomPaginationSubject.next(this.roomPagination);
       });
   }
 
-  obtenerActualListener(): Observable<PaginationRoom> {
+  // Get an observable with the rooms
+  getRooms(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();
-  }
-
-  getRooms(): Room[] {
-    return this.roomList;
   }
 }

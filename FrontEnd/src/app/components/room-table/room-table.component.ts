@@ -8,12 +8,13 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
-import { MaterialModule } from '../user-table/material.module';
+import { MaterialModule } from '../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { Room } from '../../models/room.model';
-import { Router } from '@angular/router';
 import { PaginationRoom } from '../../models/paginationRoom.model';
 import { RoomService } from '../../services/room.service';
+import { Pagination } from '../../models/Pagination.model';
+import { PaginationFilter } from '../../models/paginationFilter.model';
 
 @Component({
   selector: 'app-room-table',
@@ -23,100 +24,105 @@ import { RoomService } from '../../services/room.service';
   styleUrl: './room-table.component.css',
 })
 export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(MatSort) ordenamiento?: MatSort | any;
-  @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
+  @ViewChild(MatSort) ordering?: MatSort | any;
+  @ViewChild(MatPaginator) pagination?: MatPaginator | any;
+
   private roomSubscription: Subscription | undefined;
 
-  timeout: any = null;
-  totalRooms = 0;
-  roomsPorPagina = 5;
-  paginaCombo = [1, 3, 5, 8];
-  pagina = 1;
-  sort = 'name';
-  sortDirection = 'asc';
-  filterValue: any = null;
-  displayedColumns = ['RoomNumber', 'Floor', 'Type', 'Status', 'actions']; //Cambiar id por dni o ciudad
+  searchRadioButtonValue = 'RoomNumber';
+
   dataSource = new MatTableDataSource<Room>();
+  totalRooms = 0;
+  comboPages = [1, 3, 5, 8];
+  displayedColumns = ['RoomNumber', 'Floor', 'Type', 'Status', 'actions'];
 
-  constructor(private roomService: RoomService, private router: Router) {}
+  timeout: any = null;
 
-  
+  // Filter for search by column
+  paginationFilter: PaginationFilter = {
+    property: 'RoomNumber',
+    value: '',
+  };
+  // Request for get rooms paginated with the filter (default null)
+  paginationRequest: Pagination = {
+    pageSize: 5,
+    page: 1,
+    sort: 'name',
+    sortDirection: 'asc',
+    filter: this.paginationFilter,
+  };
+
+  constructor(private roomService: RoomService) {}
+
   ngOnDestroy(): void {
     this.roomSubscription?.unsubscribe();
   }
+
   ngOnInit(): void {
-      this.roomService.obtenerRooms(
-        this.roomsPorPagina,
-        this.pagina,
-        this.sort,
-        this.sortDirection,
-        this.filterValue
-      );
-      this.roomSubscription = this.roomService
-        .obtenerActualListener()
-        .subscribe((pagination: PaginationRoom) => {
-          this.dataSource = new MatTableDataSource<Room>(pagination.data);
-          this.totalRooms = pagination.totalRows;
-        });
-    }
-  
+    this.roomService.searchRooms(this.paginationRequest);
+    this.roomSubscription = this.roomService
+      .getRooms()
+      .subscribe((pagination: PaginationRoom) => {
+        this.dataSource = new MatTableDataSource<Room>(pagination.data);
+        this.totalRooms = pagination.totalRows;
+      });
+  }
 
-  // hacerFiltro(event: any): void {
-  //   clearTimeout(this.timeout);
-  //   const $this = this;
-  //   //Este metodo hace que  el request se envie cuando llevemos un segundo sin escribir y va a buscar titulos
-  //   this.timeout = setTimeout( ()  => {
+  // Event from radio buttons for change column filter search
+  onRadioButtonChange(event: any) {
+    this.searchRadioButtonValue = event.value;
 
-  //     if (event.keyCode != 13) {
-  //       const filterValueLocal = {
-  //         propiedad: 'name',
-  //         valor: event.target.value,
-  //       };
+    var updatedPaginationFilter: PaginationFilter = {
+      property: this.searchRadioButtonValue,
+      value: this.paginationFilter.value,
+    };
+    this.paginationRequest.filter = updatedPaginationFilter;
 
-  //       $this.filterValue = filterValueLocal;
-  //       $this.roomService.obtenerRooms($this.roomsPorPagina, $this.pagina, $this.sort, $this.sortDirection, filterValueLocal);
-  //     }
-  //   }, 1000)
-  // }
+    this.roomService.searchRooms(this.paginationRequest);
+  }
+
+  // Event from search input for search by column and value
+  roomFilter(event: any): void {
+    clearTimeout(this.timeout);
+    const $this = this;
+
+    this.timeout = setTimeout(() => {
+      if (event.keyCode != 13) {
+        $this.paginationFilter = {
+          property: this.searchRadioButtonValue,
+          value: event.target.value,
+        };
+        this.paginationRequest.filter = $this.paginationFilter;
+        $this.roomService.searchRooms(this.paginationRequest);
+      }
+    }, 500);
+  }
+
+  // For pagination and ordering (first charge)
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.ordenamiento;
-    this.dataSource.paginator = this.paginacion;
+    this.dataSource.sort = this.ordering;
+    this.dataSource.paginator = this.pagination;
   }
 
-  // evento paginador
-  eventoPaginador(event: PageEvent): void {
-    this.roomsPorPagina = event.pageSize;
-    this.pagina = event.pageIndex + 1;
-    this.roomService.obtenerRooms(
-      this.roomsPorPagina,
-      this.pagina,
-      this.sort,
-      this.sortDirection,
-      this.filterValue
-    );
+  // For pagination and ordering (bot options)
+  eventPager(event: PageEvent): void {
+    this.paginationRequest.pageSize = event.pageSize;
+    this.paginationRequest.page = event.pageIndex + 1;
+    this.roomService.searchRooms(this.paginationRequest);
   }
 
-  ordenarColumna(event: Sort): void {
-    this.sort = event.active;
-    this.sortDirection = event.direction;
-    this.roomService.obtenerRooms(
-      this.roomsPorPagina,
-      this.pagina,
-      event.active,
-      event.direction,
-      this.filterValue
-    );
+  // For pagination and ordering (column options)
+  orderColumns(event: Sort): void {
+    this.paginationRequest.sort = event.active;
+    this.paginationRequest.sortDirection = event.direction;
+    this.roomService.searchRooms(this.paginationRequest);
   }
 
-  editarRoom(room: Room): void {
+  updateRoom(room: Room): void {
     console.log(room);
   }
 
-  eliminarRoom(id: string): void {
+  deleteRoom(id: string): void {
     console.log(id);
-  }
-
-  redirectTo(route: string) {
-    this.router.navigate([route]);
   }
 }

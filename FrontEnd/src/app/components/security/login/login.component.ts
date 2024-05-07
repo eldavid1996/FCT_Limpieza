@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MaterialModule } from '../../user-table/material.module';
+import { MaterialModule } from '../../../material.module';
 import { SecurityService } from '../../../services/security.service';
 import { Router } from '@angular/router';
 
