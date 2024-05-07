@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { RoomService } from '../../../../services/room.service';
 import { Room } from '../../../../models/room.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RoomSnackbarComponent } from './room-snackbar.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-room-dialog-nuevo',
@@ -55,6 +57,7 @@ export class RoomDialogNuevoComponent implements OnInit, OnDestroy {
       console.log('Formulario válido:', this.roomForm.value);
 
       const roomData: Room = {
+        id:'',
         roomNumber: this.roomForm.value.roomNumber,
         floor: this.roomForm.value.floor,
         type: this.roomForm.value.type,
@@ -70,21 +73,23 @@ export class RoomDialogNuevoComponent implements OnInit, OnDestroy {
           console.log('Habitación guardada exitosamente.');
         },
         (error) => {
-          this.openSnackBar('Error al actualizar la contraseña');
-        console.error('Error al actualizar la contraseña:', error);
+          if (error instanceof HttpErrorResponse && error.status === 400) {
+            this.openSnackBar('Error al guardar la habitación');
+          }
+          console.error('Error al guardar la habitación:', error);
         }
       );
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
     }
   }
-    // Snackbar with the update password action result from the API
-    openSnackBar(message: string) {
-      this._snackBar.openFromComponent(UpdatePasswordSnackbar, {
-        duration: this.snackbarDuration * 1000,
-        data: message,
-      });
-    }
+
+  // Snackbar for displaying error message
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: this.snackbarDuration * 1000
+    });
+  }
 
 
   cerrarDialog() {

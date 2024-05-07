@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../user-table/material.module';
 import { TaskService } from '../../services/task.service';
 import { Subscription } from 'rxjs';
@@ -7,18 +7,18 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Task } from '../../models/task.model';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskDialogNuevoComponent } from '../modals/task-dialog/add/task-dialog-nuevo.component';
 import { PaginationTask } from '../../models/paginationTask.model';
+import { TaskDialogNuevoComponent } from '../modals/task-dialog/add/task-dialog-nuevo.component';
 
 @Component({
-  selector: 'app-task-list',
+  selector: 'app-task',
   standalone: true,
   imports: [MaterialModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy, AfterViewInit {
   [x: string]: any;
   @ViewChild(MatSort) ordenamiento?: MatSort | any;
   @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
@@ -26,32 +26,31 @@ export class TaskListComponent implements OnInit {
   private taskSubscription: Subscription | undefined;
 
   totalTasks = 0;
-  tasksPorPagina = 10;
-  paginaCombo = [1, 2, 5, 10, 100];
+  tasksPorPagina = 8;
+  paginaCombo = [1, 3, 5, 8];
   paginaActual = 1;
   sort = 'priority';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id','priority','roomNumber', 'observations', 'actions'];
+  displayedColumns = ['id','type','priority', 'observations', 'actions'];
   dataSource = new MatTableDataSource<Task>();
-  rooms: any[] = [];
 
   constructor(private taskService: TaskService, private dialog:MatDialog) {}
+  ngOnDestroy(): void {
+    this.taskSubscription?.unsubscribe();
+  }
   ngOnInit(): void {
 
     this.taskService.obtenerTask(this.tasksPorPagina, this.paginaActual, this.sort, this.sortDirection, this.filterValue);
-    this.taskService.obtenerActualListener().subscribe((pagination: PaginationTask) => {
+   this.taskSubscription = this.taskService.obtenerActualListener().subscribe((pagination: PaginationTask) => {
       this.dataSource.data = pagination.data;
       this.totalTasks = pagination.totalRows;
    });
   }
-  getRoomNumber(roomId: string): string {
-    // Buscar la habitación correspondiente al roomId en la lista de habitaciones
-    const room = this.rooms.find(room => room.id === roomId);
-    // Si se encuentra la habitación, devolver su roomNumber; de lo contrario, devolver 'N/A'
-    return room ? room.roomNumber : 'N/A';
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.ordenamiento;
+    this.dataSource.paginator = this.paginacion;
   }
-
   abrirDialog() {
     const dialogRef = this.dialog.open(TaskDialogNuevoComponent, {
 
@@ -61,6 +60,8 @@ export class TaskListComponent implements OnInit {
 
     });
   }
+
+
 
   eventoPaginador(event: PageEvent): void {
     this.tasksPorPagina = event.pageSize;

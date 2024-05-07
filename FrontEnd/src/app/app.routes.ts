@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RoomTableComponent } from './components/room-table/room-table.component';
 import { SecurityRouter } from './components/seguridad/security.router';
 import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskBoardComponent } from './components/task-board/task-board.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,6 +33,11 @@ export const routes: Routes = [
   {
     path: 'tareas',
     component: TaskListComponent,
+    canActivate: [SecurityRouter],
+  },
+  {
+    path: 'tareasuser',
+    component: TaskBoardComponent,
     canActivate: [SecurityRouter],
   },
   { path: '**', redirectTo: '' },

@@ -50,11 +50,25 @@ export class RoomService {
   }
   guardarRoom(room: Room) {
     console.log('Enviando solicitud para guardar tarea:', room);
-    this.http.post(this.baseUrl + 'room', room).subscribe((data) => {
+    this.http.post(this.baseUrl + 'Room', room).subscribe((data) => {
       console.log('Respuesta del servidor:', data);
       this.roomSubject.next(room);
 
     });
+  }
+  editarRoom(room:Room){
+    console.log('Enviando solicitud para ediatr hab:', room);
+    this.http.put(this.baseUrl +'Room/' + room.id,room).subscribe((data) => {
+      console.log('Respuesta del servidor:', data);
+      this.roomSubject.next(room);
+    });
+  }
+  editarRoomListener() {
+    return this.roomSubject.asObservable();
+  }
+  eliminarRoom(roomId: string) {
+    console.log('Enviando solicitud para borrar usuario con id:', roomId);
+    return this.http.delete(this.baseUrl + 'Room/' + roomId);
   }
   guardarRoomListener() {
     return this.roomSubject.asObservable();  }

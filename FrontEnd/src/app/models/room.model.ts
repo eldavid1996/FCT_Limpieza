@@ -1,5 +1,6 @@
 export interface Room{
-    roomNumbe: string;
+  id:string;
+    roomNumber: string;
     floor: string;
     type:string;
     status:string;

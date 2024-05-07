@@ -6,12 +6,12 @@ import {
 import { MaterialModule } from '../../../user-table/material.module';
 
 @Component({
-  selector: 'snack-bar-annotated-component-example',
+  selector: 'room-snackbar',
   templateUrl: 'room-snackbar.component.html',
   standalone: true,
   imports: [MaterialModule],
 })
-export class UpdatePasswordSnackbar {
+export class RoomSnackbarComponent {
   snackBarRef = inject(MatSnackBarRef);
   // Set snackbar message in the constructor from data field
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {}

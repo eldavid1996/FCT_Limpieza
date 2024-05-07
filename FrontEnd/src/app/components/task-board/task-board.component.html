@@ -1,0 +1,28 @@
+<div class="flex flex-col gap-3 items-center justify-between w-full pt-8 px-2 md:px-20">
+  <a
+    *ngFor="let task of dataSource"
+    href="#"
+    class="h-40 flex items-center bg-white border-4 border-green-600 rounded-lg shadow w-full hover:bg-gray-100 dark:border-green-700 dark:bg-gray-800 dark:hover:bg-gray-700 "
+    [class.green]="this.task.status != 'por hacer'"
+    [class.orange]="this.task.status == 'por hacer'"
+  >
+    <div class="flex justify-between p-4 w-full">
+      <div>
+        <p class="text-green-800 dark:text-green-800">
+          Habitación:
+          <strong class="text-3xl"> {{ task.room.roomNumber }}</strong>
+        </p>
+      </div>
+      <div>
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-green-800 dark:text-green-800"
+        >
+          {{ task.observations }}
+        </h5>
+        <p class="mb-3 font-normal text-green-800 dark:text-green-800">
+          {{ task.priority }}
+        </p>
+      </div>
+    </div>
+  </a>
+</div>
