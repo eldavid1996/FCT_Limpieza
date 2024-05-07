@@ -3,9 +3,9 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm, FormBuilder, Validators, AbstractControl, ValidatorFn, FormGroup, FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
-import { UserService } from "../../../../services/user.service";
-import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+import { UserService } from "../../../../../services/user.service";
+import { MaterialModule } from "../../../../../material.module";
 
 
 

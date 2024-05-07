@@ -1,36 +1,34 @@
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm, FormBuilder, Validators, AbstractControl, ValidatorFn, FormGroup, FormControl } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
-import { UserService } from "../../../../services/user.service";
-import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+import { UserService } from "../../../../../services/user.service";
+import { MaterialModule } from "../../../../../material.module";
 
 
 
 @Component({
-  selector: 'app-user-dialog-change',
+  selector: 'app-insert-room-modal',
   standalone: true,
-  templateUrl: 'user-dialog-change.component.html',
-  styleUrl: './user-dialog-change.component.css',
+  templateUrl: 'insertRoomModal.component.html',
+  styleUrl: './insertRoomModal.component.css',
   imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule]
 })
 
-export class UserDialogChangeComponent implements OnInit, OnDestroy {
+export class InsertRoomModalComponent implements OnInit, OnDestroy {
+
   userForm: FormGroup | any;
   userSubscription: Subscription = new Subscription();
   birthDate: any;
   passwordForm: FormGroup | any;
-  dniForm : FormGroup | any;
-  editedUser: any;
+  dniForm: FormGroup | any;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private userService: UserService, private dialogRef: MatDialog, private formBuilder: FormBuilder,) {}
+  constructor(private userService: UserService, private dialogRef: MatDialog, private formBuilder: FormBuilder,) { }
 
   ngOnInit() {
-    this.editedUser = { ...this.data.user };
-
     this.userForm = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -39,51 +37,61 @@ export class UserDialogChangeComponent implements OnInit, OnDestroy {
       city: ['', Validators.required],
       pc: ['', Validators.required],
       birthDate: ['', Validators.required],
-      username: ['', Validators.required],
-
+      username: ['', Validators.required]
+    });
+    this.passwordForm = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/)]]
     });
     this.dniForm = this.formBuilder.group({
-      dni: ['', [Validators.required, Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/)]]
+      dni: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke]$/)]]
     });
 
-
   }
 
-  get dni() {
-    return this.dniForm.get('dni');
-  }
   get password() {
+
     return this.passwordForm.get('password');
   }
-  editarUser(form: NgForm) {
+  get dni() {
+
+    return this.dniForm.get('dni');
+  }
+
+
+  guardarUser(form: NgForm) {
+    console.log('Add User button clicked'); // Log agregado
+
     if (form.valid) {
+      console.log('Formulario válido:', form.value);
+
       const userRequest = {
-        id: this.editedUser.id, // Utiliza el ID del usuario seleccionado
+        id: '',
         name: form.value.name,
         surname: form.value.surname,
         email: form.value.email,
+        password: this.passwordForm.value.password,
         phoneNumber: form.value.phoneNumber,
         city: form.value.city,
         cp: form.value.cp,
         birthDate: form.value.birthDate,
         username: form.value.username,
-        roleAdmin: false,
-        token: '',
         urlImage: '',
+        token: '',
+        roleAdmin: false,
         dni: this.dniForm.value.dni
       };
 
-      console.log('Enviando solicitud para editar usuario:', userRequest);
-      this.userService.editarUser(userRequest);
+      console.log('Enviando solicitud para guardar usuario:', userRequest);
+      this.userService.guardarUser(userRequest);
 
-      this.userSubscription = this.userService.editarUserListener().subscribe(
+      this.userSubscription = this.userService.guardarUserListener().subscribe(
         () => {
           this.dialogRef.closeAll();
-          console.log('Usuario editado exitosamente.');
+          console.log('Usuario guardado exitosamente.');
           //this.toastr.success('Usuario añadido correctamente', 'Éxito');
         },
         error => {
-          console.error('Error al editar el usuario:', error);
+          console.error('Error al guardar el usuario:', error);
           this.dialogRef.closeAll();
         }
       );
@@ -91,11 +99,12 @@ export class UserDialogChangeComponent implements OnInit, OnDestroy {
       console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
     }
   }
-  cerrarEditar() {
+
+  cerrarDialog() {
     this.dialogRef.closeAll();
   }
+
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
-
 }

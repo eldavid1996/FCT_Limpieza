@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { UserTableComponent } from './components/user-table/user-table.component';
+import { UserTableComponent } from './components/admin/user/user.component';
 import { LoginComponent } from './components/security/login/login.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
-import { RoomTableComponent } from './components/room-table/room-table.component';
+import { RoomTableComponent } from './components/admin/room/room.component';
 import {
   SecurityRolesRouter,
   SecurityRouter,
 } from './components/security/security.router';
-import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskListComponent } from './components/admin/task/task.component';
 import { ProfileComponent } from './components/shared/profile/profile.component';
 
 export const routes: Routes = [

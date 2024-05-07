@@ -8,20 +8,24 @@ import {
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
-import { MaterialModule } from '../../material.module';
+import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { Room } from '../../models/room.model';
-import { PaginationRoom } from '../../models/paginationRoom.model';
-import { RoomService } from '../../services/room.service';
-import { Pagination } from '../../models/Pagination.model';
-import { PaginationFilter } from '../../models/paginationFilter.model';
+import { Room } from '../../../models/room.model';
+import { PaginationRoom } from '../../../models/paginationRoom.model';
+import { RoomService } from '../../../services/room.service';
+import { Pagination } from '../../../models/Pagination.model';
+import { PaginationFilter } from '../../../models/paginationFilter.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteRoomModalComponent } from './modals/delete/deleteRoomModal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { InsertRoomModalComponent } from './modals/insert/insertRoomModal.component';
 
 @Component({
   selector: 'app-room-table',
   standalone: true,
   imports: [MaterialModule],
-  templateUrl: './room-table.component.html',
-  styleUrl: './room-table.component.css',
+  templateUrl: './room.component.html',
+  styleUrl: './room.component.css',
 })
 export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
@@ -52,7 +56,11 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     filter: this.paginationFilter,
   };
 
-  constructor(private roomService: RoomService) {}
+  constructor(
+    private roomService: RoomService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnDestroy(): void {
     this.roomSubscription?.unsubscribe();
@@ -118,11 +126,35 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.roomService.searchRooms(this.paginationRequest);
   }
 
-  updateRoom(room: Room): void {
-    console.log(room);
+  // Open a modal for watch or update room data
+  insertRoom(): void {
+    const dialogRef = this.dialog.open(InsertRoomModalComponent, {
+      width: '250px',
+    });
   }
 
-  deleteRoom(id: string): void {
+  // Open a modal for watch or update room data
+  updateRoom(id: string): void {
     console.log(id);
+  }
+
+  // Open the modal with a confirmation to delete room
+  deleteRoom(id: string): void {
+    const dialogRef = this.dialog.open(DeleteRoomModalComponent, {
+      width: '250px',
+      data: { roomID: id },
+    });
+
+    // If modal was closed with a 'confirm' status delete the room
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        this.roomService.deleteRoom(id).subscribe((response) => {
+          // And show a snackbar with the request result
+          this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+          // Then, get updated list rooms
+          this.roomService.searchRooms(this.paginationRequest);
+        });
+      }
+    });
   }
 }

@@ -1,11 +1,10 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
-import { UserService } from "../../../../services/user.service";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MaterialModule } from "../../../user-table/material.module";
-import { User } from "../../../../models/user.model";
+import { MaterialModule } from "../../../../../material.module";
+import { UserService } from "../../../../../services/user.service";
 
 @Component({
   selector: 'app-user-dialog-delete',
@@ -24,7 +23,7 @@ export class UserDialogDeleteComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    
+
   }
 
   confirmDelete() {

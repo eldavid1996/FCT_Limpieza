@@ -48,18 +48,18 @@
             <td mat-cell *matCellDef="let element">{{ element.status }}</td>
           </ng-container>
         </div>
-        <!-- Icons Column -->
+        <!-- Options Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let element">
             <button
               mat-icon-button
               color="primary"
-              (click)="updateRoom(element)"
+              (click)="updateRoom(element.id)"
             >
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn">
+            <button mat-icon-button color="warn" (click)="deleteRoom(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -79,7 +79,7 @@
     </div>
     <div class="px-6 pt-4 pb-2 grid">
       <div class="place-self-end">
-        <button class="boton-nuevo" mat-flat-button>
+        <button class="boton-nuevo" mat-flat-button (click)="insertRoom()">
           Añadir room<mat-icon>person</mat-icon>
         </button>
       </div>

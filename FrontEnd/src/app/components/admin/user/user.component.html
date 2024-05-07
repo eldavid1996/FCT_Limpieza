@@ -33,7 +33,7 @@
       (matSortChange)="ordenarColumna($event)"
       class="table w-full"
       style="border-collapse: collapse;"
-      
+
       >
         <!-- Id Column -->
         <ng-container matColumnDef="id" class="hover:bg-gray-700">
@@ -74,7 +74,7 @@
             <button
               mat-icon-button
               color="warn"
-              (click)="eliminarEmpleado(element.id)"
+              (click)="abrirDialogBorrar(element.id)"
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -95,7 +95,7 @@
     </div>
     <div class="px-6 pt-4 pb-2 grid">
       <div class="place-self-end">
-        <button class="boton-nuevo" mat-flat-button>
+        <button class="boton-nuevo" mat-flat-button (click)="abrirDialog()">
           Añadir Empleado<mat-icon>person</mat-icon>
         </button>
       </div>

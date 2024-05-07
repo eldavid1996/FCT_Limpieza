@@ -1,20 +1,20 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MaterialModule } from '../../material.module';
-import { TaskService } from '../../services/task.service';
+import { MaterialModule } from '../../../material.module';
+import { TaskService } from '../../../services/task.service';
 import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Task } from '../../models/task.model';
+import { Task } from '../../../models/task.model';
 import { MatDialog } from '@angular/material/dialog';
-import { PaginationTask } from '../../models/paginationTask.model';
+import { PaginationTask } from '../../../models/paginationTask.model';
 
 @Component({
   selector: 'app-task',
   standalone: true,
   imports: [MaterialModule],
-  templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.css'
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
 })
 
 export class TaskListComponent implements OnInit, OnDestroy, AfterViewInit {

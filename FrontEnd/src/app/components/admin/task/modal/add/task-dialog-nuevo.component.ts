@@ -4,9 +4,9 @@ import { FormsModule, NgForm, FormBuilder, Validators, AbstractControl, Validato
 import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 import { TaskService,  } from "../../../../services/task.service";
-import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
 import { Task } from "../../../../models/task.model";
+import { MaterialModule } from "../../../../material.module";
 
 
 @Component({
@@ -37,10 +37,10 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       roomId: ['', Validators.required],
       priority: ['', Validators.required]
     });
-    this.loadUsers();
-    this.loadRooms();
+/*     this.loadUsers();
+    this.loadRooms(); */
   }
-  loadUsers() {
+/*   loadUsers() {
     this.taskService.getUsers().subscribe(
       users => {
         this.users = users;
@@ -50,8 +50,8 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-  loadRooms(){
+ */
+/*   loadRooms(){
     this.taskService.getRooms().subscribe(
       rooms => {
         this.rooms = rooms;
@@ -60,8 +60,8 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
         console.error('Error al cargar habitaciones:', error);
       }
     );
-  }
-  guardarTarea(form: NgForm) {
+  } */
+/*   guardarTarea(form: NgForm) {
     console.log('Add Task button clicked'); // Log agregado
 
     if (form.valid) {
@@ -111,7 +111,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
     }
-  }
+  } */
 
 
 

@@ -33,4 +33,11 @@ export class RoomService {
   getRooms(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();
   }
+
+  // Delete room by id
+  deleteRoom(id: string) {
+    return this.http.delete(this.baseUrl + 'Room/' + id, {
+      responseType: 'text',
+    });
+  }
 }

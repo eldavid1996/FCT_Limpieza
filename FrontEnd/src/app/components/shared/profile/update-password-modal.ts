@@ -11,7 +11,6 @@ import { passwordValidator } from './update-password-validators';
 import { SecurityService } from '../../../services/security.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UpdatePasswordSnackbar } from './update-password-snackbar';
 import { passwordMatchValidator } from './update-password-confirmation-validator';
 
 @Component({
@@ -59,10 +58,7 @@ export class UpdatePasswordModal {
 
   // Snackbar with the update password action result from the API
   openSnackBar(message: string) {
-    this._snackBar.openFromComponent(UpdatePasswordSnackbar, {
-      duration: this.snackbarDuration * 1000,
-      data: message,
-    });
+    this._snackBar.open(message, 'Cerrar', { duration: 3000 });
   }
 
   // Observer for synchronize newPassword and repeatNewPassword in both inputs
