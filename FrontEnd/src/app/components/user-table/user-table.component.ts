@@ -8,9 +8,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../models/paginationUser.model';
 import { Router } from '@angular/router';
-import { UserDialogNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserDialogNuevoComponent } from '../modals/user-dialog/add/user-dialog-nuevo.component';
 import { UserDialogDeleteComponent } from '../modals/user-dialog/delete/user-dialog-delete.component';
+import { UserDialogChangeComponent } from '../modals/user-dialog/change/user-dialog-change.component';
 
 @Component({
   selector: 'app-user-table',
@@ -29,13 +30,13 @@ export class UserTableComponent implements OnInit, OnDestroy {
   usersPorPagina = 5;
   paginaCombo = [1, 3, 5, 8];
   pagina = 1;
-  sort = 'name';
+  sort = 'Name';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id', 'name', 'email', 'phoneNumber', 'actions'];//Cambiar id por dni o ciudad
+  displayedColumns = ['id', 'name', 'email', 'phoneNumber','actions'];//Cambiar id por dni o ciudad
   dataSource = new MatTableDataSource<User>();
 
-  constructor(private userService: UserService,private router: Router, private dialog:MatDialog) {}
+  constructor(private userService: UserService,private router: Router, private dialog: MatDialog) {}
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
   }
@@ -79,7 +80,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.sort,
       this.sortDirection,
       this.filterValue
-    );
+    ); 
   }
 
   ordenarColumna(event: Sort): void {
@@ -93,34 +94,42 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.filterValue
     );
   }
+  abrirDialog() {
+    const dialogRef = this.dialog.open(UserDialogNuevoComponent, {
+ 
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+ 
+    });
+  }
+  abrirDialogBorrar(user: User) {
+    const dialogRef = this.dialog.open(UserDialogDeleteComponent, {
+      data:{user}
+ 
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+    });
+  }
+
+  abrirDialogEditar(user:User){
+    const dialogRef = this.dialog.open(UserDialogChangeComponent, {
+      data:{user}
+ 
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+    });
+  }
 
   editarEmpleado(empleado: User):void {
-    console.log(empleado);
+    this.userService.editarUser(empleado.id);
   }
 
-  eliminarEmpleado(id: string): void {
-   this.userService.borrarUser(id);
-  }
+
 
   redirectTo(route:string){
     this.router.navigate([route]);
-  }
-  abrirDialog() {
-    const dialogRef = this.dialog.open(UserDialogNuevoComponent, {
-
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
-
-    });
-  }
-  abrirDialogBorrar() {
-    const dialogRef = this.dialog.open(UserDialogDeleteComponent, {
-
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
-
-    });
   }
 }

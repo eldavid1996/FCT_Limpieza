@@ -1,0 +1,46 @@
+<div mat-dialog-content>
+  <form [formGroup]="roomForm" (ngSubmit)="guardarRoom()">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Campo de prioridad -->
+      <div class="mb-4">
+        <mat-form-field>
+          <mat-label>RoomNumber</mat-label>
+          <input matInput formControlName="roomNumber" required type="text" />
+          <mat-error>RoomNumber son requeridas</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field>
+          <mat-label>Floor</mat-label>
+          <input matInput formControlName="floor" required type="text" />
+          <mat-error>Floor son requeridas</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field>
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="type" [(ngModel)]="defaultType">
+            <mat-option *ngFor="let option of typeOptions" [value]="option.value">{{ option.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field>
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" [(ngModel)]="defaultStatus">
+            <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" (click)="cerrarDialog()">
+        Cancelar
+      </button>
+      <button mat-raised-button color="primary" [disabled]="!roomForm.valid">
+        Agregar Habitación
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,12 +1,20 @@
 <div mat-dialog-content>
-  <form #f="ngForm" (ngSubmit)="guardarTarea(f)">
+  <form [formGroup]="taskForm" (ngSubmit)="guardarTarea()">
     <div class="grid grid-cols-2 gap-4">
       <!-- Campo de prioridad -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Prioridad</mat-label>
-          <mat-select name="priority" ngModel>
+          <mat-select formControlName="priority">
             <mat-option *ngFor="let option of priorityOptions" [value]="option.value">{{ option.label }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="mb-4">
+        <mat-form-field>
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -15,7 +23,7 @@
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Usuario asignado</mat-label>
-          <mat-select name="userId" ngModel>
+          <mat-select formControlName="userId">
             <mat-option *ngFor="let user of users" [value]="user.id">{{ user.name }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -25,7 +33,7 @@
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Habitación asignada</mat-label>
-          <mat-select name="roomId" ngModel>
+          <mat-select formControlName="roomId">
             <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.roomNumber }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -34,20 +42,14 @@
     <div class="mb-4">
       <mat-form-field appearance="fill">
         <mat-label>Observaciones</mat-label>
-        <input
-          id="observations"
-          matInput
-          name="observations"
-          ngModel
-          required
-          type="text"
-        />
-        <mat-error>observations is required</mat-error>
+        <input matInput formControlName="observations" required type="text">
+        <mat-error>Observaciones son requeridas</mat-error>
       </mat-form-field>
     </div>
+
     <div mat-dialog-actions>
       <button mat-raised-button color="primary" (click)="cerrarDialog()">Cancelar</button>
-      <button mat-raised-button color="primary" [disabled]="!f.valid">Agregar Tarea</button>
+      <button mat-raised-button color="primary" [disabled]="!taskForm.valid">Agregar Tarea</button>
     </div>
   </form>
 </div>

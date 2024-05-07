@@ -68,6 +68,9 @@
           <mat-error>CP is required</mat-error>
         </mat-form-field>
       </div>
+      <div class="mb-4">
+        <mat-checkbox [(ngModel)]="data.user.roleAdmin" name="roleAdmin" id="roleAdmin">¿Es admin?</mat-checkbox>
+      </div>
 
       <!-- Campo de nombre de usuario -->
       <div class="mb-4">

@@ -5,6 +5,7 @@ import { UserService } from "../../../../services/user.service";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MaterialModule } from "../../../user-table/material.module";
+import { User } from "../../../../models/user.model";
 
 @Component({
   selector: 'app-user-dialog-delete',
@@ -22,10 +23,13 @@ export class UserDialogDeleteComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialog
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   confirmDelete() {
-    this.userService.borrarUser(this.data.user.id).subscribe(
+    const userId = this.data.user.id;
+    this.userService.eliminarUser(userId).subscribe(
       () => {
         this.dialogRef.closeAll();
         console.log('Usuario eliminado exitosamente.');

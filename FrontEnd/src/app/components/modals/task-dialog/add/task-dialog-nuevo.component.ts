@@ -21,12 +21,17 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
 
   taskForm: FormGroup | any;
   taskSubscription: Subscription = new Subscription();
-  users: any[] = []; // Aquí deberías tener la lista de usuarios obtenida del servidor
-  rooms: any[] = []; // Aquí deberías tener la lista de habitaciones obtenida del servidor
+  users: any[] = [];
+  rooms: any[] = [];
   priorityOptions = [
     { label: 'Alta', value: 'alta' },
     { label: 'Media', value: 'media' },
     { label: 'Baja', value: 'baja' }
+  ];
+  statusOptions = [
+    { label: 'En Curso', value: 'enCurso' },
+    { label: 'Terminada', value: 'terminada' },
+    { label: 'Por Hacer', value: 'porHacer' }
   ];
 
   constructor(private taskService: TaskService, private dialogRef: MatDialog, private formBuilder: FormBuilder) { }
@@ -35,11 +40,14 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
     this.taskForm = this.formBuilder.group({
       userId: ['', Validators.required],
       roomId: ['', Validators.required],
-      priority: ['', Validators.required]
+      priority: ['', Validators.required],
+      observations: [''],
+      status: ['']
     });
     this.loadUsers();
     this.loadRooms();
   }
+
   loadUsers() {
     this.taskService.getUsers().subscribe(
       users => {
@@ -51,7 +59,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
     );
   }
 
-  loadRooms(){
+  loadRooms() {
     this.taskService.getRooms().subscribe(
       rooms => {
         this.rooms = rooms;
@@ -61,37 +69,26 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       }
     );
   }
-  guardarTarea(form: NgForm) {
-    console.log('Add Task button clicked'); // Log agregado
 
-    if (form.valid) {
-      console.log('Formulario válido:', form.value);
+  guardarTarea() {
+    console.log('Add Task button clicked');
+    console.log('Estado del formulario:', this.taskForm);
+
+    if (this.taskForm.valid) {
+      console.log('Formulario válido:', this.taskForm.value);
+
+      // Busca el objeto Room correspondiente al ID seleccionado
+      const selectedRoom = this.rooms.find(room => room.id === this.taskForm.value.roomId);
+
+      // Busca el objeto User correspondiente al ID seleccionado
+      const selectedUser = this.users.find(user => user.id === this.taskForm.value.userId);
 
       const tareaRequest: Task = {
-        id: '', // Debes obtener este ID del servidor, si es un campo requerido
-        room: {
-          roomNumber: '', // Asumiendo que roomId es el id de la habitación
-          floor: '', // Aquí puedes agregar el número del piso si es relevante
-          type: '', // Debes obtener este tipo del servidor, si es un campo requerido
-          status: '', // Debes obtener este estado del servidor, si es un campo requerido
-          id: form.value.roomId, // Debes obtener este ID del servidor, si es un campo requerido
-          createdDate: new Date() // Puedes establecer la fecha de creación aquí si es relevante
-        },
-        user: {
-          name: '', // Debes obtener este nombre del servidor, si es un campo requerido
-          surname: '', // Debes obtener este apellido del servidor, si es un campo requerido
-          username: '', // Debes obtener este nombre de usuario del servidor, si es un campo requerido
-          birthDate: new Date(), // Debes obtener esta fecha de nacimiento del servidor, si es un campo requerido
-          password: '', // Debes obtener esta contraseña del servidor, si es un campo requerido
-          email: '', // Debes obtener este correo electrónico del servidor, si es un campo requerido
-          phoneNumber: '', // Debes obtener este número de teléfono del servidor, si es un campo requerido
-          cp: '', // Debes obtener este código postal del servidor, si es un campo requerido
-          city: '', // Debes obtener esta ciudad del servidor, si es un campo requerido
-          id: form.value.userId, // Debes obtener este ID del servidor, si es un campo requerido
-        },
-        priority: form.value.priority, // Prioridad obtenida del formulario
-        observations: form.value.observations, // Puedes agregar las observaciones aquí si es necesario
-        createdDate: new Date() // Puedes establecer la fecha de creación aquí si es relevante
+        room: selectedRoom,
+        priority: this.taskForm.value.priority,
+        observations: this.taskForm.value.observations,
+        status: this.taskForm.value.status,
+        user: selectedUser
       };
 
       console.log('Enviando solicitud para guardar tarea:', tareaRequest);
@@ -101,7 +98,6 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
         () => {
           this.dialogRef.closeAll();
           console.log('Tarea guardada exitosamente.');
-          // Puedes agregar lógica adicional aquí si es necesario
         },
         error => {
           console.error('Error al guardar la tarea:', error);
@@ -113,14 +109,11 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
-
   cerrarDialog() {
-      this.dialogRef.closeAll();
+    this.dialogRef.closeAll();
   }
 
   ngOnDestroy() {
-      this.taskSubscription.unsubscribe();
+    this.taskSubscription.unsubscribe();
   }
 }

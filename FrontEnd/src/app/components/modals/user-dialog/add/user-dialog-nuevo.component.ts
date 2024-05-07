@@ -6,6 +6,8 @@ import { Subscription } from "rxjs";
 import { UserService } from "../../../../services/user.service";
 import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 
@@ -14,7 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsMo
   standalone: true,
   templateUrl: 'user-dialog-nuevo.component.html',
   styleUrl: './user-dialog-nuevo.component.css',
-  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule, MatCheckboxModule]
 })
 
 export class UserDialogNuevoComponent implements OnInit, OnDestroy {
@@ -24,6 +26,8 @@ export class UserDialogNuevoComponent implements OnInit, OnDestroy {
   birthDate: any;
   passwordForm: FormGroup | any;
   dniForm: FormGroup | any;
+  roleAdmin: boolean = false; //Si no se marca sera empleado
+
 
 
   constructor(private userService: UserService, private dialogRef: MatDialog, private formBuilder: FormBuilder,) { }
@@ -77,7 +81,7 @@ export class UserDialogNuevoComponent implements OnInit, OnDestroy {
         username: form.value.username,
         urlImage: '',
         token: '',
-        roleAdmin: false,
+        roleAdmin: form.value.roleAdmin,
         dni: this.dniForm.value.dni
       };
 

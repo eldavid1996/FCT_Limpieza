@@ -1,11 +1,13 @@
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FormsModule, NgForm, FormBuilder, Validators, AbstractControl, ValidatorFn, FormGroup, FormControl } from "@angular/forms";
+import { FormsModule, NgForm, FormBuilder, Validators, FormGroup,  } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 import { UserService } from "../../../../services/user.service";
 import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 
@@ -14,16 +16,18 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsMo
   standalone: true,
   templateUrl: 'user-dialog-change.component.html',
   styleUrl: './user-dialog-change.component.css',
-  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule,MatCheckboxModule]
 })
 
-export class UserDialogChangeComponent {
+export class UserDialogChangeComponent implements OnInit, OnDestroy {
   userForm: FormGroup | any;
   userSubscription: Subscription = new Subscription();
   birthDate: any;
   passwordForm: FormGroup | any;
   dniForm : FormGroup | any;
   editedUser: any;
+  roleAdmin: boolean = false; //Si no se marca sera empleado
+
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,private userService: UserService, private dialogRef: MatDialog, private formBuilder: FormBuilder,) {}
@@ -67,7 +71,7 @@ export class UserDialogChangeComponent {
         cp: form.value.cp,
         birthDate: form.value.birthDate,
         username: form.value.username,
-        roleAdmin: false,
+        roleAdmin: form.value.roleAdmin,
         token: '',
         urlImage: '',
         dni: this.dniForm.value.dni

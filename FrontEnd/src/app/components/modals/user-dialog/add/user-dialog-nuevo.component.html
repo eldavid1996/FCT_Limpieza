@@ -148,6 +148,9 @@
           <mat-error>City is required</mat-error>
         </mat-form-field>
       </div>
+      <div class="mb-4">
+        <mat-checkbox [(ngModel)]="roleAdmin" name="roleAdmin" id="roleAdmin">¿Es admin?</mat-checkbox>
+      </div>
 
       <div mat-dialog-actions>
         <button mat-raised-button color="primary" (click)="cerrarDialog()">

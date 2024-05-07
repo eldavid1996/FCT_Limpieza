@@ -9,8 +9,9 @@ import { Room } from '../models/room.model';
   providedIn: 'root',
 })
 export class RoomService {
+
   baseUrl = environment.gatewayUrl;
-  userSubject = new Subject<any>();
+  roomSubject = new Subject<any>();
   roomPagination: PaginationRoom | undefined;
   roomPaginationSubject = new Subject<PaginationRoom>();
 
@@ -40,7 +41,6 @@ export class RoomService {
         this.roomPaginationSubject.next(this.roomPagination);
       });
   }
-
   obtenerActualListener(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();
   }
@@ -48,4 +48,15 @@ export class RoomService {
   getRooms(): Room[] {
     return this.roomList;
   }
+  guardarRoom(room: Room) {
+    console.log('Enviando solicitud para guardar tarea:', room);
+    this.http.post(this.baseUrl + 'room', room).subscribe((data) => {
+      console.log('Respuesta del servidor:', data);
+      this.roomSubject.next(room);
+
+    });
+  }
+  guardarRoomListener() {
+    return this.roomSubject.asObservable();  }
+
 }
