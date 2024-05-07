@@ -119,7 +119,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
  
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.userService.obtenerUsers(this.usersPorPagina, this.pagina, this.sort, this.sortDirection, this.filterValue);
+
     });
   }
 

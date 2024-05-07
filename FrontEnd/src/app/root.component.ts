@@ -1,36 +1,13 @@
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { RoomTableComponent } from './components/room-table/room-table.component';
 import { CommonModule } from '@angular/common';
 import { SecurityService } from './services/security.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
-import { UserTableComponent } from './components/user-table/user-table.component';
-import { TaskBoardComponent } from './components/task-board/task-board.component';
-import { UserDialogNuevoComponent } from './components/modals/user-dialog/add/user-dialog-nuevo.component';
-import { UserDialogDeleteComponent } from './components/modals/user-dialog/delete/user-dialog-delete.component';
-import { UserDialogChangeComponent } from './components/modals/user-dialog/change/user-dialog-change.component';
-
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    RouterOutlet,
-    NavbarComponent,
-    DashboardComponent,
-    UserTableComponent,
-    UserProfileComponent,
-    RoomTableComponent,
-    TaskBoardComponent,
-    UserDialogNuevoComponent,
-    UserDialogDeleteComponent,
-    UserDialogChangeComponent
-  ],
+  imports: [CommonModule, RouterModule, RouterOutlet, NavbarComponent],
   templateUrl: './root.component.html',
   styleUrl: './root.component.css',
 })
@@ -44,6 +21,7 @@ export class RootComponent implements OnInit {
     // Check if exist session token for load the account without login in any component
     if (typeof localStorage !== 'undefined') {
       if (localStorage.getItem('token')) {
+        // In this method, is token expired, go to login anyway
         this.securityService.getLoggedUser();
       } else {
         // If there are no sesion, go to login

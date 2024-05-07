@@ -1,18 +1,30 @@
 import { DatePipe } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
+
 @Component({
   selector: 'app-clock',
   standalone: true,
-  template: `{{ now | date : 'medium' }}`,
+  template: `{{ formattedDate }}`,
   imports: [DatePipe],
+  providers: [DatePipe],
 })
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class clockComponent {
-  public now: Date = new Date();
+  public formattedDate: string | null = '';
 
-  constructor() {
+  // Interval for show date in real time
+  constructor(private datePipe: DatePipe) {
+    this.updateFormattedDate();
     setInterval(() => {
-      this.now = new Date();
-    }, 1);
+      this.updateFormattedDate();
+    }, 1000);
+  }
+
+  // Format for date
+  private updateFormattedDate() {
+    const now = new Date();
+    this.formattedDate = this.datePipe.transform(now, 'medium', 'es');
   }
 }

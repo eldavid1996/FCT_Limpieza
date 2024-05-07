@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { MaterialModule } from '../user-table/material.module';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,13 @@ import { clockComponent } from './clock.component';
 export class NavbarComponent {
   constructor(private securityService: SecurityService) {}
 
+  // Logout, delete tokens
   logOut() {
     this.securityService.logout();
+  }
+
+  // Check if user is admin for show navbar links
+  isAdmin(){
+    return this.securityService.isAdmin();
   }
 }

@@ -47,9 +47,4 @@ export class TaskService {
   guardarTaskListener() {
     return this.taskSubject.asObservable();
   }
-
-  getTasks(){
-    
-    return this.http.get(this.baseUrl + 'api/taskservice');
-  }
 }

@@ -1,10 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs';
-import { PaginationTask } from '../../models/paginationTask.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
 import { MaterialModule } from '../user-table/material.module';
@@ -19,34 +17,29 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskBoardComponent implements OnInit, OnDestroy {
 
-  @ViewChild(MatSort) ordenamiento?: MatSort | any;
-  @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
-
   private taskSubscription: Subscription | undefined;
-
-  
-  dataSource: Task[] = [];
+  dataSource: Task[] = [];//lista de datos que contiene las tareas
 
   constructor(private taskService: TaskService, private dialog: MatDialog) {}
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.taskSubscription?.unsubscribe();
+  }
 
   ngOnInit(): void {
-    this.taskSubscription = this.taskService.getTasks().subscribe((data: any) => {
-      this.dataSource = data;
+    this.taskSubscription = this.taskService.getTasks()?.subscribe((data: any) => {
+      this.dataSource = data;//Se colocan abajo las tareas que ya están finalizadas
+      this.dataSource.sort((a, b) => {
+        if (a.status === 'por hacer' && b.status !== 'por hacer') {
+          return -1; // a va antes que b
+        } else if (a.status !== 'por hacer' && b.status === 'por hacer') {
+          return 1; // b va antes que a
+        } else {
+          return 0; // no se cambia el orden
+        }
+      });
     });
   }
-   
 
-  editarTarea(task: Task): void {
-    // Implementar la lógica para editar una tarea
-  }
-
-  eliminarTarea(id: number): void {
-    // Implementar la lógica para eliminar una tarea
-  }
-
-  hacerFiltro(filter: string): void {
-    // Implementar la lógica para filtrar las tareas
-  }
+  
 }
