@@ -13,7 +13,7 @@
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Estado</mat-label>
-          <mat-select formControlName="status">
+          <mat-select formControlName="status" [(ngModel)]="defaultStatus">
             <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</mat-option>
           </mat-select>
         </mat-form-field>

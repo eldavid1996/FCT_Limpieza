@@ -48,12 +48,9 @@ export class TaskService {
 
 
 
-  guardarTask(Task: Task) {
-    console.log('Enviando solicitud para guardar tarea:', Task);
-    this.http.post(this.baseUrl + 'Task', Task).subscribe((data) => {
-      console.log('Respuesta del servidor:', data);
-      this.taskSubject.next(Task);
-    });
+  guardarTask(task: Task): Observable<any> {
+    console.log('Enviando solicitud para guardar tarea:', task);
+    return this.http.post(this.baseUrl + 'Task', task);
   }
 
   guardarTaskListener() {

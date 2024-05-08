@@ -7,6 +7,8 @@ import { TaskService,  } from "../../../../services/task.service";
 import { MaterialModule } from "../../../user-table/material.module";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
 import { Task } from "../../../../models/task.model";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { RoomService } from "../../../../services/room.service";
 
 
 @Component({
@@ -23,6 +25,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
   taskSubscription: Subscription = new Subscription();
   users: any[] = [];
   rooms: any[] = [];
+  snackbarDuration = 5;
   priorityOptions = [
     { label: 'Alta', value: 'alta' },
     { label: 'Media', value: 'media' },
@@ -33,8 +36,9 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
     { label: 'Terminada', value: 'terminada' },
     { label: 'Por Hacer', value: 'porHacer' }
   ];
+  defaultStatus: string = 'Por Hacer';
 
-  constructor(private taskService: TaskService, private dialogRef: MatDialog, private formBuilder: FormBuilder) { }
+  constructor(private taskService: TaskService,private roomService: RoomService, private dialogRef: MatDialog, private formBuilder: FormBuilder, private _snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.taskForm = this.formBuilder.group({
@@ -92,21 +96,29 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       };
 
       console.log('Enviando solicitud para guardar tarea:', tareaRequest);
-      this.taskService.guardarTask(tareaRequest);
-
-      this.taskSubscription = this.taskService.guardarTaskListener().subscribe(
+      this.taskService.guardarTask(tareaRequest).subscribe(
         () => {
+          this.openSnackBar('Tarea añadida exitosamente!');
           this.dialogRef.closeAll();
           console.log('Tarea guardada exitosamente.');
         },
         error => {
           console.error('Error al guardar la tarea:', error);
+          this.openSnackBar('Error al guardar la tarea. Por favor, inténtelo de nuevo.');
           this.dialogRef.closeAll();
         }
       );
     } else {
       console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
     }
+  }
+
+
+  openSnackBar(message: string) {
+    this._snackbar.open(message, 'Cerrar', {
+      duration: this.snackbarDuration * 1000
+    });
+    this.dialogRef.closeAll();
   }
 
   cerrarDialog() {

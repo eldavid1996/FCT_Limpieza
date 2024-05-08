@@ -5,6 +5,7 @@ import { RoomService } from '../../../../services/room.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../user-table/material.module';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-room-dialog-delete',
@@ -15,11 +16,13 @@ import { MaterialModule } from '../../../user-table/material.module';
 })
 export class RoomDialogDeleteComponent implements OnInit, OnDestroy {
   roomSubscription: Subscription = new Subscription();
+  snackbarDuration = 5;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private roomService: RoomService,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -35,6 +38,14 @@ export class RoomDialogDeleteComponent implements OnInit, OnDestroy {
         //this.toastr.success('Usuario eliminado correctamente', 'Éxito');
       }
     );
+
+    this.openSnackBar('¡Habitación eliminada exitosamente!');
+    this.dialogRef.closeAll();
+  }
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Cerrar', {
+      duration: this.snackbarDuration * 1000
+    });
     this.dialogRef.closeAll();
   }
 

@@ -50,33 +50,40 @@ export class RoomDialogNuevoComponent implements OnInit, OnDestroy {
   }
 
   guardarRoom() {
-    console.log('Add Room button clicked');
-    console.log('Estado del formulario:', this.roomForm);
-
     if (this.roomForm.valid) {
-      console.log('Formulario válido:', this.roomForm.value);
-
       const roomData: Room = {
-        id:'',
+        id: '',
         roomNumber: this.roomForm.value.roomNumber,
         floor: this.roomForm.value.floor,
         type: this.roomForm.value.type,
-        status: this.roomForm.value.status
+        status: this.roomForm.value.status,
       };
 
-      console.log('Enviando solicitud para guardar habitación:', roomData);
-      this.roomService.guardarRoom(roomData);
-
-      this.roomSubscription = this.roomService.guardarRoomListener().subscribe(
-        () => {
-          this.dialogRef.closeAll();
-          console.log('Habitación guardada exitosamente.');
+      this.roomService.getAllRooms().subscribe( //Comprobamos si alguna de todas de las habitaciones tiene el mismo roomNumber
+        (rooms) => {
+          const existingRoom = rooms.find(room => room.roomNumber === roomData.roomNumber);
+          if (existingRoom) {
+            // Habitación con el mismo número ya existe
+            this.openSnackBar('¡La habitación ya existe!');
+          } else {
+            // Guardar la nueva habitación
+            this.roomService.guardarRoom(roomData);
+            this.roomSubscription = this.roomService.guardarRoomListener().subscribe(
+              () => {
+                this.dialogRef.closeAll();
+                this.openSnackBar('Habitación guardada exitosamente.');
+                console.log('Habitación guardada exitosamente.');
+              },
+              (error) => {
+                console.error('Error al guardar la habitación:', error);
+                this.openSnackBar('Error al guardar la habitación');
+              }
+            );
+          }
         },
         (error) => {
-          if (error instanceof HttpErrorResponse && error.status === 400) {
-            this.openSnackBar('Error al guardar la habitación');
-          }
-          console.error('Error al guardar la habitación:', error);
+          console.error('Error al obtener las habitaciones:', error);
+          this.openSnackBar('Error al obtener las habitaciones');
         }
       );
     } else {
@@ -84,11 +91,13 @@ export class RoomDialogNuevoComponent implements OnInit, OnDestroy {
     }
   }
 
+
   // Snackbar for displaying error message
   openSnackBar(message: string) {
     this._snackBar.open(message, 'Cerrar', {
       duration: this.snackbarDuration * 1000
     });
+    this.cerrarDialog();
   }
 
 
