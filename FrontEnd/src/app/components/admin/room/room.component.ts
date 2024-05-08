@@ -128,7 +128,7 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.roomService.searchRooms(this.paginationRequest);
   }
 
-  // Open a modal for watch or update room data
+  // Open a modal for insert a new room
   insertRoom(): void {
     const dialogRef = this.dialog.open(InsertRoomModalComponent, {
       width: '400px',
@@ -150,10 +150,10 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // Open the modal with a confirmation to delete room
-  deleteRoom(roomId: string): void {
+  deleteRoom(roomId: string, room: Room): void {
     const dialogRef = this.dialog.open(DeleteRoomModalComponent, {
       width: '250px',
-      data: { roomId },
+      data: { roomId, room },
     });
 
     // If modal was closed with a 'confirm' status delete the room

@@ -1,155 +1,184 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { Subscription } from 'rxjs';
+import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
+import { Pagination } from '../../../models/Pagination.model';
+import { PaginationFilter } from '../../../models/paginationFilter.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
 import { PaginationUser } from '../../../models/paginationUser.model';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { MaterialModule } from '../../../material.module';
-import { UserDialogNuevoComponent } from './modal/add/user-dialog-nuevo.component';
-import { UserDialogDeleteComponent } from './modal/delete/user-dialog-delete.component';
-import { UserDialogChangeComponent } from './modal/change/user-dialog-change.component';
+import { DeleteUserModalComponent } from './modals/delete/deleteUserModal.component';
+import { SecurityService } from '../../../services/security.service';
+import { InsertUserModalComponent } from './modals/insert/insertUserModal.component';
 
 @Component({
   selector: 'app-user-table',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
-export class UserTableComponent implements OnInit, OnDestroy {
-  @ViewChild(MatSort) ordenamiento?: MatSort | any;
-  @ViewChild(MatPaginator) paginacion?: MatPaginator | any;
+export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild(MatSort) ordering?: MatSort | any;
+  @ViewChild(MatPaginator) pagination?: MatPaginator | any;
+
   private userSubscription: Subscription | undefined;
 
-  timeout: any = null;
-  totalUsers = 0;
-  usersPorPagina = 5;
-  paginaCombo = [1, 3, 5, 8];
-  pagina = 1;
-  sort = 'Name';
-  sortDirection = 'asc';
-  filterValue: any = null;
-  displayedColumns = ['id', 'name', 'email', 'phoneNumber', 'actions']; //Cambiar id por dni o ciudad
+  searchRadioButtonValue = 'Name';
+
   dataSource = new MatTableDataSource<User>();
+  totalUsers = 0;
+  comboPages = [1, 3, 5, 8];
+  displayedColumns = [
+    'Name',
+    'Surname',
+    'Email',
+    'PhoneNumber',
+    'City',
+    'actions',
+  ];
+
+  timeout: any = null;
+
+  // Filter for search by column
+  paginationFilter: PaginationFilter = {
+    property: 'Name',
+    value: '',
+  };
+  // Request for get users paginated with the filter (default null)
+  paginationRequest: Pagination = {
+    pageSize: 5,
+    page: 1,
+    sort: 'Name',
+    sortDirection: 'asc',
+    filter: this.paginationFilter,
+  };
 
   constructor(
+    private securityService: SecurityService,
     private userService: UserService,
-    private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
+
   ngOnDestroy(): void {
     this.userSubscription?.unsubscribe();
   }
+
   ngOnInit(): void {
-    this.userService.obtenerUsers(
-      this.usersPorPagina,
-      this.pagina,
-      this.sort,
-      this.sortDirection,
-      this.filterValue
-    );
+    this.userService.searchUsers(this.paginationRequest);
     this.userSubscription = this.userService
-      .obtenerActualListener()
+      .getUsers()
       .subscribe((pagination: PaginationUser) => {
         this.dataSource = new MatTableDataSource<User>(pagination.data);
         this.totalUsers = pagination.totalRows;
       });
   }
 
-  hacerFiltro(event: any): void {
+  // Event from radio buttons for change column filter search
+  onRadioButtonChange(event: any) {
+    this.searchRadioButtonValue = event.value;
+
+    var updatedPaginationFilter: PaginationFilter = {
+      property: this.searchRadioButtonValue,
+      value: this.paginationFilter.value,
+    };
+    this.paginationRequest.filter = updatedPaginationFilter;
+
+    this.userService.searchUsers(this.paginationRequest);
+  }
+
+  // Event from search input for search by column and value
+  userFilter(event: any): void {
     clearTimeout(this.timeout);
     const $this = this;
-    //Este metodo hace que  el request se envie cuando llevemos un segundo sin escribir y va a buscar titulos
+
     this.timeout = setTimeout(() => {
       if (event.keyCode != 13) {
-        const filterValueLocal = {
-          propiedad: 'name',
-          valor: event.target.value,
+        $this.paginationFilter = {
+          property: this.searchRadioButtonValue,
+          value: event.target.value,
         };
-
-        $this.filterValue = filterValueLocal;
-        $this.userService.obtenerUsers(
-          $this.usersPorPagina,
-          $this.pagina,
-          $this.sort,
-          $this.sortDirection,
-          filterValueLocal
-        );
+        this.paginationRequest.filter = $this.paginationFilter;
+        $this.userService.searchUsers(this.paginationRequest);
       }
-    }, 1000);
+    }, 500);
   }
+
+  // For pagination and ordering (first charge)
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.ordenamiento;
-    this.dataSource.paginator = this.paginacion;
+    this.dataSource.sort = this.ordering;
+    this.dataSource.paginator = this.pagination;
   }
 
-  // evento paginador
-  eventoPaginador(event: PageEvent): void {
-    this.usersPorPagina = event.pageSize;
-    this.pagina = event.pageIndex + 1;
-    this.userService.obtenerUsers(
-      this.usersPorPagina,
-      this.pagina,
-      this.sort,
-      this.sortDirection,
-      this.filterValue
-    );
+  // For pagination and ordering (bot options)
+  eventPager(event: PageEvent): void {
+    this.paginationRequest.pageSize = event.pageSize;
+    this.paginationRequest.page = event.pageIndex + 1;
+    this.userService.searchUsers(this.paginationRequest);
   }
 
-  ordenarColumna(event: Sort): void {
-    this.sort = event.active;
-    this.sortDirection = event.direction;
-    this.userService.obtenerUsers(
-      this.usersPorPagina,
-      this.pagina,
-      event.active,
-      event.direction,
-      this.filterValue
-    );
+  // For pagination and ordering (column options)
+  orderColumns(event: Sort): void {
+    this.paginationRequest.sort = event.active;
+    this.paginationRequest.sortDirection = event.direction;
+    this.userService.searchUsers(this.paginationRequest);
   }
-  abrirDialog() {
-    const dialogRef = this.dialog.open(UserDialogNuevoComponent, {});
+
+  // Open a modal for insert a new user
+  insertUser(): void {
+    const dialogRef = this.dialog.open(InsertUserModalComponent, {
+      width: '400px',
+    });
     dialogRef.afterClosed().subscribe(() => {
-      this.userService.obtenerUsers(
-        this.usersPorPagina,
-        this.pagina,
-        this.sort,
-        this.sortDirection,
-        this.filterValue
-      );
+      this.userService.searchUsers(this.paginationRequest);
     });
   }
-  abrirDialogBorrar(user: User) {
-    const dialogRef = this.dialog.open(UserDialogDeleteComponent, {
+
+  // Open a modal for watch or update user data
+  updateUser(user: string): void {
+    /*     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+      width: '400px',
       data: { user },
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.userService.obtenerUsers(
-        this.usersPorPagina,
-        this.pagina,
-        this.sort,
-        this.sortDirection,
-        this.filterValue
-      );
+      this.userService.searchUsers(this.paginationRequest);
+    }); */
+  }
+
+  // Open the modal with a confirmation to delete user
+  deleteUser(userId: string, user: User): void {
+    const dialogRef = this.dialog.open(DeleteUserModalComponent, {
+      width: '400px',
+      data: { userId, user },
+    });
+
+    // If modal was closed with a 'confirm' status delete the user
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'confirm') {
+        this.userService.deleteUser(userId).subscribe((response) => {
+          // And show a snackbar with the request result
+          this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+          // Then, get updated list users
+          this.userService.searchUsers(this.paginationRequest);
+        });
+      }
     });
   }
 
-  abrirDialogEditar(user: User) {
-    const dialogRef = this.dialog.open(UserDialogChangeComponent, {
-      data: { user },
-    });
-    dialogRef.afterClosed().subscribe(() => {});
-  }
-
-  editarEmpleado(empleado: User): void {
-    this.userService.editarUser(empleado.id);
-  }
-
-  redirectTo(route: string) {
-    this.router.navigate([route]);
+  // Used for dont show some options for the user logged (for example, he cant delete him user)
+  getUserLoggedId(): string {
+    return this.securityService.getUserLoggedId();
   }
 }

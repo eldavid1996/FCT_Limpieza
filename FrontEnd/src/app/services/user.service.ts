@@ -1,79 +1,55 @@
-import { User } from '../models/user.model';
-import { PaginationUser } from '../models/paginationUser.model';
-import { HttpClient } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
 import { environment } from '../../environment/environment';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Pagination } from '../models/Pagination.model';
+import { PaginationUser } from '../models/paginationUser.model';
+import { User } from '../models/user.model';
 
 @Injectable({
-  providedIn:'root'
+  providedIn: 'root',
 })
 export class UserService {
   baseUrl = environment.gatewayUrl;
-  userSubject = new Subject();
 
+  // Returned pagination model from request
   userPagination: PaginationUser | undefined;
+
+  // Observable for send the user request data to components
   userPaginationSubject = new Subject<PaginationUser>();
 
   constructor(private http: HttpClient) {}
 
-  obtenerUsuarioPorId(id: string) {
-    return this.http.get<User>(this.baseUrl + 'User/' + id);
-  }
-
-  obtenerUsers(
-    librosPorPagina: number,
-    paginaActual: number,
-    sort: string,
-    sortDirection: string,
-    filterValue: any
-  ): void {
-    const request = {
-      pageSize: librosPorPagina,
-      page: paginaActual,
-      sort,
-      sortDirection,
-      filterValue,
-    };
-
+  // Search users with filters
+  searchUsers(paginationRequest: Pagination): void {
     this.http
-      .post<PaginationUser>(this.baseUrl + 'User/pagination', request)
+      .post<PaginationUser>(this.baseUrl + 'User/pagination', paginationRequest)
       .subscribe((response) => {
         this.userPagination = response;
         this.userPaginationSubject.next(this.userPagination);
       });
   }
 
-  obtenerActualListener() {
-    return this.userPaginationSubject.asObservable(); // este es el metodo que devuelve los datos
-  }
-  getUserById(id:string){
-    return this.http.get<User>(this.baseUrl + 'User/' + id);
+  // Get an observable with the users
+  getUsers(): Observable<PaginationUser> {
+    return this.userPaginationSubject.asObservable();
   }
 
-  guardarUser(user: User) {
-    console.log('Enviando solicitud para guardar usuario:', user);
-    this.http.post(this.baseUrl +'User', user).subscribe((data) => {
-      console.log('Respuesta del servidor:', data);
-      this.userSubject.next(user);
+  // Delete user by id
+  deleteUser(id: string) {
+    return this.http.delete(this.baseUrl + 'User/' + id, {
+      responseType: 'text',
     });
   }
-  editarUser(user:User){
-    console.log('Enviando solicitud para ediatr usuario:', user);
-    this.http.put(this.baseUrl +'User/' + user.id, user).subscribe((data) => {
-      console.log('Respuesta del servidor:', data);
-      this.userSubject.next(user);
-    });
+
+  // Update the selected user
+  updateUser(id: string, updatedUser: User) {
+    const body = { ...updatedUser, id };
+    return this.http.put(this.baseUrl + 'User/' + id, body);
   }
-  eliminarUser(userId: string) {
-    console.log('Enviando solicitud para borrar usuario con ID:', userId);
-    return this.http.delete(this.baseUrl + 'User/' + userId);
-  }
-  editarUserListener() {
-    return this.userSubject.asObservable();
-  }
- 
-  guardarUserListener() {
-    return this.userSubject.asObservable();
+
+  // insert a new user
+  insertUser(newUser: User) {
+    return this.http.post<User>(this.baseUrl + 'User', newUser);
   }
 }

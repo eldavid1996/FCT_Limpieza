@@ -11,15 +11,16 @@ import { MaterialModule } from '../../../../../material.module';
 import { RoomService } from '../../../../../services/room.service';
 import { Room } from '../../../../../models/room.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { dniValidator } from './insertUser-validators';
 
 @Component({
-  selector: 'app-insert-room-modal',
+  selector: 'app-insert-user-modal',
   standalone: true,
-  templateUrl: 'insertRoomModal.component.html',
-  styleUrl: './insertRoomModal.component.css',
+  templateUrl: 'insertUserModal.component.html',
+  styleUrl: './insertUserModal.component.css',
   imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule],
 })
-export class InsertRoomModalComponent implements OnInit {
+export class InsertUserModalComponent implements OnInit {
   roomForm: FormGroup | any;
   @Output() modalClosed = new EventEmitter<void>();
 
@@ -32,10 +33,16 @@ export class InsertRoomModalComponent implements OnInit {
   // Validators
   ngOnInit() {
     this.roomForm = this.formBuilder.group({
-      roomNumber: ['', Validators.required],
-      floor: [''],
-      type: [''],
-      status: [''],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      dni: ['', [Validators.required, dniValidator]],
+      roleAdmin: [true, Validators.required],
+      phoneNumber: [''],
+      birthDate: [''],
+      city: [''],
+      cp: [''],
+      urlImage: [''],
     });
   }
 
