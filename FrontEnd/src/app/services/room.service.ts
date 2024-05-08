@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaginationRoom } from '../models/paginationRoom.model';
 import { Pagination } from '../models/Pagination.model';
+import { Room } from '../models/room.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,16 @@ export class RoomService {
     return this.http.delete(this.baseUrl + 'Room/' + id, {
       responseType: 'text',
     });
+  }
+
+  // Update the selected room
+  updateRoom(id: string, updatedRoom: Room) {
+    const body = { ...updatedRoom, id };
+    return this.http.put(this.baseUrl + 'Room/' + id, body);
+  }
+
+  // insert a new room
+  insertRoom(newRoom: Room) {
+    return this.http.post<Room>(this.baseUrl + 'Room', newRoom);
   }
 }

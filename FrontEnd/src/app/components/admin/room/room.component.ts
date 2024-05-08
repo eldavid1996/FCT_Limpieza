@@ -19,11 +19,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteRoomModalComponent } from './modals/delete/deleteRoomModal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { InsertRoomModalComponent } from './modals/insert/insertRoomModal.component';
+import { CommonModule } from '@angular/common';
+import { UpdateRoomModalComponent } from './modals/update/updateRoomModal.component';
 
 @Component({
   selector: 'app-room-table',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, CommonModule],
   templateUrl: './room.component.html',
   styleUrl: './room.component.css',
 })
@@ -129,26 +131,35 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
   // Open a modal for watch or update room data
   insertRoom(): void {
     const dialogRef = this.dialog.open(InsertRoomModalComponent, {
-      width: '250px',
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.roomService.searchRooms(this.paginationRequest);
     });
   }
 
   // Open a modal for watch or update room data
-  updateRoom(id: string): void {
-    console.log(id);
+  updateRoom(room: string): void {
+    const dialogRef = this.dialog.open(UpdateRoomModalComponent, {
+      width: '400px',
+      data: { room },
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.roomService.searchRooms(this.paginationRequest);
+    });
   }
 
   // Open the modal with a confirmation to delete room
-  deleteRoom(id: string): void {
+  deleteRoom(roomId: string): void {
     const dialogRef = this.dialog.open(DeleteRoomModalComponent, {
       width: '250px',
-      data: { roomID: id },
+      data: { roomId },
     });
 
     // If modal was closed with a 'confirm' status delete the room
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'confirm') {
-        this.roomService.deleteRoom(id).subscribe((response) => {
+        this.roomService.deleteRoom(roomId).subscribe((response) => {
           // And show a snackbar with the request result
           this.snackbar.open(response, 'Cerrar', { duration: 3000 });
           // Then, get updated list rooms

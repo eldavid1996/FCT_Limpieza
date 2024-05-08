@@ -4,7 +4,10 @@
   >
     <div class="px-6 py-4 flex justify-between">
       <div class="font-bold text-xl mb-2">Habitaciones</div>
-      <mat-radio-group [value]="searchRadioButtonValue" (change)="onRadioButtonChange($event)">
+      <mat-radio-group
+        [value]="searchRadioButtonValue"
+        (change)="onRadioButtonChange($event)"
+      >
         <mat-radio-button value="RoomNumber">Nº Habitación</mat-radio-button>
         <mat-radio-button value="Floor">Planta</mat-radio-button>
         <mat-radio-button value="Type">Tipo</mat-radio-button>
@@ -55,11 +58,15 @@
             <button
               mat-icon-button
               color="primary"
-              (click)="updateRoom(element.id)"
+              (click)="updateRoom(element)"
             >
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteRoom(element.id)">
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteRoom(element.id)"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -80,7 +87,7 @@
     <div class="px-6 pt-4 pb-2 grid">
       <div class="place-self-end">
         <button class="boton-nuevo" mat-flat-button (click)="insertRoom()">
-          Añadir room<mat-icon>person</mat-icon>
+          Añadir habitación<mat-icon>person</mat-icon>
         </button>
       </div>
     </div>

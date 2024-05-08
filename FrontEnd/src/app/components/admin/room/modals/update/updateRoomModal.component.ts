@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -11,22 +11,25 @@ import { MaterialModule } from '../../../../../material.module';
 import { RoomService } from '../../../../../services/room.service';
 import { Room } from '../../../../../models/room.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-insert-room-modal',
+  selector: 'app-update-room-modal',
   standalone: true,
-  templateUrl: 'insertRoomModal.component.html',
-  styleUrl: './insertRoomModal.component.css',
+  templateUrl: 'updateRoomModal.component.html',
+  styleUrl: './updateRoomModal.component.css',
   imports: [CommonModule, FormsModule, MaterialModule, ReactiveFormsModule],
 })
-export class InsertRoomModalComponent implements OnInit {
+export class UpdateRoomModalComponent implements OnInit {
   roomForm: FormGroup | any;
   @Output() modalClosed = new EventEmitter<void>();
 
   constructor(
     private roomService: RoomService,
     private formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<UpdateRoomModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   // Validators
@@ -37,20 +40,24 @@ export class InsertRoomModalComponent implements OnInit {
       type: [''],
       status: [''],
     });
+    this.roomForm.get('roomNumber')?.setValue(this.data.room.roomNumber);
+    this.roomForm.get('floor')?.setValue(this.data.room.floor);
+    this.roomForm.get('type')?.setValue(this.data.room.type);
+    this.roomForm.get('status')?.setValue(this.data.room.status);
   }
 
-  // Try to insert a new room a get a toask with the response
-  insertRoom() {
+  // Try to update the room with the new data
+  updateRoom(roomId: string) {
     const roomRequest: Room = {
       RoomNumber: this.roomForm.get('roomNumber')?.value,
       Floor: this.roomForm.get('floor')?.value,
       Type: this.roomForm.get('type')?.value,
       Status: this.roomForm.get('status')?.value,
     };
-    this.roomService.insertRoom(roomRequest).subscribe({
-      next: () => this.openSnackBar('Habitación añadida'),
+    this.roomService.updateRoom(roomId, roomRequest).subscribe({
+      next: () => this.openSnackBar('Habitación actualizada'),
       error: () =>
-        this.openSnackBar('Error al añadir la habitación ¿Clave duplicada?'),
+        this.openSnackBar('Error al actualizar la habitación ¿Clave duplicada?'),
     });
     this.modalClosed.emit();
   }
