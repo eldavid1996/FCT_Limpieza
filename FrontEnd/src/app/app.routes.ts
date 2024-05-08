@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { UserTableComponent } from './components/admin/user/user.component';
 import { LoginComponent } from './components/security/login/login.component';
-import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
+import { DashboardComponent } from './components/shared/inicio/dashboard.component';
 import { RoomTableComponent } from './components/admin/room/room.component';
 import {
   SecurityRolesRouter,
@@ -13,7 +13,7 @@ import { ProfileComponent } from './components/shared/profile/profile.component'
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   {
-    path: 'dashboard',
+    path: 'inicio',
     component: DashboardComponent,
     canActivate: [SecurityRouter],
   },

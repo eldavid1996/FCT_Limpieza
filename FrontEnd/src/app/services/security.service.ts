@@ -37,7 +37,7 @@ export class SecurityService {
         this.token = localStorage.getItem('token');
         this.userId = localStorage.getItem('userId');
         this.userRole = localStorage.getItem('rol');
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['inicio']);
       },
       error: (e) => {
         // set login Subject failed

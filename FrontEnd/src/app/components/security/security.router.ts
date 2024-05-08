@@ -36,7 +36,7 @@ export class SecurityRolesRouter implements CanActivate {
     if (this.securityService.isAdmin() == true) {
       return true;
     } else {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/inicio']);
       return false;
     }
   }

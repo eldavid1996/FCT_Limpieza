@@ -12,27 +12,27 @@ namespace Services.API.Security.Core.Persistence
             context.Database.Migrate();
             if (!userManager.Users.Any())
             {
-                var userDefault = new UserEntity
+                var userAdminDefault = new UserEntity
                 {
                     // Optional properties
 
                     BirthDate = DateTime.Now,
-                    City = "Admin",
+                    City = "Huelva",
                     CP = "21006",
-                    urlImage = "Admin",
+                    urlImage = "defaultImage.png",
 
                     // user properties
-                    Name = "Admin",
+                    Name = "Administrador",
                     Surname = "Admin",
                     RoleAdmin = true,
-                    DNI = "Admin",
+                    DNI = "00000000X",
 
                     // identity properties
-                    PhoneNumber = "Admin",
-                    Email = "Admin@gmail.com",
-                    UserName = "Admin",
+                    PhoneNumber = "+01 234 567 890",
+                    Email = "admin@gmail.com",
+                    UserName = "admin@gmail.com",
                 };
-                await userManager.CreateAsync(userDefault, "StrongPassword1!");
+                await userManager.CreateAsync(userAdminDefault, "StrongPassword1!");
             }
         }
     }

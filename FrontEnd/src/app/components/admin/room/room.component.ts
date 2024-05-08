@@ -1,13 +1,11 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Subscription } from 'rxjs';
+import { Subscription, delay } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { Room } from '../../../models/room.model';
@@ -29,7 +27,7 @@ import { UpdateRoomModalComponent } from './modals/update/updateRoomModal.compon
   templateUrl: './room.component.html',
   styleUrl: './room.component.css',
 })
-export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RoomTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
@@ -61,11 +59,27 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private roomService: RoomService,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
-  ) {}
-
-  ngOnDestroy(): void {
-    this.roomSubscription?.unsubscribe();
+    private snackbar: MatSnackBar,
+    private paginatorIntl: MatPaginatorIntl
+  ) {
+    // Pagination in spanish
+    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
+    this.paginatorIntl.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de ${length}`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex =
+        startIndex < length
+          ? Math.min(startIndex + pageSize, length)
+          : startIndex + pageSize;
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
   }
 
   ngOnInit(): void {
@@ -133,9 +147,12 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     const dialogRef = this.dialog.open(InsertRoomModalComponent, {
       width: '400px',
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.roomService.searchRooms(this.paginationRequest);
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe(() => {
+        this.roomService.searchRooms(this.paginationRequest);
+      });
   }
 
   // Open a modal for watch or update room data
@@ -144,9 +161,12 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
       width: '400px',
       data: { room },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.roomService.searchRooms(this.paginationRequest);
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe(() => {
+        this.roomService.searchRooms(this.paginationRequest);
+      });
   }
 
   // Open the modal with a confirmation to delete room
@@ -157,15 +177,18 @@ export class RoomTableComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     // If modal was closed with a 'confirm' status delete the room
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'confirm') {
-        this.roomService.deleteRoom(roomId).subscribe((response) => {
-          // And show a snackbar with the request result
-          this.snackbar.open(response, 'Cerrar', { duration: 3000 });
-          // Then, get updated list rooms
-          this.roomService.searchRooms(this.paginationRequest);
-        });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          this.roomService.deleteRoom(roomId).subscribe((response) => {
+            // And show a snackbar with the request result
+            this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+            // Then, get updated list rooms
+            this.roomService.searchRooms(this.paginationRequest);
+          });
+        }
+      });
   }
 }

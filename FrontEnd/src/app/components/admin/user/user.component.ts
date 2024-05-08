@@ -1,13 +1,11 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Subscription } from 'rxjs';
+import { Subscription, delay } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { Pagination } from '../../../models/Pagination.model';
@@ -21,6 +19,7 @@ import { PaginationUser } from '../../../models/paginationUser.model';
 import { DeleteUserModalComponent } from './modals/delete/deleteUserModal.component';
 import { SecurityService } from '../../../services/security.service';
 import { InsertUserModalComponent } from './modals/insert/insertUserModal.component';
+import { UpdateUserModalComponent } from './modals/update/updateUserModal.component';
 
 @Component({
   selector: 'app-user-table',
@@ -29,7 +28,7 @@ import { InsertUserModalComponent } from './modals/insert/insertUserModal.compon
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })
-export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
+export class UserTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
@@ -69,11 +68,27 @@ export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
     private securityService: SecurityService,
     private userService: UserService,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
-  ) {}
-
-  ngOnDestroy(): void {
-    this.userSubscription?.unsubscribe();
+    private snackbar: MatSnackBar,
+    private paginatorIntl: MatPaginatorIntl
+  ) {
+    // Pagination in spanish
+    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
+    this.paginatorIntl.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de ${length}`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex =
+        startIndex < length
+          ? Math.min(startIndex + pageSize, length)
+          : startIndex + pageSize;
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
   }
 
   ngOnInit(): void {
@@ -141,20 +156,26 @@ export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
     const dialogRef = this.dialog.open(InsertUserModalComponent, {
       width: '400px',
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.userService.searchUsers(this.paginationRequest);
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe(() => {
+        this.userService.searchUsers(this.paginationRequest);
+      });
   }
 
   // Open a modal for watch or update user data
   updateUser(user: string): void {
-    /*     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
+    const dialogRef = this.dialog.open(UpdateUserModalComponent, {
       width: '400px',
       data: { user },
     });
-    dialogRef.afterClosed().subscribe(() => {
-      this.userService.searchUsers(this.paginationRequest);
-    }); */
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe(() => {
+        this.userService.searchUsers(this.paginationRequest);
+      });
   }
 
   // Open the modal with a confirmation to delete user
@@ -165,16 +186,19 @@ export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     // If modal was closed with a 'confirm' status delete the user
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'confirm') {
-        this.userService.deleteUser(userId).subscribe((response) => {
-          // And show a snackbar with the request result
-          this.snackbar.open(response, 'Cerrar', { duration: 3000 });
-          // Then, get updated list users
-          this.userService.searchUsers(this.paginationRequest);
-        });
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(delay(500))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          this.userService.deleteUser(userId).subscribe((response) => {
+            // And show a snackbar with the request result
+            this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+            // Then, get updated list users
+            this.userService.searchUsers(this.paginationRequest);
+          });
+        }
+      });
   }
 
   // Used for dont show some options for the user logged (for example, he cant delete him user)

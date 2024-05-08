@@ -3,10 +3,9 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm, FormBuilder, Validators, AbstractControl, ValidatorFn, FormGroup, FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
-import { TaskService,  } from "../../../../services/task.service";
 import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsModule
-import { Task } from "../../../../models/task.model";
-import { MaterialModule } from "../../../../material.module";
+import { MaterialModule } from "../../../../../material.module";
+import { TaskService } from "../../../../../services/task.service";
 
 
 @Component({

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Pagination } from '../models/Pagination.model';
 import { PaginationUser } from '../models/paginationUser.model';
 import { User } from '../models/user.model';
+import { InsertOrUpdateUser } from '../models/userUpdateOrInsert.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,13 +44,13 @@ export class UserService {
   }
 
   // Update the selected user
-  updateUser(id: string, updatedUser: User) {
-    const body = { ...updatedUser, id };
-    return this.http.put(this.baseUrl + 'User/' + id, body);
+  updateUser(Id: string, updatedUser: InsertOrUpdateUser) {
+    const body = { ...updatedUser, Id };
+    return this.http.put(this.baseUrl + 'User/' + Id, body);
   }
 
   // insert a new user
-  insertUser(newUser: User) {
+  insertUser(newUser: InsertOrUpdateUser) {
     return this.http.post<User>(this.baseUrl + 'User', newUser);
   }
 }

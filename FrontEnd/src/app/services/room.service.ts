@@ -21,7 +21,7 @@ export class RoomService {
   constructor(private http: HttpClient) {}
 
   // Search rooms with filters
-  searchRooms(paginationRequest: Pagination): void {
+   searchRooms(paginationRequest: Pagination): void {
     this.http
       .post<PaginationRoom>(this.baseUrl + 'Room/pagination', paginationRequest)
       .subscribe((response) => {
@@ -31,7 +31,7 @@ export class RoomService {
   }
 
   // Get an observable with the rooms
-  getRooms(): Observable<PaginationRoom> {
+   getRooms(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();
   }
 

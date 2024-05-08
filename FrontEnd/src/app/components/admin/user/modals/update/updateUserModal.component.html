@@ -1,5 +1,5 @@
-<form [formGroup]="userForm" (ngSubmit)="insertUser()">
-  <h1 class="mat-dialog-title w-full text-center">Añadir nuevo usuario</h1>
+<form [formGroup]="userForm" (ngSubmit)="updateUser(data.user.id)">
+  <h1 class="mat-dialog-title w-full text-center">Modificar usuario</h1>
   <div class="grid grid-cols-2 gap-4">
     <mat-form-field appearance="fill">
       <mat-label>Nombre</mat-label>
@@ -55,85 +55,13 @@
       >
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Contraseña</mat-label>
-      <input
-        formControlName="password"
-        matInput
-        type="password"
-        required
-        name="password"
-      />
-      <mat-error *ngIf="this.userForm.get('password')?.hasError('required')"
-        >Contraseña requerida</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordSpecialChars') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos un carácter especial</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordNumbers') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos un número</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordUppercase') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos una letra mayúscula</mat-error
-      >
-      <mat-error
-        *ngIf="
-          userForm.get('password')?.hasError('passwordLength') &&
-          userForm.get('password')?.value.length > 0
-        "
-      >
-        La contraseña debe tener al menos
-        {{
-          userForm.get("password")?.getError("passwordLength")
-            .requiredLength
-        }}
-        caracteres (actualmente tiene
-        {{
-          userForm.get("password")?.getError("passwordLength")
-            .actualLength
-        }})
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Repetir contraseña</mat-label>
-      <input
-        formControlName="repeatPassword"
-        matInput
-        type="password"
-        required
-        name="repeatPassword"
-      />
-      <mat-error
-        *ngIf="this.userForm.get('repeatPassword')?.hasError('required')"
-        >Repetir contraseña requerido</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm
-            .get('repeatPassword')
-            ?.hasError('passwordMismatch') &&
-            userForm.get('repeatPassword')?.value.length > 0
-        "
-      >
-        La contraseña debe ser igual en ambos campos
-      </mat-error>
-    </mat-form-field>
-
     <mat-radio-group formControlName="roleAdmin">
       <mat-label>Rol</mat-label>
-      <mat-radio-button [value]="false">User</mat-radio-button>
+      <mat-radio-button
+        [disabled]="data.user.id === getUserLoggedId()"
+        [value]="false"
+        >User</mat-radio-button
+      >
       <mat-radio-button [value]="true">Admin</mat-radio-button>
     </mat-radio-group>
 
@@ -149,9 +77,17 @@
 
     <mat-form-field>
       <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="birthDate" name="birthDate">
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="birthDate"
+        name="birthDate"
+      />
       <mat-hint>Dia/Mes/Año</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
@@ -178,7 +114,7 @@
         mat-button
         [mat-dialog-close]="true"
       >
-        Añadir usuario
+        Modificar usuario
       </button>
     </mat-dialog-actions>
   </div>

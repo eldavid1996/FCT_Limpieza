@@ -1,9 +1,19 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MaterialModule } from '../../../material.module';
 import { TaskService } from '../../../services/task.service';
 import { Subscription } from 'rxjs';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Task } from '../../../models/task.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,9 +24,8 @@ import { PaginationTask } from '../../../models/paginationTask.model';
   standalone: true,
   imports: [MaterialModule],
   templateUrl: './task.component.html',
-  styleUrl: './task.component.css'
+  styleUrl: './task.component.css',
 })
-
 export class TaskListComponent implements OnInit, OnDestroy, AfterViewInit {
   [x: string]: any;
   @ViewChild(MatSort) ordenamiento?: MatSort | any;
@@ -31,27 +40,55 @@ export class TaskListComponent implements OnInit, OnDestroy, AfterViewInit {
   sort = 'priority';
   sortDirection = 'asc';
   filterValue: any = null;
-  displayedColumns = ['id','priority', 'observations', 'actions'];
+  displayedColumns = ['id', 'priority', 'observations', 'actions'];
   dataSource = new MatTableDataSource<Task>();
 
-  constructor(private taskService: TaskService, private dialog:MatDialog) {}
+  constructor(
+    private taskService: TaskService,
+    private dialog: MatDialog,
+    private paginatorIntl: MatPaginatorIntl
+  ) {
+    // Pagination in spanish
+    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
+    this.paginatorIntl.getRangeLabel = (
+      page: number,
+      pageSize: number,
+      length: number
+    ) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de ${length}`;
+      }
+      length = Math.max(length, 0);
+      const startIndex = page * pageSize;
+      const endIndex =
+        startIndex < length
+          ? Math.min(startIndex + pageSize, length)
+          : startIndex + pageSize;
+      return `${startIndex + 1} - ${endIndex} de ${length}`;
+    };
+  }
   ngOnDestroy(): void {
     this.taskSubscription?.unsubscribe();
   }
   ngOnInit(): void {
-
-    this.taskService.obtenerTask(this.tasksPorPagina, this.paginaActual, this.sort, this.sortDirection, this.filterValue);
-   this.taskSubscription = this.taskService.obtenerActualListener().subscribe((pagination: PaginationTask) => {
-      this.dataSource.data = pagination.data;
-      this.totalTasks = pagination.totalRows;
-   });
+    this.taskService.obtenerTask(
+      this.tasksPorPagina,
+      this.paginaActual,
+      this.sort,
+      this.sortDirection,
+      this.filterValue
+    );
+    this.taskSubscription = this.taskService
+      .obtenerActualListener()
+      .subscribe((pagination: PaginationTask) => {
+        this.dataSource.data = pagination.data;
+        this.totalTasks = pagination.totalRows;
+      });
   }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.ordenamiento;
     this.dataSource.paginator = this.paginacion;
   }
-
-
 
   eventoPaginador(event: PageEvent): void {
     this.tasksPorPagina = event.pageSize;

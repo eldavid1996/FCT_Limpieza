@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     // if start in login page with token, redirect to dashboard
     if (typeof localStorage !== 'undefined') {
       if (localStorage.getItem('token')) {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/inicio']);
       }
     }
 
