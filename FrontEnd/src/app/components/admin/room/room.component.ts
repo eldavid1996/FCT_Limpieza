@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Room } from '../../../models/room.model';
 import { PaginationRoom } from '../../../models/paginationRoom.model';
 import { RoomService } from '../../../services/room.service';
-import { Pagination } from '../../../models/Pagination.model';
+import { PaginationList } from '../../../models/Pagination.model';
 import { PaginationFilter } from '../../../models/paginationFilter.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteRoomModalComponent } from './modals/delete/deleteRoomModal.component';
@@ -43,12 +43,14 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
   timeout: any = null;
 
   // Filter for search by column
-  paginationFilter: PaginationFilter = {
-    property: 'RoomNumber',
-    value: '',
-  };
+  paginationFilter: PaginationFilter[] = [
+    {
+      property: 'RoomNumber',
+      value: '',
+    },
+  ];
   // Request for get rooms paginated with the filter (default null)
-  paginationRequest: Pagination = {
+  paginationRequest: PaginationList = {
     pageSize: 5,
     page: 1,
     sort: 'name',
@@ -96,10 +98,12 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
   onRadioButtonChange(event: any) {
     this.searchRadioButtonValue = event.value;
 
-    var updatedPaginationFilter: PaginationFilter = {
-      property: this.searchRadioButtonValue,
-      value: this.paginationFilter.value,
-    };
+    var updatedPaginationFilter: PaginationFilter[] = [
+      {
+        property: this.searchRadioButtonValue,
+        value: this.paginationFilter[0].value,
+      },
+    ];
     this.paginationRequest.filter = updatedPaginationFilter;
 
     this.roomService.searchRooms(this.paginationRequest);
@@ -112,10 +116,12 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
 
     this.timeout = setTimeout(() => {
       if (event.keyCode != 13) {
-        $this.paginationFilter = {
-          property: this.searchRadioButtonValue,
-          value: event.target.value,
-        };
+        $this.paginationFilter = [
+          {
+            property: this.searchRadioButtonValue,
+            value: event.target.value,
+          },
+        ];
         this.paginationRequest.filter = $this.paginationFilter;
         $this.roomService.searchRooms(this.paginationRequest);
       }

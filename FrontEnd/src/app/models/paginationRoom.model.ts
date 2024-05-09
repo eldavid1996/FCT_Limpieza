@@ -8,6 +8,6 @@ export interface PaginationRoom {
   sortDirection: string;
   pagesQuantity: number;
   data: Room[];
-  filter: PaginationFilter;
+  filter: PaginationFilter[];
   totalRows: number;
 }

@@ -3,7 +3,7 @@ import { environment } from '../../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaginationRoom } from '../models/paginationRoom.model';
-import { Pagination } from '../models/Pagination.model';
+import { PaginationList } from '../models/Pagination.model';
 import { Room } from '../models/room.model';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class RoomService {
   constructor(private http: HttpClient) {}
 
   // Search rooms with filters
-   searchRooms(paginationRequest: Pagination): void {
+  searchRooms(paginationRequest: PaginationList): void {
     this.http
       .post<PaginationRoom>(this.baseUrl + 'Room/pagination', paginationRequest)
       .subscribe((response) => {
@@ -31,7 +31,7 @@ export class RoomService {
   }
 
   // Get an observable with the rooms
-   getRooms(): Observable<PaginationRoom> {
+  getRooms(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();
   }
 

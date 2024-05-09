@@ -1,3 +1,7 @@
+td {
+  cursor: default;
+}
+
 .position{
     position: relative;
     top:2px;
@@ -15,7 +19,7 @@
     #col-telf{
         display: none;
     }
-    
+
 }
 @media (max-width: 767px) {
     .col-telf {
@@ -30,4 +34,3 @@
   th{
     cursor: default;
   }
-  

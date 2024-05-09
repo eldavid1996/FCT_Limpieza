@@ -7,3 +7,11 @@ export interface Pagination {
   sortDirection: string;
   filter?: PaginationFilter;
 }
+
+export interface PaginationList {
+  pageSize: number;
+  page: number;
+  sort: string;
+  sortDirection: string;
+  filter?: PaginationFilter[];
+}

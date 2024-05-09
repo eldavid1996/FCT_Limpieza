@@ -7,7 +7,7 @@ import {
   SecurityRolesRouter,
   SecurityRouter,
 } from './components/security/security.router';
-import { TaskListComponent } from './components/admin/task/task.component';
+import { TaskTableComponent } from './components/admin/task/task.component';
 import { ProfileComponent } from './components/shared/profile/profile.component';
 
 export const routes: Routes = [
@@ -34,7 +34,7 @@ export const routes: Routes = [
   },
   {
     path: 'tareas',
-    component: TaskListComponent,
+    component: TaskTableComponent,
     canActivate: [SecurityRouter, SecurityRolesRouter],
   },
   { path: '**', redirectTo: '' },

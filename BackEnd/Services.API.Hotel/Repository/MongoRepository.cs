@@ -66,29 +66,26 @@ namespace Services.API.Hotel.Repository
                 sort = Builders<TDocument>.Sort.Descending(pagination.Sort);
             }
 
+            var filterBuilder = Builders<TDocument>.Filter;
             var totalDocuments = 0;
+            FilterDefinition<TDocument> combinedFilter = filterBuilder.Empty;
 
-            if (pagination.Filter == null)
+            if (pagination.Filter != null && pagination.Filter.Any())
             {
-                pagination.Data = await _collection.Find(p => true)
-                                    .Sort(sort)
-                                    .Skip((pagination.Page - 1) * pagination.PageSize)
-                                    .Limit(pagination.PageSize)
-                                    .ToListAsync();
-                totalDocuments = (await _collection.Find(p => true).ToListAsync()).Count();
-            }
-            else
-            {
-                var filterValue = ".*" + pagination.Filter.Value + ".*";
-                var filter = Builders<TDocument>.Filter.Regex(pagination.Filter.Property, new BsonRegularExpression(filterValue, "i"));
+                var filterDefinitions = pagination.Filter.Select(f =>
+                    filterBuilder.Regex(f.Property, new BsonRegularExpression(".*" + f.Value + ".*", "i"))
+                );
 
-                pagination.Data = await _collection.Find(filter)
-                                    .Sort(sort)
-                                    .Skip((pagination.Page - 1) * pagination.PageSize)
-                                    .Limit(pagination.PageSize)
-                                    .ToListAsync();
-                totalDocuments = (await _collection.Find(filter).ToListAsync()).Count();
+                combinedFilter = filterBuilder.Or(filterDefinitions);
             }
+
+            pagination.Data = await _collection.Find(combinedFilter)
+                .Sort(sort)
+                .Skip((pagination.Page - 1) * pagination.PageSize)
+                .Limit(pagination.PageSize)
+                .ToListAsync();
+
+            totalDocuments = (int)await _collection.Find(combinedFilter).CountDocumentsAsync();
 
             var rounded = Math.Ceiling(totalDocuments / Convert.ToDecimal(pagination.PageSize));
             var totalPages = Convert.ToInt32(rounded);

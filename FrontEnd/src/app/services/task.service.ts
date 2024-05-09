@@ -1,50 +1,55 @@
-import { Observable, Subject } from "rxjs";
-import { Task } from "../models/task.model";
-import { PaginationTask } from "../models/paginationTask.model";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { environment } from "../../environment/environment";
-import { Injectable } from "@angular/core";
-
+import { Subject, Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { PaginationList } from '../models/Pagination.model';
+import { PaginationTask } from '../models/paginationTask.model';
+import { Task } from '../models/task.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskService {
-  baseUrl = environment.hotelUrl;
-  taskSubject = new Subject();
-  taskPagination: PaginationTask | any;
+  baseUrl = environment.gatewayUrl;
+
+  // Returned pagination model from request
+  taskPagination: PaginationTask | undefined;
+
+  // Observable for send the task request data to components
   taskPaginationSubject = new Subject<PaginationTask>();
 
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  obtenerTask(tasksPorPagina: number, paginaActual: number, sort: string, sortDirection: string, filterValue: any) {
-    const request = {//Objeto que se le envia al server
-      pageSize: tasksPorPagina,
-      page: paginaActual,
-      sort,
-      sortDirection,
-      filterValue
-    };
-    this.http.post<PaginationTask>(this.baseUrl + 'api/TaskService/pagination', request).subscribe((data) => {
-      this.taskPagination = data;
-      this.taskPaginationSubject.next(this.taskPagination);
-    });
+  // Search tasks with filters
+  searchTasks(paginationRequest: PaginationList): void {
+    this.http
+      .post<PaginationTask>(this.baseUrl + 'Task/pagination', paginationRequest)
+      .subscribe((response) => {
+        this.taskPagination = response;
+        this.taskPaginationSubject.next(this.taskPagination);
+      });
   }
-  obtenerActualListener() {
+
+  // Get an observable with the tasks
+  getTasks(): Observable<PaginationTask> {
     return this.taskPaginationSubject.asObservable();
   }
 
-
-  guardarTask(Task: Task) {
-    console.log('Enviando solicitud para guardar tarea:', Task);
-    this.http.post(this.baseUrl + 'api/TaskService', Task).subscribe((data) => {
-      console.log('Respuesta del servidor:', data);
-      this.taskSubject.next(Task);
+  // Delete task by id
+  deleteTask(id: string) {
+    return this.http.delete(this.baseUrl + 'Task/' + id, {
+      responseType: 'text',
     });
   }
 
-  guardarTaskListener() {
-    return this.taskSubject.asObservable();
+  // Update the selected task
+  updateTask(id: string, updatedTask: Task) {
+    const body = { ...updatedTask, id };
+    return this.http.put(this.baseUrl + 'Task/' + id, body);
+  }
+
+  // insert a new task
+  insertTask(newTask: Task) {
+    return this.http.post<Task>(this.baseUrl + 'Task', newTask);
   }
 }
