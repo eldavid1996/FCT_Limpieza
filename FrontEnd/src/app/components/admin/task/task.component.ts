@@ -232,4 +232,26 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     ];
     return updatedPaginationFilter;
   }
+
+  private searchByUser(value: string) {
+    const updatedPaginationFilter: PaginationFilter[] = [
+      {
+        property: 'Room.RoomNumber',
+        value: value,
+      },
+      {
+        property: 'Room.Floor',
+        value: value,
+      },
+      {
+        property: 'Room.Type',
+        value: value,
+      },
+      {
+        property: 'Room.Status',
+        value: value,
+      },
+    ];
+    return updatedPaginationFilter;
+  }
 }

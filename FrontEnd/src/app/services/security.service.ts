@@ -81,6 +81,23 @@ export class SecurityService {
     });
   }
 
+  // admin users can reset a user password in the update user modal component
+  updateUserPassword(userId: string, newPassword: string): Observable<string> {
+    // Model for change password in the API
+    const body = {
+      newPassword: newPassword,
+    };
+
+    // Return a response with the request result in text format (NO json)
+    return this.http.post(
+      this.baseUrl + 'User/resetPassword/' + userId,
+      body,
+      {
+        responseType: 'text',
+      }
+    );
+  }
+
   // Navbar icon for close session, delete tokens
   logout() {
     this.securityChange.next(false);

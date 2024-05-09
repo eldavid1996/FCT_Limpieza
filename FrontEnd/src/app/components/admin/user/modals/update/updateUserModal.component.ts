@@ -10,10 +10,16 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importa ReactiveFormsMo
 import { MaterialModule } from '../../../../../material.module';
 import { UserService } from '../../../../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { InsertOrUpdateUser } from '../../../../../models/userUpdateOrInsert.model';
 import { dniValidator } from '../insert/insertUser-validators';
 import { SecurityService } from '../../../../../services/security.service';
+import { User } from '../../../../../models/user.model';
+import { UpdateUserPasswordModal } from './updateUserPasswordModal/updateUserPasswordModal.component';
 
 @Component({
   selector: 'app-update-user-modal',
@@ -31,6 +37,7 @@ export class UpdateUserModalComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<UpdateUserModalComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -89,5 +96,12 @@ export class UpdateUserModalComponent implements OnInit {
   // Used for dont show some options for the user logged (for example, he cant change him rol)
   getUserLoggedId(): string {
     return this.securityService.getUserLoggedId();
+  }
+
+  updateUserPasswordModal(user: User) {
+    this.dialog.open(UpdateUserPasswordModal, {
+      width: '400px',
+      data: { user },
+    });
   }
 }

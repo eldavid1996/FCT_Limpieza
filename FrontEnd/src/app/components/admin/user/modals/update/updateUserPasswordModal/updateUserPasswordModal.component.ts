@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { MaterialModule } from '../../../material.module';
+import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,19 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { passwordValidator } from './update-password-validators';
-import { SecurityService } from '../../../services/security.service';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { passwordMatchValidator } from './update-password-confirmation-validator';
+import { SecurityService } from '../../../../../../services/security.service';
+import { passwordValidator } from '../../../../../shared/profile/update-password-validators';
+import { passwordMatchValidator } from '../../../../../shared/profile/update-password-confirmation-validator';
+import { MaterialModule } from '../../../../../../material.module';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'update-password-dialog',
-  templateUrl: 'update-password-modal.html',
+  selector: 'update-user-password-dialog',
+  templateUrl: 'updateUserPasswordModal.component.html',
   standalone: true,
   imports: [MaterialModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
-export class UpdatePasswordModal {
+export class UpdateUserPasswordModal {
   passwordForm: FormGroup;
   snackbarDuration = 5;
 
@@ -27,10 +28,10 @@ export class UpdatePasswordModal {
   constructor(
     private formBuilder: FormBuilder,
     private securityService: SecurityService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.passwordForm = this.formBuilder.group({
-      oldPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, passwordValidator()]],
       repeatNewPassword: [
         '',
@@ -41,10 +42,9 @@ export class UpdatePasswordModal {
   }
 
   // Update Password button aaction
-  updatePassword() {
-    const oldPassword = this.passwordForm.get('oldPassword')?.value;
-    const newPassword = this.passwordForm.get('newPassword')?.value;
-    this.securityService.updatePassword(oldPassword, newPassword).subscribe(
+  updatePassword(userId: string) {
+    const Password = this.passwordForm.get('repeatNewPassword')?.value;
+    this.securityService.updateUserPassword(userId,Password).subscribe(
       () => {
         this.openSnackBar('Contraseña actualizada con éxito');
         console.log('Contraseña actualizada con éxito');
