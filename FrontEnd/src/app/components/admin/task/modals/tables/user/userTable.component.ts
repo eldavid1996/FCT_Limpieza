@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorIntl,
@@ -29,6 +37,7 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
   selectedId: string = '';
+  @Input() selectedIdUser: string | any;
   @Output() selectedIdUserChange = new EventEmitter<string>();
 
   private userSubscription: Subscription | undefined;
@@ -82,6 +91,9 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // Set variable value for color the row
+    this.selectedId = this.selectedIdUser;
+
     this.userService.searchUsers(this.paginationRequest);
     this.userSubscription = this.userService
       .getUsers()

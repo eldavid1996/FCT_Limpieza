@@ -1,47 +1,85 @@
-<form [formGroup]="roomForm" (ngSubmit)="updateRoom(data.room.id)">
-  <h1 class="mat-dialog-title w-full text-center">
-    Modificar habitación {{ data.room.roomNumber }}
-  </h1>
+<form [formGroup]="taskForm" (ngSubmit)="updateTask()" class="modal-content">
+  <h1 class="mat-dialog-title w-full text-center">Modificar tarea</h1>
   <div class="grid grid-cols-2 gap-4">
-    <mat-form-field appearance="fill">
-      <mat-label>Nº habitación</mat-label>
-      <input
-        formControlName="roomNumber"
+    <!-- User table component -->
+    <app-task-user-table
+      [selectedIdUser]="userId"
+      (selectedIdUserChange)="onSelectedIdUserChange($event)"
+      class="col-span-2"
+    ></app-task-user-table>
+    <!-- Save the user id selected, hidden -->
+    <input
+      hidden
+      formControlName="user"
+      matInput
+      name="user"
+      type="text"
+      [value]="userId"
+    />
+    <!-- Room table component -->
+    <app-task-room-table
+      [selectedIdRoom]="roomId"
+      (selectedIdRoomChange)="onSelectedIdRoomChange($event)"
+      class="col-span-2"
+    ></app-task-room-table>
+    <!-- Save the room id selected, hidden -->
+    <input
+      hidden
+      formControlName="room"
+      matInput
+      name="room"
+      type="text"
+      [value]="roomId"
+    />
+
+    <mat-radio-group formControlName="priority" name="priority">
+      <mat-label>Prioridad</mat-label>
+      <mat-radio-button value="Baja">Baja</mat-radio-button>
+      <mat-radio-button value="Normal">Normal</mat-radio-button>
+      <mat-radio-button value="Alta">Alta</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="fill" class="col-span-2">
+      <mat-label>Observaciones</mat-label>
+      <textarea
+        formControlName="observations"
         matInput
-        name="roomNumber"
-        required
-        type="text"
-      />
-      <mat-error *ngIf="this.roomForm.get('roomNumber')?.hasError('required')"
-        >Nº habitación requerido</mat-error
-      >
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Planta</mat-label>
-      <input formControlName="floor" matInput name="floor" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Tipo de habitación</mat-label>
-      <input formControlName="type" matInput name="type" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Estado</mat-label>
-      <input formControlName="status" matInput name="status" type="text" />
+        name="observations"
+        matTextareaAutosize
+        matAutosizeMinRows="3"
+        matAutosizeMaxRows="5"
+      ></textarea>
     </mat-form-field>
 
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cerrar</button>
       <button
-        [disabled]="roomForm.invalid"
+        [disabled]="taskForm.invalid"
         type="submit"
         mat-button
         [mat-dialog-close]="true"
       >
-        Modificar habitación
+        Modificar tarea
       </button>
+      <mat-label
+        >Estado: {{ data.task.status }}
+        <button
+          (click)="updateStatus('Finalizada')"
+          mat-button
+          mat-dialog-close
+          *ngIf="data.task.status === 'Pendiente'"
+        >
+          Marcar como finalizada
+        </button>
+        <button
+          (click)="updateStatus('Pendiente')"
+          mat-button
+          mat-dialog-close
+          *ngIf="data.task.status === 'Finalizada'"
+        >
+          Marcar como pendiente
+        </button>
+      </mat-label>
     </mat-dialog-actions>
   </div>
 </form>

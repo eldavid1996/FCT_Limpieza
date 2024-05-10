@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>Confirmar eliminación</h2>
 <div mat-dialog-content>
-  ¿Está seguro de que deseas eliminar la tarea perteneciente a la habitación Nº
-  {{ data.task.room.roomNumber }} - Planta {{ data.task.room.floor }} asignada
+  ¿Está seguro de que desea eliminar la tarea perteneciente a la habitación Nº
+  {{ data.task.room.roomNumber }} <span *ngIf="data.task.room.floor">- Planta </span>{{ data.task.room.floor }} asignada
   al usuario {{ data.task.user.name }} {{ data.task.user.surname }}?
 </div>
 <div mat-dialog-actions>

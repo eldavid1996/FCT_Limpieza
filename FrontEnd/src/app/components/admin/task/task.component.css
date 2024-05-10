@@ -1,13 +1,17 @@
-.position{
+.position {
   position: relative;
-  top:2px;
+  top: 2px;
   left: -2px;
 }
-.boton-nuevo{
+.boton-nuevo {
   background-color: #4f46e5 !important;
   border-radius: 60px;
   color: white !important;
 }
-.beige{
+.boton-nuevo[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.beige {
   background-color: #eff6e0;
 }

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
@@ -36,6 +37,7 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   private roomSubscription: Subscription | undefined;
 
   selectedId: string = '';
+  @Input() selectedIdRoom: string | any;
   @Output() selectedIdRoomChange = new EventEmitter<string>();
 
   searchRadioButtonValue = 'RoomNumber';
@@ -88,6 +90,8 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    // Set variable value for color the row
+    this.selectedId = this.selectedIdRoom;
     this.roomService.searchRooms(this.paginationRequest);
     this.roomSubscription = this.roomService
       .getRooms()

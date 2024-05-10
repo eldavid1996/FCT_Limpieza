@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorIntl,
@@ -6,36 +13,33 @@ import {
 } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Subscription, delay } from 'rxjs';
-import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { PaginationList } from '../../../models/Pagination.model';
-import { PaginationFilter } from '../../../models/paginationFilter.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../../../services/task.service';
-import { PaginationTask } from '../../../models/paginationTask.model';
-import { InsertTaskModalComponent } from './modals/insert/insertTaskModal.component';
-import { UpdateTaskModalComponent } from './modals/update/updateTaskModal.component';
-import { DeleteTaskModalComponent } from './modals/delete/deleteTaskModal.component';
-import { Task } from '../../../models/task.model';
-import { MoveToHistoryTaskModalComponent } from './modals/moveToHistory/moveToHistoryTaskModal.component';
-import { TaskHistoryTableComponent } from './modals/tables/taskHistory/taskHistory.component';
+import { MaterialModule } from '../../../../../../material.module';
+import { PaginationFilter } from '../../../../../../models/paginationFilter.model';
+import { PaginationList } from '../../../../../../models/Pagination.model';
+import { TaskService } from '../../../../../../services/task.service';
+import { PaginationTask } from '../../../../../../models/paginationTask.model';
+import { DeleteTaskModalComponent } from '../../delete/deleteTaskModal.component';
+import { Task } from '../../../../../../models/task.model';
 
 @Component({
-  selector: 'app-task-table',
+  selector: 'app-task-history-table',
   standalone: true,
-  imports: [MaterialModule, CommonModule, TaskHistoryTableComponent],
-  templateUrl: './task.component.html',
-  styleUrl: './task.component.css',
+  imports: [MaterialModule, CommonModule],
+  templateUrl: './taskHistory.component.html',
+  styleUrl: './taskHistory.component.css',
 })
-export class TaskTableComponent implements OnInit, AfterViewInit {
+export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
   private taskSubscription: Subscription | undefined;
 
   showActiveTasks: boolean = true;
+  @Output() showActiveTasksChange = new EventEmitter<void>();
 
   searchRadioButtonValue = 'Priority';
 
@@ -96,9 +100,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.taskService.searchTasks(this.paginationRequest);
+    this.taskService.searchTasksFromHistory(this.paginationRequest);
     this.taskSubscription = this.taskService
-      .getTasks()
+      .getTasksFromHistory()
       .subscribe((pagination: PaginationTask) => {
         this.dataSource = new MatTableDataSource<Task>(pagination.data);
         this.totalTasks = pagination.totalRows;
@@ -127,7 +131,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     }
     this.paginationRequest.filter = updatedPaginationFilter;
 
-    this.taskService.searchTasks(this.paginationRequest);
+    this.taskService.searchTasksFromHistory(this.paginationRequest);
   }
 
   // Event from search input for search by column and value
@@ -150,7 +154,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         this.paginationRequest.filter = $this.paginationFilter;
-        $this.taskService.searchTasks(this.paginationRequest);
+        $this.taskService.searchTasksFromHistory(this.paginationRequest);
       }
     }, 500);
   }
@@ -165,41 +169,14 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   eventPager(event: PageEvent): void {
     this.paginationRequest.pageSize = event.pageSize;
     this.paginationRequest.page = event.pageIndex + 1;
-    this.taskService.searchTasks(this.paginationRequest);
+    this.taskService.searchTasksFromHistory(this.paginationRequest);
   }
 
   // For pagination and ordering (column options)
   orderColumns(event: Sort): void {
     this.paginationRequest.sort = event.active;
     this.paginationRequest.sortDirection = event.direction;
-    this.taskService.searchTasks(this.paginationRequest);
-  }
-
-  // Open a modal for insert a new task
-  insertTask(): void {
-    const dialogRef = this.dialog.open(InsertTaskModalComponent, {
-      width: '800px',
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(delay(500))
-      .subscribe(() => {
-        this.taskService.searchTasks(this.paginationRequest);
-      });
-  }
-
-  // Open a modal for watch or update task data
-  updateTask(task: string): void {
-    const dialogRef = this.dialog.open(UpdateTaskModalComponent, {
-      width: '800px',
-      data: { task },
-    });
-    dialogRef
-      .afterClosed()
-      .pipe(delay(500))
-      .subscribe(() => {
-        this.taskService.searchTasks(this.paginationRequest);
-      });
+    this.taskService.searchTasksFromHistory(this.paginationRequest);
   }
 
   // Open the modal with a confirmation to delete task
@@ -215,51 +192,25 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .pipe(delay(500))
       .subscribe((result) => {
         if (result === 'confirm') {
-          this.taskService.deleteTask(taskId).subscribe((response) => {
+          this.taskService.deleteTaskFromHistory(taskId).subscribe((response) => {
             // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
-            this.taskService.searchTasks(this.paginationRequest);
-          });
-        }
-      });
-  }
-
-  moveTaskToHistory(taskId: string, task: Task): void {
-    const dialogRef = this.dialog.open(MoveToHistoryTaskModalComponent, {
-      width: '250px',
-      data: { taskId, task },
-    });
-
-    // If modal was closed with a 'confirm' status move the task to the other database
-    dialogRef
-      .afterClosed()
-      .pipe(delay(500))
-      .subscribe((result) => {
-        if (result === 'confirm') {
-          this.taskService.moveTaskToHistory(taskId, task).subscribe({
-            next: () => {
-              // Show a snackbar with the request result
-              this.snackbar.open('Se movió la tarea al histórico.', 'Cerrar', {
-                duration: 3000,
-              });
-              // Then, get updated list tasks
-              this.taskService.searchTasks(this.paginationRequest);
-            },
-            error: () => {
-              this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
-                duration: 3000,
-              });
-              this.taskService.searchTasks(this.paginationRequest);
-            },
+            this.taskService.searchTasksFromHistory(this.paginationRequest);
           });
         }
       });
   }
 
   // Change the table that is showing
-  toggleShowActiveTasks(value: boolean) {
-    this.showActiveTasks = value;
+  toggleShowActiveTasks() {
+    this.showActiveTasks = !this.showActiveTasks;
+    this.taskService.searchTasks(this.paginationRequest);
+  }
+
+  // Event with the value to the parent
+  emitShowActiveTasksChange() {
+    this.showActiveTasksChange.emit();
   }
 
   // Filters used for dinamyc filter

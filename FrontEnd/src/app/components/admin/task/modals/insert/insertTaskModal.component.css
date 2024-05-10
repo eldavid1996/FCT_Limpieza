@@ -1,5 +1,4 @@
 .modal-content {
-    max-height: calc(100vh - 200px); /* Altura máxima para el contenido */
-    overflow-y: auto; /* Habilita el desplazamiento vertical si es necesario */
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
   }
-  

@@ -30,24 +30,23 @@
       [value]="roomId"
     />
 
-    <mat-form-field appearance="fill">
+    <mat-radio-group class="col-span-2" formControlName="priority" name="priority">
       <mat-label>Prioridad</mat-label>
-      <input formControlName="priority" matInput name="priority" type="text" />
-    </mat-form-field>
+      <mat-radio-button value="Baja">Baja</mat-radio-button>
+      <mat-radio-button value="Normal">Normal</mat-radio-button>
+      <mat-radio-button value="Alta">Alta</mat-radio-button>
+    </mat-radio-group>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Estado</mat-label>
-      <input formControlName="status" matInput name="status" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="col-span-2">
       <mat-label>Observaciones</mat-label>
-      <input
+      <textarea
         formControlName="observations"
         matInput
         name="observations"
-        type="text"
-      />
+        matTextareaAutosize
+        matAutosizeMinRows="3"
+        matAutosizeMaxRows="5"
+      ></textarea>
     </mat-form-field>
 
     <mat-dialog-actions>
