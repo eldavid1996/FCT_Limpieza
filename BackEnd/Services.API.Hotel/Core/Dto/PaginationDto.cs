@@ -7,7 +7,9 @@
         public required int Page { get; set; }
         public required string Sort { get; set; }
         public required string SortDirection { get; set; }
-        public PaginationFilterHelped? Filter { get; set; }
+        public List<PaginationFilterHelped> Filter { get; set; }
+
+        //public PaginationFilterHelped? Filter { get; set; }
         public int PagesQuantity { get; set; }
         public IEnumerable<TDocument>? Data { get; set; }
         public int TotalRows { get; set; }

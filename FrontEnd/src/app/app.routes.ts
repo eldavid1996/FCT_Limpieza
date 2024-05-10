@@ -1,20 +1,20 @@
 import { Routes } from '@angular/router';
-import { UserTableComponent } from './components/user-table/user-table.component';
+import { UserTableComponent } from './components/admin/user/user.component';
 import { LoginComponent } from './components/security/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { RoomTableComponent } from './components/room-table/room-table.component';
+import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
+import { RoomTableComponent } from './components/admin/room/room.component';
 import {
   SecurityRolesRouter,
   SecurityRouter,
 } from './components/security/security.router';
-import { TaskListComponent } from './components/task-list/task-list.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { TaskBoardComponent } from './components/task-board/task-board.component';
+import { ProfileComponent } from './components/shared/profile/profile.component';
+import { TaskBoardComponent } from './components/user/task-board/task-board.component';
+import { TaskTableComponent } from './components/admin/task/task.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   {
-    path: 'dashboard',
+    path: 'inicio',
     component: DashboardComponent,
     canActivate: [SecurityRouter],
   },
@@ -35,11 +35,11 @@ export const routes: Routes = [
   },
   {
     path: 'tareas',
-    component: TaskListComponent,
+    component: TaskTableComponent,
     canActivate: [SecurityRouter, SecurityRolesRouter],
   },
   {
-    path: 'tareasusuario',
+    path: 'tareas2',
     component: TaskBoardComponent,
     canActivate: [SecurityRouter],
   },

@@ -105,9 +105,6 @@ namespace Services.API.Security.Controllers
         {
             IQueryable<UserEntity> query = _context.Users;
 
-            
-            
-
             if (!string.IsNullOrEmpty(parameters.Sort))
             {
                 if (parameters.SortDirection == "desc")
@@ -123,11 +120,8 @@ namespace Services.API.Security.Controllers
 
             if (filter != null)
             {
-                query = query.Where(
-                    u => u.Name.Contains(parameters.Filter.Value) ||
-                    u.Email.Contains(parameters.Filter.Value) ||
-                    u.City.Contains(parameters.Filter.Value)
-                    );
+                query = query.Where(u => EF.Property<string>(u, parameters.Filter.Property).Contains(parameters.Filter.Value));
+
             }
 
             var usersEntities = await query
@@ -135,13 +129,15 @@ namespace Services.API.Security.Controllers
                 .Take(parameters.PageSize)
                 .ToListAsync();
 
-            parameters.TotalRows = usersEntities.Count;
+            var totalUsers = await query.CountAsync();
+
+            parameters.TotalRows = totalUsers;
 
             var registeredUsersDto = _mapper.Map<List<UserEntity>, List<RegisteredUserDto>>(usersEntities);
 
             parameters.Data = registeredUsersDto;
 
-            var rounded = Math.Ceiling(usersEntities.Count / Convert.ToDecimal(parameters.PageSize));
+            var rounded = Math.Ceiling(totalUsers / Convert.ToDecimal(parameters.PageSize));
             var totalPages = Convert.ToInt32(rounded);
 
             parameters.PagesQuantity = totalPages;

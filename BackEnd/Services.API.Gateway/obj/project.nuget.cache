@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YP2LTceDwq+r0XCenw5sXIGMtnRK47GkcBJb947if2K3DEveSdhdbz3eiCEfjsDPtwbTogcRU/VJMRR3dLj3mA==",
+  "dgSpecHash": "8sy6vkszp3NDJlzpR73fr/gBvUQttTpZ5YC5D2o2kU2EwOzYqzgpw7sZ1KcCOPE5Zgce63CRSqAB64kLwG9/dQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+  "projectFilePath": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josve\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
     "C:\\Users\\josve\\.nuget\\packages\\ipaddressrange\\6.0.0\\ipaddressrange.6.0.0.nupkg.sha512",

@@ -2,11 +2,10 @@ import { Room } from "./room.model";
 import { User } from "./user.model";
 
 export interface Task{
-  room: Room
+  id:string;
+  room:Room;
+  user:User;
   priority:string;
   observations:string;
   status:string;
-  user: User;
 }
-
-  

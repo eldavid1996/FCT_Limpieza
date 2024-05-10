@@ -1,0 +1,111 @@
+<form [formGroup]="roomForm" (ngSubmit)="insertRoom()">
+  <h1 class="mat-dialog-title w-full text-center">Añadir nuevo usuario</h1>
+  <div class="grid grid-cols-2 gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input formControlName="name" matInput name="name" required type="text" />
+      <mat-error *ngIf="this.roomForm.get('name')?.hasError('required')"
+        >Nombre requerido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Apellidos</mat-label>
+      <input
+        formControlName="surname"
+        required
+        matInput
+        name="surname"
+        type="text"
+      />
+      <mat-error *ngIf="this.roomForm.get('surname')?.hasError('required')"
+        >Apellidos requerido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        formControlName="email"
+        required
+        matInput
+        name="email"
+        type="email"
+      />
+      <mat-error *ngIf="this.roomForm.get('email')?.hasError('required')"
+        >Email requerido</mat-error
+      >
+      <mat-error *ngIf="this.roomForm.get('email')?.hasError('email')"
+        >Formato inválido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>DNI</mat-label>
+      <input formControlName="dni" required matInput name="dni" type="text" />
+      <mat-error *ngIf="this.roomForm.get('dni')?.hasError('required')"
+        >DNI requerido</mat-error
+      >
+      <mat-error
+        *ngIf="
+          this.roomForm.get('dni')?.hasError('invalidDni') &&
+          this.roomForm.get('dni')?.value.length > 0
+        "
+        >Formato inválido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-radio-group formControlName="roleAdmin">
+      <mat-label>Rol</mat-label>
+      <mat-radio-button [value]="true">User</mat-radio-button>
+      <mat-radio-button [value]="false">Admin</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input
+        formControlName="phoneNumber"
+        matInput
+        name="phoneNumber"
+        type="text"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input
+        formControlName="birthDate"
+        matInput
+        name="birthDate"
+        type="date"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Ciudad</mat-label>
+      <input formControlName="city" matInput name="city" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>CP</mat-label>
+      <input formControlName="cp" matInput name="cp" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Imagen</mat-label>
+      <input formControlName="urlImage" matInput name="urlImage" type="text" />
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cerrar</button>
+      <button
+        [disabled]="roomForm.invalid"
+        type="submit"
+        mat-button
+        [mat-dialog-close]="true"
+      >
+        Añadir habitación
+      </button>
+    </mat-dialog-actions>
+  </div>
+</form>

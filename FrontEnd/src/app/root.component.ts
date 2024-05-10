@@ -1,4 +1,4 @@
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { SecurityService } from './services/security.service';
 import { Component, OnInit } from '@angular/core';

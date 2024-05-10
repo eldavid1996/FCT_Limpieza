@@ -15,6 +15,7 @@ export class SecurityService {
   // Token and user role for manage the routes and permissions in the app
   private token: string | any;
   private userRole: boolean | any;
+  private userId: string | any;
 
   // Subject for manage the login message in login.html
   securityChange = new Subject<boolean>();
@@ -29,12 +30,14 @@ export class SecurityService {
         this.securityChange.next(true);
         // Set cookies
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.id);
         localStorage.setItem('rol', data.roleAdmin.toString());
         localStorage.setItem('loginTime', new Date().toString()); // for destroy token with + 1 duration days
         // Set variables
         this.token = localStorage.getItem('token');
+        this.userId = localStorage.getItem('userId');
         this.userRole = localStorage.getItem('rol');
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['inicio']);
       },
       error: (e) => {
         // set login Subject failed
@@ -54,8 +57,10 @@ export class SecurityService {
 
     // Set the variables with the cookies data
     const tokenBrowser = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
     const rol = localStorage.getItem('rol');
     this.token = tokenBrowser;
+    this.userId = userId;
     this.userRole = rol;
 
     // Method can be used too for get the actual user data (in the profile component, for example)
@@ -108,5 +113,10 @@ export class SecurityService {
     } else {
       return false;
     }
+  }
+
+  // Used for dont show some options for the user logged (for example, he cant delete him user)
+  getUserLoggedId(): string {
+    return this.userId;
   }
 }

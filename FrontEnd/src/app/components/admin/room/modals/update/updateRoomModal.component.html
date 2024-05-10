@@ -1,0 +1,47 @@
+<form [formGroup]="roomForm" (ngSubmit)="updateRoom(data.room.id)">
+  <h1 class="mat-dialog-title w-full text-center">
+    Modificar habitación {{ data.room.roomNumber }}
+  </h1>
+  <div class="grid grid-cols-2 gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Nº habitación</mat-label>
+      <input
+        formControlName="roomNumber"
+        matInput
+        name="roomNumber"
+        required
+        type="text"
+      />
+      <mat-error *ngIf="this.roomForm.get('roomNumber')?.hasError('required')"
+        >Nº habitación requerido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Planta</mat-label>
+      <input formControlName="floor" matInput name="floor" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de habitación</mat-label>
+      <input formControlName="type" matInput name="type" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <input formControlName="status" matInput name="status" type="text" />
+    </mat-form-field>
+
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cerrar</button>
+      <button
+        [disabled]="roomForm.invalid"
+        type="submit"
+        mat-button
+        [mat-dialog-close]="true"
+      >
+        Modificar habitación
+      </button>
+    </mat-dialog-actions>
+  </div>
+</form>

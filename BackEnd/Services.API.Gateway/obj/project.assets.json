@@ -823,11 +823,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "projectUniqueName": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
       "projectName": "Services.API.Gateway",
-      "projectPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "projectPath": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
       "packagesPath": "C:\\Users\\josve\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\josve\\Desktop\\TFG\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
+      "outputPath": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\josve\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,6 +1,6 @@
-export interface Room{
-    roomNumber: string;
-    floor: string;
-    type:string;
-    status:string;
+export interface Room {
+  roomNumber: string;
+  floor: string;
+  type: string;
+  status: string;
 }

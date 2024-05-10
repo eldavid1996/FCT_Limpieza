@@ -1,12 +1,13 @@
-import { User } from "./user.model";
+import { PaginationFilter } from './paginationFilter.model';
+import { User } from './user.model';
 
-export interface PaginationUser{
-  pageSize: string;
-  page:number;
+export interface PaginationUser {
+  pageSize: number;
+  page: number;
   sort: string;
   sortDirection: string;
-  pagesQuantity: string;
+  pagesQuantity: number;
   data: User[];
-  filterValue: {};
+  filter: PaginationFilter;
   totalRows: number;
 }
