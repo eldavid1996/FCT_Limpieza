@@ -75,7 +75,7 @@ export class InsertUserModalComponent implements OnInit {
       urlImage: '',
     };
     this.userService.insertUser(userRequest).subscribe({
-      next: () => this.openSnackBar('Usuario añadido'),
+      next: () => this.openSnackBar('Usuario añadido correctamente.'),
       error: () =>
         this.openSnackBar('Error al añadir el usuario ¿email duplicado?'),
     });

@@ -1,0 +1,42 @@
+/* Used in the coponent */
+.highlighted-row {
+  background-color: lightblue;
+  cursor: pointer;
+}
+
+td {
+  cursor: default;
+}
+
+.position{
+    position: relative;
+    top:2px;
+    left: -2px;
+}
+.boton-nuevo{
+    background-color: #4f46e5 !important;
+    border-radius: 60px;
+    color: white !important;
+}
+.beige{
+    background-color: #eff6e0;
+}
+@media screen and (max-width: 650px) {
+    #col-telf{
+        display: none;
+    }
+
+}
+@media (max-width: 767px) {
+    .col-telf {
+      display: none !important;
+    }
+  }
+
+  tr:hover{
+    background-color: #eff6e0;
+    cursor:pointer
+  }
+  th{
+    cursor: default;
+  }

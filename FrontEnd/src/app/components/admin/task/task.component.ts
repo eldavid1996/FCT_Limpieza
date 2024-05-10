@@ -43,7 +43,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     'Status',
     'User',
     'Room',
-    'CreatedDate',
+    'Observations',
     'actions',
   ];
 
@@ -112,7 +112,14 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       },
     ];
     if (event.value === 'Room') {
-      updatedPaginationFilter = this.searchByRoom(this.paginationFilter[0].value);
+      updatedPaginationFilter = this.searchByRoom(
+        this.paginationFilter[0].value
+      );
+    }
+    if (event.value === 'User') {
+      updatedPaginationFilter = this.searchByUser(
+        this.paginationFilter[0].value
+      );
     }
     this.paginationRequest.filter = updatedPaginationFilter;
 
@@ -134,6 +141,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         ];
         if (this.searchRadioButtonValue === 'Room') {
           $this.paginationFilter = this.searchByRoom(event.target.value);
+        }
+        if (this.searchRadioButtonValue === 'User') {
+          $this.paginationFilter = this.searchByUser(event.target.value);
         }
         this.paginationRequest.filter = $this.paginationFilter;
         $this.taskService.searchTasks(this.paginationRequest);
@@ -164,7 +174,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   // Open a modal for insert a new task
   insertTask(): void {
     const dialogRef = this.dialog.open(InsertTaskModalComponent, {
-      width: '400px',
+      width: '800px',
     });
     dialogRef
       .afterClosed()
@@ -236,19 +246,23 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   private searchByUser(value: string) {
     const updatedPaginationFilter: PaginationFilter[] = [
       {
-        property: 'Room.RoomNumber',
+        property: 'User.Name',
         value: value,
       },
       {
-        property: 'Room.Floor',
+        property: 'User.Surname',
         value: value,
       },
       {
-        property: 'Room.Type',
+        property: 'User.Email',
         value: value,
       },
       {
-        property: 'Room.Status',
+        property: 'User.City',
+        value: value,
+      },
+      {
+        property: 'User.PhoneNumber',
         value: value,
       },
     ];

@@ -1,5 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="updateUser(data.user.id)">
-  <h1 class="mat-dialog-title w-full text-center">Modificar usuario</h1>
+  <h1 class="mat-dialog-title w-full text-center">Modificar usuario {{data.user.email}}</h1>
   <div class="grid grid-cols-2 gap-4">
     <mat-form-field appearance="fill">
       <mat-label>Nombre</mat-label>
@@ -106,7 +106,8 @@
       <input formControlName="urlImage" matInput name="urlImage" type="text" />
     </mat-form-field>
 
-    <button mat-button (click)="updateUserPasswordModal(data.user)" type="button">Actualizar contraseña</button>
+    <button *ngIf="data.user.id === getUserLoggedId()" mat-button routerLink="/perfil" type="button" mat-dialog-close>Actualizar contraseña</button>
+    <button *ngIf="data.user.id !== getUserLoggedId()" mat-button (click)="updateUserPasswordModal(data.user)" type="button">Actualizar contraseña</button>
 
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cerrar</button>

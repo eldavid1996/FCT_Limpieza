@@ -1,28 +1,38 @@
-<form [formGroup]="roomForm" (ngSubmit)="insertRoom()">
-  <h1 class="mat-dialog-title w-full text-center">Añadir nueva habitación</h1>
+<form [formGroup]="taskForm" (ngSubmit)="insertTask()" class="modal-content">
+  <h1 class="mat-dialog-title w-full text-center">Añadir nueva tarea</h1>
   <div class="grid grid-cols-2 gap-4">
-    <mat-form-field appearance="fill">
-      <mat-label>Nº habitación</mat-label>
-      <input
-        formControlName="roomNumber"
-        matInput
-        name="roomNumber"
-        required
-        type="text"
-      />
-      <mat-error *ngIf="this.roomForm.get('roomNumber')?.hasError('required')"
-        >Nº habitación requerido</mat-error
-      >
-    </mat-form-field>
+    <!-- User table component -->
+    <app-task-user-table
+      (selectedIdUserChange)="onSelectedIdUserChange($event)"
+      class="col-span-2"
+    ></app-task-user-table>
+    <!-- Save the user id selected, hidden -->
+    <input
+      hidden
+      formControlName="user"
+      matInput
+      name="user"
+      type="text"
+      [value]="userId"
+    />
+    <!-- Room table component -->
+    <app-task-room-table
+      (selectedIdRoomChange)="onSelectedIdRoomChange($event)"
+      class="col-span-2"
+    ></app-task-room-table>
+    <!-- Save the room id selected, hidden -->
+    <input
+      hidden
+      formControlName="room"
+      matInput
+      name="room"
+      type="text"
+      [value]="roomId"
+    />
 
     <mat-form-field appearance="fill">
-      <mat-label>Planta</mat-label>
-      <input formControlName="floor" matInput name="floor" type="text" />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Tipo de habitación</mat-label>
-      <input formControlName="type" matInput name="type" type="text" />
+      <mat-label>Prioridad</mat-label>
+      <input formControlName="priority" matInput name="priority" type="text" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -30,15 +40,25 @@
       <input formControlName="status" matInput name="status" type="text" />
     </mat-form-field>
 
+    <mat-form-field appearance="fill">
+      <mat-label>Observaciones</mat-label>
+      <input
+        formControlName="observations"
+        matInput
+        name="observations"
+        type="text"
+      />
+    </mat-form-field>
+
     <mat-dialog-actions>
       <button mat-button mat-dialog-close>Cerrar</button>
       <button
-        [disabled]="roomForm.invalid"
+        [disabled]="taskForm.invalid"
         type="submit"
         mat-button
         [mat-dialog-close]="true"
       >
-        Añadir habitación
+        Añadir tarea
       </button>
     </mat-dialog-actions>
   </div>

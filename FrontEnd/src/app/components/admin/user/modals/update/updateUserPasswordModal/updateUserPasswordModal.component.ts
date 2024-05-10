@@ -44,14 +44,12 @@ export class UpdateUserPasswordModal {
   // Update Password button aaction
   updatePassword(userId: string) {
     const Password = this.passwordForm.get('repeatNewPassword')?.value;
-    this.securityService.updateUserPassword(userId,Password).subscribe(
+    this.securityService.updateUserPassword(userId, Password).subscribe(
       () => {
-        this.openSnackBar('Contraseña actualizada con éxito');
-        console.log('Contraseña actualizada con éxito');
+        this.openSnackBar('Contraseña actualizada con éxito.');
       },
       (error) => {
-        this.openSnackBar('Error al actualizar la contraseña');
-        console.error('Error al actualizar la contraseña:', error);
+        this.openSnackBar('Error al actualizar la contraseña.');
       }
     );
   }

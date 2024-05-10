@@ -8,11 +8,11 @@ export interface Task {
   createdDate?: Date;
 }
 
-interface TaskUser {
+export interface TaskUser {
   Id: string;
 }
 
-interface TaskRoom {
+export interface TaskRoom {
   Id: string;
   roomNumber: string;
 }

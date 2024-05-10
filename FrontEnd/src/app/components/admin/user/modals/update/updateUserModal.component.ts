@@ -82,7 +82,7 @@ export class UpdateUserModalComponent implements OnInit {
       urlImage: '',
     };
     this.userService.updateUser(Id, userRequest).subscribe({
-      next: () => this.openSnackBar('Usuario actualizado'),
+      next: () => this.openSnackBar('Usuario actualizado correctamente.'),
       error: (error) => console.log(error),
     });
     this.modalClosed.emit();

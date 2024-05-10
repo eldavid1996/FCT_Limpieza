@@ -7,7 +7,7 @@
         public required int Page { get; set; }
         public required string Sort { get; set; }
         public required string SortDirection { get; set; }
-        public List<PaginationFilterHelped> Filter { get; set; }
+        public List<PaginationFilterHelped>? Filter { get; set; }
 
         //public PaginationFilterHelped? Filter { get; set; }
         public int PagesQuantity { get; set; }

@@ -1,8 +1,12 @@
 <h2 mat-dialog-title>Confirmar eliminación</h2>
 <div mat-dialog-content>
-  ¿Está seguro de que deseas eliminar la habitación {{ data.room.roomNumber }}?
+  ¿Está seguro de que deseas eliminar la tarea perteneciente a la habitación Nº
+  {{ data.task.room.roomNumber }} - Planta {{ data.task.room.floor }} asignada
+  al usuario {{ data.task.user.name }} {{ data.task.user.surname }}?
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancelar</button>
-  <button mat-button (click)="onConfirmClick()" cdkFocusInitial>Eliminar</button>
+  <button mat-button (click)="onConfirmClick()" cdkFocusInitial>
+    Eliminar
+  </button>
 </div>
