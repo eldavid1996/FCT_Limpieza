@@ -57,6 +57,12 @@ namespace Services.API.Hotel.Repository
             await _collection.FindOneAndDeleteAsync(filter);
         }
 
+        public async Task DeleteAll()
+        {
+            var filter = Builders<TDocument>.Filter.Empty;
+            await _collection.DeleteManyAsync(filter);
+        }
+
         public async Task<PaginationDto<TDocument>> PaginationBy(PaginationDto<TDocument> pagination)
         {
             var sort = Builders<TDocument>.Sort.Ascending(pagination.Sort);
@@ -73,9 +79,19 @@ namespace Services.API.Hotel.Repository
             if (pagination.Filter != null && pagination.Filter.Any())
             {
                 var filterDefinitions = pagination.Filter.Select(f =>
-                    filterBuilder.Regex(f.Property, new BsonRegularExpression(".*" + f.Value + ".*", "i"))
+                {
+                    // If is a date
+                    if (f.Property == "CreatedDate" && DateTime.TryParse(f.Value, out DateTime date))
+                    {
+                        return filterBuilder.Gte(f.Property, date.Date) & filterBuilder.Lt(f.Property, date.Date.AddDays(1));
+                    }
+                    // if is a string
+                    else
+                    {
+                        return filterBuilder.Regex(f.Property, new BsonRegularExpression(".*" + f.Value + ".*", "i"));
+                    }
+                }
                 );
-
                 combinedFilter = filterBuilder.Or(filterDefinitions);
             }
 

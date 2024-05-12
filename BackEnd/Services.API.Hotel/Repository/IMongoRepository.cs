@@ -16,6 +16,8 @@ namespace Services.API.Hotel.Repository
 
         Task DeleteById(string Id);
 
+        Task DeleteAll();
+
         Task<PaginationDto<TDocument>> PaginationBy(
             PaginationDto<TDocument> pagination
         );

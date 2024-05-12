@@ -1,11 +1,77 @@
 {
   "Version": 1,
-  "Hash": "8MSsFZOf0ty8ZK6CIKrpusLCbE96GCDiFc+3CsrCHMU=",
+  "Hash": "DemHs24yDQRnec8i8ZLSf+HLxXsqzVxp2TsuPD3+olo=",
   "Source": "Services.API.Security",
   "BasePath": "_content/Services.API.Security",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Services.API.Security\\wwwroot",
+      "Source": "Services.API.Security",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "BasePath": "_content/Services.API.Security",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\bf4499c3-a0ee-46e2-88f0-cbe0a4272054.jpeg",
+      "SourceId": "Services.API.Security",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "BasePath": "_content/Services.API.Security",
+      "RelativePath": "photos/bf4499c3-a0ee-46e2-88f0-cbe0a4272054.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\photos\\bf4499c3-a0ee-46e2-88f0-cbe0a4272054.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.jpegcache=638511107579262889",
+      "SourceId": "Services.API.Security",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "BasePath": "_content/Services.API.Security",
+      "RelativePath": "photos/cuadrante.jpegcache=638511107579262889",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\photos\\cuadrante.jpegcache=638511107579262889"
+    },
+    {
+      "Identity": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
+      "SourceId": "Services.API.Security",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "BasePath": "_content/Services.API.Security",
+      "RelativePath": "photos/cuadrante.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\photos\\cuadrante.txt"
+    }
+  ]
 }

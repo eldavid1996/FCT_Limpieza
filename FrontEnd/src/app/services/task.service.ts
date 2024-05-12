@@ -73,10 +73,20 @@ export class TaskService {
     });
   }
 
+  // Delete all the history
+  deleteAllHistory() {
+    return this.http.delete(this.baseUrl + 'TaskHistory/deleteHistory', {
+      responseType: 'text',
+    });
+  }
+
   // Search tasks with filters
   searchTasksFromHistory(paginationRequest: PaginationList): void {
     this.http
-      .post<PaginationTask>(this.baseUrl + 'TaskHistory/pagination', paginationRequest)
+      .post<PaginationTask>(
+        this.baseUrl + 'TaskHistory/pagination',
+        paginationRequest
+      )
       .subscribe((response) => {
         this.taskPagination = response;
         this.taskPaginationSubject.next(this.taskPagination);

@@ -82,6 +82,7 @@ namespace Services.API.Security.Core.Application
                 registeredUser.BirthDate = request.BirthDate;
                 registeredUser.City = request.City;
                 registeredUser.CP = request.CP;
+                registeredUser.urlImage = request.urlImage;
 
                 var result = await _userManager.UpdateAsync(registeredUser);
 

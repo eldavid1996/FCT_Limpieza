@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\bf4499c3-a0ee-46e2-88f0-cbe0a4272054.jpeg",
+      "PackagePath": "staticwebassets\\photos\\bf4499c3-a0ee-46e2-88f0-cbe0a4272054.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.jpegcache=638511107579262889",
+      "PackagePath": "staticwebassets\\photos\\cuadrante.jpegcache=638511107579262889"
+    },
+    {
+      "Id": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
+      "PackagePath": "staticwebassets\\photos\\cuadrante.txt"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Services.API.Security.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Services.API.Security.props",
+      "PackagePath": "build\\Services.API.Security.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Services.API.Security.props",
+      "PackagePath": "buildMultiTargeting\\Services.API.Security.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Services.API.Security.props",
+      "PackagePath": "buildTransitive\\Services.API.Security.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

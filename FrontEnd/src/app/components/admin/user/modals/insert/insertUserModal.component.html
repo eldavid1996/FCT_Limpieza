@@ -1,185 +1,228 @@
-<form [formGroup]="userForm" (ngSubmit)="insertUser()">
-  <h1 class="mat-dialog-title w-full text-center">Añadir nuevo usuario</h1>
-  <div class="grid grid-cols-2 gap-4">
-    <mat-form-field appearance="fill">
-      <mat-label>Nombre</mat-label>
-      <input formControlName="name" matInput name="name" required type="text" />
-      <mat-error *ngIf="this.userForm.get('name')?.hasError('required')"
-        >Nombre requerido</mat-error
-      >
-    </mat-form-field>
+<div class="overflow-y-auto max-h-screen">
+  <form
+    [formGroup]="userForm"
+    (ngSubmit)="insertUser()"
+    enctype="multipart/form-data"
+  >
+    <h1 class="mat-dialog-title w-full text-center">Añadir nuevo empleado</h1>
+    <div class="grid grid-cols-2 gap-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input
+          formControlName="name"
+          matInput
+          name="name"
+          required
+          type="text"
+        />
+        <mat-error *ngIf="this.userForm.get('name')?.hasError('required')"
+          >Nombre requerido</mat-error
+        >
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Apellidos</mat-label>
-      <input
-        formControlName="surname"
-        required
-        matInput
-        name="surname"
-        type="text"
-      />
-      <mat-error *ngIf="this.userForm.get('surname')?.hasError('required')"
-        >Apellidos requerido</mat-error
-      >
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellidos</mat-label>
+        <input
+          formControlName="surname"
+          required
+          matInput
+          name="surname"
+          type="text"
+        />
+        <mat-error *ngIf="this.userForm.get('surname')?.hasError('required')"
+          >Apellidos requerido</mat-error
+        >
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input
-        formControlName="email"
-        required
-        matInput
-        name="email"
-        type="email"
-      />
-      <mat-error *ngIf="this.userForm.get('email')?.hasError('required')"
-        >Email requerido</mat-error
-      >
-      <mat-error *ngIf="this.userForm.get('email')?.hasError('email')"
-        >Formato inválido</mat-error
-      >
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          required
+          matInput
+          name="email"
+          type="email"
+        />
+        <mat-error *ngIf="this.userForm.get('email')?.hasError('required')"
+          >Email requerido</mat-error
+        >
+        <mat-error *ngIf="this.userForm.get('email')?.hasError('email')"
+          >Formato inválido</mat-error
+        >
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>DNI</mat-label>
-      <input formControlName="dni" required matInput name="dni" type="text" />
-      <mat-error *ngIf="this.userForm.get('dni')?.hasError('required')"
-        >DNI requerido</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('dni')?.hasError('invalidDni') &&
-          this.userForm.get('dni')?.value.length > 0
-        "
-        >Formato inválido</mat-error
-      >
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>DNI</mat-label>
+        <input formControlName="dni" required matInput name="dni" type="text" />
+        <mat-error *ngIf="this.userForm.get('dni')?.hasError('required')"
+          >DNI requerido</mat-error
+        >
+        <mat-error
+          *ngIf="
+            this.userForm.get('dni')?.hasError('invalidDni') &&
+            this.userForm.get('dni')?.value.length > 0
+          "
+          >Formato inválido</mat-error
+        >
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Contraseña</mat-label>
-      <input
-        formControlName="password"
-        matInput
-        type="password"
-        required
-        name="password"
-      />
-      <mat-error *ngIf="this.userForm.get('password')?.hasError('required')"
-        >Contraseña requerida</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordSpecialChars') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos un carácter especial</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordNumbers') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos un número</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm.get('password')?.hasError('passwordUppercase') &&
-          userForm.get('password')?.value.length > 0
-        "
-        >La contraseña debe contener al menos una letra mayúscula</mat-error
-      >
-      <mat-error
-        *ngIf="
-          userForm.get('password')?.hasError('passwordLength') &&
-          userForm.get('password')?.value.length > 0
-        "
-      >
-        La contraseña debe tener al menos
-        {{
-          userForm.get("password")?.getError("passwordLength")
-            .requiredLength
-        }}
-        caracteres (actualmente tiene
-        {{
-          userForm.get("password")?.getError("passwordLength")
-            .actualLength
-        }})
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Repetir contraseña</mat-label>
-      <input
-        formControlName="repeatPassword"
-        matInput
-        type="password"
-        required
-        name="repeatPassword"
-      />
-      <mat-error
-        *ngIf="this.userForm.get('repeatPassword')?.hasError('required')"
-        >Repetir contraseña requerido</mat-error
-      >
-      <mat-error
-        *ngIf="
-          this.userForm
-            .get('repeatPassword')
-            ?.hasError('passwordMismatch') &&
+      <mat-form-field>
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="password"
+          matInput
+          type="password"
+          required
+          name="password"
+        />
+        <mat-error *ngIf="this.userForm.get('password')?.hasError('required')"
+          >Contraseña requerida</mat-error
+        >
+        <mat-error
+          *ngIf="
+            this.userForm.get('password')?.hasError('passwordSpecialChars') &&
+            userForm.get('password')?.value.length > 0
+          "
+          >La contraseña debe contener al menos un carácter especial</mat-error
+        >
+        <mat-error
+          *ngIf="
+            this.userForm.get('password')?.hasError('passwordNumbers') &&
+            userForm.get('password')?.value.length > 0
+          "
+          >La contraseña debe contener al menos un número</mat-error
+        >
+        <mat-error
+          *ngIf="
+            this.userForm.get('password')?.hasError('passwordUppercase') &&
+            userForm.get('password')?.value.length > 0
+          "
+          >La contraseña debe contener al menos una letra mayúscula</mat-error
+        >
+        <mat-error
+          *ngIf="
+            userForm.get('password')?.hasError('passwordLength') &&
+            userForm.get('password')?.value.length > 0
+          "
+        >
+          La contraseña debe tener al menos
+          {{
+            userForm.get("password")?.getError("passwordLength").requiredLength
+          }}
+          caracteres (actualmente tiene
+          {{
+            userForm.get("password")?.getError("passwordLength").actualLength
+          }})
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Repetir contraseña</mat-label>
+        <input
+          formControlName="repeatPassword"
+          matInput
+          type="password"
+          required
+          name="repeatPassword"
+        />
+        <mat-error
+          *ngIf="this.userForm.get('repeatPassword')?.hasError('required')"
+          >Repetir contraseña requerido</mat-error
+        >
+        <mat-error
+          *ngIf="
+            this.userForm.get('repeatPassword')?.hasError('passwordMismatch') &&
             userForm.get('repeatPassword')?.value.length > 0
-        "
-      >
-        La contraseña debe ser igual en ambos campos
-      </mat-error>
-    </mat-form-field>
+          "
+        >
+          La contraseña debe ser igual en ambos campos
+        </mat-error>
+      </mat-form-field>
 
-    <mat-radio-group formControlName="roleAdmin">
-      <mat-label>Rol</mat-label>
-      <mat-radio-button [value]="false">User</mat-radio-button>
-      <mat-radio-button [value]="true">Admin</mat-radio-button>
-    </mat-radio-group>
+      <mat-radio-group formControlName="roleAdmin">
+        <mat-label>Rol</mat-label>
+        <mat-radio-button [value]="false">User</mat-radio-button>
+        <mat-radio-button [value]="true">Admin</mat-radio-button>
+      </mat-radio-group>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Teléfono</mat-label>
-      <input
-        formControlName="phoneNumber"
-        matInput
-        name="phoneNumber"
-        type="text"
-      />
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input
+          formControlName="phoneNumber"
+          matInput
+          name="phoneNumber"
+          type="text"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="birthDate" name="birthDate">
-      <mat-hint>Dia/Mes/Año</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="birthDate"
+          name="birthDate"
+        />
+        <mat-hint>Dia/Mes/Año</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Ciudad</mat-label>
-      <input formControlName="city" matInput name="city" type="text" />
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ciudad</mat-label>
+        <input formControlName="city" matInput name="city" type="text" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>CP</mat-label>
-      <input formControlName="cp" matInput name="cp" type="text" />
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>CP</mat-label>
+        <input formControlName="cp" matInput name="cp" type="text" />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Imagen</mat-label>
-      <input formControlName="urlImage" matInput name="urlImage" type="text" />
-    </mat-form-field>
+      <mat-label
+        >Imagen
+        <input
+          formControlName="urlImage"
+          #fileInput
+          hidden
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="fileInput.click()"
+        >
+          <span *ngIf="!imageName">Elegir imagen</span>
+          <span *ngIf="imageName">{{ imageName }}</span>
+        </button>
+        <button
+          *ngIf="imageName"
+          mat-raised-button
+          color="warn"
+          (click)="clearImage()"
+        >
+          Quitar imagen
+        </button>
+      </mat-label>
+      <div *ngIf="imageData" style="margin-top: 10px" class="text-end">
+        <img [src]="imageData" alt="Miniatura de la imagen" width="100" />
+      </div>
 
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cerrar</button>
-      <button
-        [disabled]="userForm.invalid"
-        type="submit"
-        mat-button
-        [mat-dialog-close]="true"
-      >
-        Añadir usuario
-      </button>
-    </mat-dialog-actions>
-  </div>
-</form>
+      <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Cerrar</button>
+        <button
+          [disabled]="userForm.invalid"
+          type="submit"
+          mat-button
+          [mat-dialog-close]="true"
+        >
+          Añadir empleado
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="flex flex-col w-fulljustify-center mt-10">
+  <div class="titulo">
+    <h3>Cuadrante de trabajo</h3>
+  </div>
+  <div class="image-container flex justify-center">
+    <ng-container *ngIf="cuadranteFileName">
+      <img [src]="getPhoto()" class="imagen mx-auto mb-3 w-3/4 max-w-lg h-auto max-h-96" />
+    </ng-container>
+  </div>
+</div>
+<form
+  [formGroup]="userForm"
+  (ngSubmit)="uploadImage()"
+  enctype="multipart/form-data"
+>
+  <div class="flex justify-center items-center mt-5">
+    <mat-label
+      >Imagen
+      <input
+        formControlName="urlImage"
+        #fileInput
+        hidden
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="fileInput.click()"
+      >
+        <span *ngIf="!imageName">Elegir imagen</span>
+        <span *ngIf="imageName">{{ imageName }}</span>
+      </button>
+      <button
+        *ngIf="imageData"
+        mat-raised-button
+        color="warn"
+        (click)="clearImage()"
+      >
+        Quitar imagen
+      </button>
+    </mat-label>
+    <button [disabled]="userForm.invalid" type="submit" mat-button>
+      Actualizar cuadrante
+    </button>
+  </div>
+</form>
+<div class="flex justify-center items-center mt-5" *ngIf="imageData">
+  <img [src]="imageData" alt="Miniatura de la imagen" width="100" />
+</div>
+<footer>
+  <img src="../../../assets/source/logo.png" class="h-8" />
+</footer>

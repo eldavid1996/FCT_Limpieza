@@ -201,5 +201,111 @@ namespace Services.API.Security.Controllers
             return Ok("Contraseña cambiada exitosamente");
         }
 
+        [HttpPost("uploadPhoto")]
+        public async Task<IActionResult> UploadPhoto()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+
+                if (file != null && file.Length > 0)
+                {
+                    var filePath = Path.Combine("wwwroot/photos", file.FileName);
+
+
+                    if (file.FileName.Contains("cuadrante"))
+                    {
+                        var cacheBuster = DateTime.Now.Ticks;
+                        var cacheBusterQueryString = $"cache={cacheBuster}";
+
+                        var extension = Path.GetExtension(file.FileName);
+                        var newFileName = "cuadrante" + cacheBusterQueryString + extension;
+
+                        filePath = Path.Combine("wwwroot/photos", newFileName);
+                        var formatoFilePath = Path.Combine("wwwroot/photos", "cuadrante.txt");
+
+                        var existingContent = await System.IO.File.ReadAllTextAsync(formatoFilePath);
+                        if(existingContent != newFileName) { 
+                            await DeletePhotoAsync(existingContent);
+                        }
+
+                        await System.IO.File.WriteAllTextAsync(formatoFilePath, newFileName);
+
+                    }
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    return Ok("Foto subida exitosamente");
+                }
+                else
+                {
+                    return BadRequest("No se envió ningún archivo");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al subir la foto: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("deletePhoto")]
+        public async Task<IActionResult> DeletePhotoAsync(string fileName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    return BadRequest("El nombre del archivo es obligatorio");
+                }
+
+                var filePath = Path.Combine("wwwroot/photos", fileName);
+
+                if (fileName.Contains("cuadrante"))
+                {
+                    var formatoFilePath = Path.Combine("wwwroot/photos", "cuadrante.txt");
+                    var existingContent = await System.IO.File.ReadAllTextAsync(formatoFilePath);
+                    filePath = Path.Combine("wwwroot/photos", existingContent);
+                    await System.IO.File.WriteAllTextAsync(formatoFilePath, "");
+                }
+                if (!System.IO.File.Exists(filePath))
+                {
+                    return NotFound("El archivo no existe");
+                }
+
+                System.IO.File.Delete(filePath);
+
+                return Ok("Foto eliminada exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar la foto: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getCuadranteFileName")]
+        public async Task<IActionResult> GetCuadranteFileName()
+        {
+            try
+            {
+                var formatoFilePath = Path.Combine("wwwroot/photos", "cuadrante.txt");
+                if (System.IO.File.Exists(formatoFilePath))
+                {
+                    var contenido = await System.IO.File.ReadAllTextAsync(formatoFilePath);
+                    return Ok(contenido);
+                }
+                else
+                {
+                    return NotFound("El archivo cuadrante.txt no existe");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener el nombre del archivo: {ex.Message}");
+            }
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 <div class="px-6 py-4 flex justify-between" *ngIf="showActiveTasks">
   <div class="flex justify-center mb-1">
     <button
+      class="boton-tareas"
       mat-flat-button
       color="primary"
       (click)="toggleShowActiveTasks(); emitShowActiveTasksChange()"
@@ -15,11 +16,27 @@
   >
     <mat-radio-button value="Priority">Prioridad</mat-radio-button>
     <mat-radio-button value="Status">Estado</mat-radio-button>
-    <mat-radio-button value="User">Usuario</mat-radio-button>
+    <mat-radio-button value="User">Empleado</mat-radio-button>
     <mat-radio-button value="Room">Habitación</mat-radio-button>
-    <mat-radio-button value="Observations">Observaciones</mat-radio-button>
+    <mat-radio-button value="CreatedDate">Fecha</mat-radio-button>
   </mat-radio-group>
-  <input type="text" (keyup)="taskFilter($event)" placeholder="Buscar..." />
+  <mat-form-field *ngIf="searchRadioButtonValue === 'CreatedDate'">
+    <input
+      [value]="searchDateDefaultValue"
+      matInput
+      [matDatepicker]="picker"
+      placeholder="Fecha"
+      (dateInput)="taskFilter($event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <input
+    *ngIf="searchRadioButtonValue !== 'CreatedDate'"
+    type="text"
+    (keyup)="taskFilter($event)"
+    placeholder="Buscar..."
+  />
 </div>
 <div>
   <mat-table
@@ -43,7 +60,7 @@
 
     <!-- User Column -->
     <ng-container matColumnDef="User">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Empleado</th>
       <td mat-cell *matCellDef="let element">
         {{ element.user.name }} {{ element.user.surname }}
       </td>
@@ -61,10 +78,10 @@
     </ng-container>
 
     <!-- createdDate Column -->
-    <ng-container matColumnDef="Observations">
+    <ng-container matColumnDef="CreatedDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
       <td mat-cell *matCellDef="let element">
-        {{ element.createdDate }}
+        {{ element.createdDate | date : "dd/M/yyyy - h:mm a" }}
       </td>
     </ng-container>
 

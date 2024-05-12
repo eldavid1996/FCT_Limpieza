@@ -7,7 +7,7 @@
     <a routerLink="inicio" class="flex w-full h-full justify-center">
       <img
         src="../../../../assets/source/logo.png"
-        alt="Inicio"
+        title="Inicio"
         class="icon-image w-8 h-8 object-contain place-self-center"
       />
     </a>
@@ -18,7 +18,7 @@
         <mat-icon>task</mat-icon>
       </a>
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin()" title="Usuarios">
+    <mat-list-item *ngIf="isAdmin()" title="Empleados">
       <a routerLink="empleados" class="flex w-full h-full justify-center">
         <mat-icon>person</mat-icon>
       </a>
@@ -29,7 +29,7 @@
       </a>
     </mat-list-item>
     <mat-list-item title="Calendario">
-      <a routerLink="inicio" class="flex w-full h-full justify-center">
+      <a routerLink="calendario" class="flex w-full h-full justify-center">
         <mat-icon>calendar_month</mat-icon>
       </a>
     </mat-list-item>
@@ -42,10 +42,10 @@
     class="flex items-center place-self-center h-12 w-14"
     style="background-color: white"
   >
-    <a routerLink="empleados" class="flex w-full h-full justify-center">
+    <a routerLink="inicio" class="flex w-full h-full justify-center">
       <img
         src="../../../../assets/source/logo.png"
-        alt="Inicio"
+        title="Inicio"
         class="icon-image w-8 h-8 object-contain place-self-center"
       />
     </a>
@@ -57,48 +57,29 @@
   </div>
 
   <div class="md:hidden flex justify-center">
-    <div class="flex">
+    <div class="flex space-x-4"> <!-- Utilizamos space-x para agregar un espacio horizontal entre los elementos -->
       <!-- Botones para navegación -->
-      <a
-        *ngIf="isAdmin()"
-        routerLink="tareas"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1"
-      >
+      <button *ngIf="isAdmin()" routerLink="tareas" title="Tareas" class="button-style">
         <mat-icon>task</mat-icon>
-      </a>
-      <a
-        *ngIf="isAdmin()"
-        routerLink="empleados"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1"
-      >
+      </button>
+      <button *ngIf="isAdmin()" routerLink="empleados" title="Empleados" class="button-style">
         <mat-icon>person</mat-icon>
-      </a>
-      <a
-        *ngIf="isAdmin()"
-        routerLink="habitaciones"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1"
-      >
+      </button>
+      <button *ngIf="isAdmin()" routerLink="habitaciones" title="Habitaciones" class="button-style">
         <mat-icon>hotel</mat-icon>
-      </a>
-      <a
-        routerLink="inicio"
-        class="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full mx-1"
-      >
+      </button>
+      <button routerLink="calendario" title="Calendario" class="button-style">
         <mat-icon>calendar_month</mat-icon>
-      </a>
+      </button>
     </div>
   </div>
+  
 
   <div class="place-self-center flex gap-2 mr-3 justify-center items-center">
     <button title="Mi perfil" routerLink="perfil" mat-icon-button>
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button
-      title="Salir"
-      (click)="logOut()"
-      aria-label="Cerrar sesion"
-      class="text-red-500 cursor-pointer"
-    >
+    <button title="Salir" (click)="logOut()" aria-label="Cerrar sesion">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

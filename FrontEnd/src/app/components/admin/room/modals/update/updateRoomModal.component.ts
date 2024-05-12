@@ -57,7 +57,7 @@ export class UpdateRoomModalComponent implements OnInit {
     this.roomService.updateRoom(roomId, roomRequest).subscribe({
       next: () => this.openSnackBar('Habitación actualizada correctamente.'),
       error: () =>
-        this.openSnackBar('Error al actualizar la habitación ¿Clave duplicada?'),
+        this.openSnackBar('Error al actualizar la habitación ¿Nº habitación duplicado?'),
     });
     this.modalClosed.emit();
   }

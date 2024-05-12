@@ -50,7 +50,7 @@ export class InsertRoomModalComponent implements OnInit {
     this.roomService.insertRoom(roomRequest).subscribe({
       next: () => this.openSnackBar('Habitación añadida correctamente.'),
       error: () =>
-        this.openSnackBar('Error al añadir la habitación ¿Clave duplicada?'),
+        this.openSnackBar('Error al añadir la habitación ¿Nº habitación duplicado?'),
     });
     this.modalClosed.emit();
   }

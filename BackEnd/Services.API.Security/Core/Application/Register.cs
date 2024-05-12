@@ -79,7 +79,8 @@ namespace Services.API.Security.Core.Application
                     RoleAdmin = request.RoleAdmin,
                     BirthDate = request.BirthDate,
                     City = request.City,
-                    CP = request.CP
+                    CP = request.CP,
+                    urlImage = request.urlImage
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);

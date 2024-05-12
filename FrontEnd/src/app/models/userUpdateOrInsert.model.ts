@@ -5,7 +5,7 @@ export interface InsertOrUpdateUser {
   Email: string;
   DNI: string;
   PhoneNumber: string;
-  BirthDate: Date;
+  BirthDate?: Date | any;
   CP: string;
   City: string;
   RoleAdmin: boolean;

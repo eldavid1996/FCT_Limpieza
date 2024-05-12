@@ -56,7 +56,14 @@ namespace Services.API.Hotel.Controllers
             }
 
             await _taskRepository.DeleteById(Id);
-            return Ok("Tarea eliminada correctamente.");
+            return Ok("Tarea eliminada correctamente del histórico.");
+        }
+
+        [HttpDelete("deleteHistory")]
+        public async Task<IActionResult> DeleteHistory()
+        {
+            await _taskRepository.DeleteAll();
+            return Ok("Histórico vaciado correctamente");
         }
 
         [HttpPost("pagination")]

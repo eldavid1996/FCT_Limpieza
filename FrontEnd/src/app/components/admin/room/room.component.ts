@@ -155,7 +155,7 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.roomService.searchRooms(this.paginationRequest);
       });
@@ -169,7 +169,7 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.roomService.searchRooms(this.paginationRequest);
       });
@@ -185,7 +185,7 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
     // If modal was closed with a 'confirm' status delete the room
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.roomService.deleteRoom(roomId).subscribe((response) => {

@@ -153,12 +153,10 @@ export class UserTableComponent implements OnInit, AfterViewInit {
 
   // Open a modal for insert a new user
   insertUser(): void {
-    const dialogRef = this.dialog.open(InsertUserModalComponent, {
-      width: '400px',
-    });
+    const dialogRef = this.dialog.open(InsertUserModalComponent);
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.userService.searchUsers(this.paginationRequest);
       });
@@ -167,12 +165,12 @@ export class UserTableComponent implements OnInit, AfterViewInit {
   // Open a modal for watch or update user data
   updateUser(user: string): void {
     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
-      width: '400px',
+      width: '800px',
       data: { user },
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.userService.searchUsers(this.paginationRequest);
       });
@@ -188,10 +186,12 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     // If modal was closed with a 'confirm' status delete the user
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.userService.deleteUser(userId).subscribe((response) => {
+            // Delethe the user photo
+            this.userService.deletePhoto(user.urlImage).subscribe();
             // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list users

@@ -5,6 +5,7 @@ import { MaterialModule } from '../../../material.module';
 import { SecurityService } from '../../../services/security.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdatePasswordModal } from './update-password-modal';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private securityService: SecurityService,
+    private userService: UserService,
     public dialog: MatDialog
   ) {}
 
@@ -50,5 +52,9 @@ export class ProfileComponent implements OnInit {
   // UpdatePasswordDialog
   openDialog() {
     this.dialog.open(UpdatePasswordModal);
+  }
+
+  getPhoto() {
+    return this.userService.getPhoto(this.userData.urlImage);
   }
 }

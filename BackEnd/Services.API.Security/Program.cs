@@ -76,6 +76,8 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
+app.UseStaticFiles();
+
 // Create the default admin user if database is empty
 using (var context = app.Services.CreateScope())
 {

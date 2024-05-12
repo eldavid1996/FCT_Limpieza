@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { UserTableComponent } from './components/admin/user/user.component';
 import { LoginComponent } from './components/security/login/login.component';
-import { DashboardComponent } from './components/shared/inicio/dashboard.component';
+import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { RoomTableComponent } from './components/admin/room/room.component';
 import {
   SecurityRolesRouter,
@@ -9,6 +9,7 @@ import {
 } from './components/security/security.router';
 import { TaskTableComponent } from './components/admin/task/task.component';
 import { ProfileComponent } from './components/shared/profile/profile.component';
+import { CalendarComponent } from './components/shared/calendar/calendar.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -18,14 +19,14 @@ export const routes: Routes = [
     canActivate: [SecurityRouter],
   },
   {
-    path: 'empleados',
-    component: UserTableComponent,
+    path: 'tareas',
+    component: TaskTableComponent,
     canActivate: [SecurityRouter, SecurityRolesRouter],
   },
   {
-    path: 'perfil',
-    component: ProfileComponent,
-    canActivate: [SecurityRouter],
+    path: 'empleados',
+    component: UserTableComponent,
+    canActivate: [SecurityRouter, SecurityRolesRouter],
   },
   {
     path: 'habitaciones',
@@ -33,9 +34,14 @@ export const routes: Routes = [
     canActivate: [SecurityRouter, SecurityRolesRouter],
   },
   {
-    path: 'tareas',
-    component: TaskTableComponent,
-    canActivate: [SecurityRouter, SecurityRolesRouter],
+    path: 'calendario',
+    component: CalendarComponent,
+    canActivate: [SecurityRouter],
+  },
+  {
+    path: 'perfil',
+    component: ProfileComponent,
+    canActivate: [SecurityRouter],
   },
   { path: '**', redirectTo: '' },
 ];

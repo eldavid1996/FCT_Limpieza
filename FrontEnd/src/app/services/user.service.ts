@@ -12,6 +12,7 @@ import { InsertOrUpdateUser } from '../models/userUpdateOrInsert.model';
 })
 export class UserService {
   baseUrl = environment.gatewayUrl;
+  photoUrl = environment.securityUrl;
 
   // Returned pagination model from request
   userPagination: PaginationUser | undefined;
@@ -52,5 +53,31 @@ export class UserService {
   // insert a new user
   insertUser(newUser: InsertOrUpdateUser) {
     return this.http.post<User>(this.baseUrl + 'User', newUser);
+  }
+
+  uploadPhoto(photo: any) {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    return this.http.post(this.baseUrl + 'User/uploadPhoto', formData, {
+      responseType: 'text',
+    });
+  }
+
+  deletePhoto(fileName: string) {
+    return this.http.delete(
+      this.baseUrl + `User/deletePhoto?fileName=${fileName}`,
+      {
+        responseType: 'text',
+      }
+    );
+  }
+
+  getPhoto(urlImage: string): string {
+    return this.photoUrl + 'photos/' + urlImage;
+  }
+
+  getCuadranteFileName() {
+    return this.http.get(this.baseUrl + 'User/getCuadranteFileName', {responseType: 'text'});
   }
 }

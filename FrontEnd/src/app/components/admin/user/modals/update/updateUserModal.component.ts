@@ -31,6 +31,11 @@ import { UpdateUserPasswordModal } from './updateUserPasswordModal/updateUserPas
 export class UpdateUserModalComponent implements OnInit {
   userForm: FormGroup | any;
   @Output() modalClosed = new EventEmitter<void>();
+
+  imageName: string = '';
+  imageData: string | null = null;
+  photo: File | any;
+
   constructor(
     private securityService: SecurityService,
     private userService: UserService,
@@ -64,27 +69,76 @@ export class UpdateUserModalComponent implements OnInit {
     this.userForm.get('birthDate')?.setValue(this.data.user.birthDate);
     this.userForm.get('city')?.setValue(this.data.user.city);
     this.userForm.get('cp')?.setValue(this.data.user.cp);
-    this.userForm.get('urlImage')?.setValue(this.data.user.urlImage);
+    if (this.data.user.urlImage) {
+      this.imageData = this.userService.getPhoto(this.data.user.urlImage);
+    }
   }
 
   // Try to update the user with the new data
   updateUser(Id: string) {
-    const userRequest: InsertOrUpdateUser = {
+    let birthDate: Date | null = this.userForm.get('birthDate')?.value;
+
+    // 2 cases : date from db and date null from db
+    if (typeof birthDate === 'string') {
+      birthDate = new Date(birthDate);
+    }
+
+    if (!birthDate) {
+      birthDate = null;
+    }
+
+    var userRequest: InsertOrUpdateUser = {
       Name: this.userForm.get('name')?.value,
       Surname: this.userForm.get('surname')?.value,
       Email: this.userForm.get('email')?.value,
       DNI: this.userForm.get('dni')?.value,
       PhoneNumber: this.userForm.get('phoneNumber')?.value,
-      BirthDate: this.userForm.get('birthDate')?.value,
       CP: this.userForm.get('cp')?.value,
       City: this.userForm.get('city')?.value,
       RoleAdmin: this.userForm.get('roleAdmin')?.value,
-      urlImage: '',
+      urlImage: this.data.user.urlImage,
     };
+
+    // manage the 2 cases : date from db and date null from db
+    if (birthDate !== null) {
+      if (birthDate instanceof Date) {
+        // Ajusted to local date
+        const birthDateLocal = new Date(
+          birthDate.getTime() - birthDate.getTimezoneOffset() * 60000
+        );
+        userRequest.BirthDate = birthDateLocal.toISOString();
+      } else {
+        userRequest.BirthDate = birthDate;
+      }
+    }
+
+    // 2 cases: delete last imagen from db or upload a new image
+    if (this.imageData === '' && this.data.user.urlImage !== '') {
+      userRequest.urlImage = '';
+      this.userService.deletePhoto(this.data.user.urlImage).subscribe();
+    }
+
+    if (this.photo) {
+      // Update user for set the url image = id user + format image if image is set
+      const fileType = this.photo.type.split('/')[1]; // Get photo format
+      const newName = Id + '.' + fileType; // Set new name (user id + photo format)
+      // Create a new file with the new name and the image data
+      const newPhoto = new File([this.photo], newName, {
+        type: this.photo.type,
+      });
+      this.userService.deletePhoto(userRequest.urlImage).subscribe();
+      userRequest.urlImage = newName;
+      this.userService.uploadPhoto(newPhoto).subscribe();
+    }
+
     this.userService.updateUser(Id, userRequest).subscribe({
-      next: () => this.openSnackBar('Usuario actualizado correctamente.'),
-      error: (error) => console.log(error),
+      next: () => {
+        this.openSnackBar('Usuario actualizado correctamente.');
+      },
+      error: (error) =>
+        this.openSnackBar('Error al actualizar usuario ¿Email duplicado?' + error),
     });
+
     this.modalClosed.emit();
   }
 
@@ -103,5 +157,27 @@ export class UpdateUserModalComponent implements OnInit {
       width: '400px',
       data: { user },
     });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.photo = file;
+    this.imageName = file.name;
+    this.getImageData(file);
+  }
+
+  getImageData(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.imageData = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  clearImage() {
+    this.imageName = '';
+    this.imageData = '';
+    this.photo = '';
+    this.userForm.get('urlImage').setValue('');
   }
 }

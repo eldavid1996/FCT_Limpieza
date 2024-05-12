@@ -4,7 +4,12 @@
   left: -2px;
 }
 .boton-nuevo{
-  background-color: #4f46e5;
+  background-color: #e54646;
+  border-radius: 60px;
+  color: white !important;
+}
+.boton-tareas{
+  background-color: #5946e5;
   border-radius: 60px;
   color: white !important;
 }

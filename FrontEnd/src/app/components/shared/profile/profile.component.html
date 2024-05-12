@@ -4,12 +4,17 @@
   <!-- Encabezado -->
   <div class="mx-auto text-center mt-5">
     <img
-      *ngIf="userData.roleAdmin"
+    *ngIf="userData.urlImage"
+    [src]="getPhoto()"
+    class="imagen mx-auto mb-3 h-20"
+  />
+    <img
+      *ngIf="userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/admin.png"
       class="imagen mx-auto mb-3 h-20"
     />
     <img
-      *ngIf="!userData.roleAdmin"
+      *ngIf="!userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/user.png"
       class="imagen mx-auto mb-3 h-20"
     />

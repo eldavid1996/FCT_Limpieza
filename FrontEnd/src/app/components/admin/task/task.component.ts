@@ -21,6 +21,7 @@ import { DeleteTaskModalComponent } from './modals/delete/deleteTaskModal.compon
 import { Task } from '../../../models/task.model';
 import { MoveToHistoryTaskModalComponent } from './modals/moveToHistory/moveToHistoryTaskModal.component';
 import { TaskHistoryTableComponent } from './modals/tables/taskHistory/taskHistory.component';
+import { DeleteHistoryModalComponent } from './modals/delete/deleteHistoryModal.component';
 
 @Component({
   selector: 'app-task-table',
@@ -182,7 +183,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.taskService.searchTasks(this.paginationRequest);
       });
@@ -196,7 +197,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe(() => {
         this.taskService.searchTasks(this.paginationRequest);
       });
@@ -206,13 +207,13 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   deleteTask(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(DeleteTaskModalComponent, {
       width: '250px',
-      data: { taskId, task },
+      data: { taskId, task, message: '' },
     });
 
     // If modal was closed with a 'confirm' status delete the task
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.taskService.deleteTask(taskId).subscribe((response) => {
@@ -220,6 +221,28 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
             this.taskService.searchTasks(this.paginationRequest);
+          });
+        }
+      });
+  }
+
+  // Open the modal with a confirmation to delete task
+  deleteHistory(): void {
+    const dialogRef = this.dialog.open(DeleteHistoryModalComponent, {
+      width: '250px',
+    });
+
+    // If modal was closed with a 'confirm' status delete the task
+    dialogRef
+      .afterClosed()
+      .pipe(delay(200))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          this.taskService.deleteAllHistory().subscribe((response) => {
+            // And show a snackbar with the request result
+            this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+            // Then, get updated list tasks
+            this.taskService.searchTasksFromHistory(this.paginationRequest);
           });
         }
       });
@@ -234,7 +257,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     // If modal was closed with a 'confirm' status move the task to the other database
     dialogRef
       .afterClosed()
-      .pipe(delay(500))
+      .pipe(delay(200))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.taskService.moveTaskToHistory(taskId, task).subscribe({
@@ -279,6 +302,10 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       },
       {
         property: 'Room.Status',
+        value: value,
+      },
+      {
+        property: 'Room.Observations',
         value: value,
       },
     ];

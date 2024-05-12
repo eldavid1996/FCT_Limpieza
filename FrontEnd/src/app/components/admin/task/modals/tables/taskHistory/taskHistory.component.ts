@@ -42,6 +42,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   @Output() showActiveTasksChange = new EventEmitter<void>();
 
   searchRadioButtonValue = 'Priority';
+  searchDateDefaultValue: Date;
 
   dataSource = new MatTableDataSource<Task>();
   totalTasks = 0;
@@ -51,7 +52,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
     'Status',
     'User',
     'Room',
-    'Observations',
+    'CreatedDate',
     'actions',
   ];
 
@@ -79,6 +80,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
   ) {
+    this.searchDateDefaultValue = new Date(Date.now());
     // Pagination in spanish
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
@@ -129,7 +131,24 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
         this.paginationFilter[0].value
       );
     }
+    if (event.value === 'CreatedDate') {
+      updatedPaginationFilter = this.searchByDate(
+        this.searchDateDefaultValue.toISOString()
+      );
+    }
+
     this.paginationRequest.filter = updatedPaginationFilter;
+
+    // For reset filter when change from date to other checkbox
+    const date = new Date(this.paginationFilter[0].value);
+    if (event.value !== 'CreatedDate' && !isNaN(date.getTime())) {
+      this.paginationRequest.filter = [
+        {
+          property: 'Priority',
+          value: '',
+        },
+      ];
+    }
 
     this.taskService.searchTasksFromHistory(this.paginationRequest);
   }
@@ -152,6 +171,9 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
         }
         if (this.searchRadioButtonValue === 'User') {
           $this.paginationFilter = this.searchByUser(event.target.value);
+        }
+        if (this.searchRadioButtonValue === 'CreatedDate') {
+          $this.paginationFilter = this.searchByDate(event.target.value);
         }
         this.paginationRequest.filter = $this.paginationFilter;
         $this.taskService.searchTasksFromHistory(this.paginationRequest);
@@ -183,7 +205,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   deleteTask(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(DeleteTaskModalComponent, {
       width: '250px',
-      data: { taskId, task },
+      data: { taskId, task, message: ' del histórico de tareas' },
     });
 
     // If modal was closed with a 'confirm' status delete the task
@@ -192,12 +214,14 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
       .pipe(delay(500))
       .subscribe((result) => {
         if (result === 'confirm') {
-          this.taskService.deleteTaskFromHistory(taskId).subscribe((response) => {
-            // And show a snackbar with the request result
-            this.snackbar.open(response, 'Cerrar', { duration: 3000 });
-            // Then, get updated list tasks
-            this.taskService.searchTasksFromHistory(this.paginationRequest);
-          });
+          this.taskService
+            .deleteTaskFromHistory(taskId)
+            .subscribe((response) => {
+              // And show a snackbar with the request result
+              this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+              // Then, get updated list tasks
+              this.taskService.searchTasksFromHistory(this.paginationRequest);
+            });
         }
       });
   }
@@ -256,6 +280,16 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
       },
       {
         property: 'User.PhoneNumber',
+        value: value,
+      },
+    ];
+    return updatedPaginationFilter;
+  }
+
+  private searchByDate(value: string) {
+    const updatedPaginationFilter: PaginationFilter[] = [
+      {
+        property: 'CreatedDate',
         value: value,
       },
     ];
