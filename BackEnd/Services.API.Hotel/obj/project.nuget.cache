@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MC4fr2+0PUvpXevDo8X1anry4leJh0nYwbC75UOBkigWLeAHKWO/W0jctf5Sc1ORYRrsadIaGxXLv7f+6EAiiA==",
+  "dgSpecHash": "BBRIZ1LmzTW7CBFDEdiY1b3HqsCFyQ1GUc6M++dVrBZDgRApDtOjDfSTkAf3IiNUXkDdtAEk60X9S9TwTfH94Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
+  "projectFilePath": "C:\\Users\\josve\\Desktop\\Trabajo BUENO\\FCT_Limpieza\\BackEnd\\Services.API.Hotel\\Services.API.Hotel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josve\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\josve\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

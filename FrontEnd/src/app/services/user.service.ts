@@ -42,6 +42,10 @@ export class UserService {
     });
   }
 
+  obtenerUsuarioPorId(id: string) {
+    return this.http.get<User>(this.baseUrl + 'User/' + id);
+  }
+
   // Update the selected user
   updateUser(id: string, updatedUser: User) {
     const body = { ...updatedUser, id };

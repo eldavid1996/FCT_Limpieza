@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JsXk+if6Cq1ILEQt3VggK7hiVYGxf7e4RHgLBNmeV+6cmmvCvbMpOaJyuPT2Wa89Qjo44krA7ZFiZuViTl+CuQ==",
+  "dgSpecHash": "fozEqkYZMc/PNlSmb2CXFOhYm0GXBMlW8wXelsmdpzBO5S6iI9XR8ZfN1CoqBYQ8hCvqAwkq9XBpREoqNGZoMw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\josve\\Desktop\\final\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+  "projectFilePath": "C:\\Users\\josve\\Desktop\\Trabajo BUENO\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\josve\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\josve\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

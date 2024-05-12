@@ -16,3 +16,14 @@
   border: 3px solid rgb(226, 252, 187);
   color: rgb(0, 130, 0);
 }
+.position{
+  position: relative;
+  bottom: 4px;
+}
+
+
+mat-icon{
+  font-size: 27px !important;
+  overflow: visible;
+}
+

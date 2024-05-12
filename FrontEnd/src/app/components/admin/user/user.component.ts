@@ -21,6 +21,7 @@ import { PaginationUser } from '../../../models/paginationUser.model';
 import { DeleteUserModalComponent } from './modals/delete/deleteUserModal.component';
 import { SecurityService } from '../../../services/security.service';
 import { InsertUserModalComponent } from './modals/insert/insertUserModal.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
   selector: 'app-user-table',
@@ -174,6 +175,16 @@ export class UserTableComponent implements OnInit, OnDestroy, AfterViewInit {
           this.userService.searchUsers(this.paginationRequest);
         });
       }
+    });
+  }
+
+  // Open a modal for user info
+  checkUser(): void {
+    const dialogRef = this.dialog.open(UserProfileComponent, {
+  
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.userService.searchUsers(this.paginationRequest);
     });
   }
 

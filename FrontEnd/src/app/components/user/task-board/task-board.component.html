@@ -1,41 +1,62 @@
 <div
   class="flex flex-col gap-3 items-center justify-between w-full pt-8 px-2 md:px-20"
-></div>
-
-<div
-  class="flex flex-col gap-3 items-center justify-between w-full pt-8 px-2 md:px-20 min-md:w-2/3"
 >
-  <ng-container *ngFor="let task of dataSource">
-    <div
-      href="#"
-      class="h-40 flex items-center bg-white rounded-lg shadow w-full hover:bg-gray-100 dark:border-green-700 dark:bg-gray-800 dark:hover:bg-gray-700"
-      [class.green]="this.task.status != 'Pendiente'"
-      [class.orange]="this.task.status == 'Pendiente'"
-    >
-      <div class="flex justify-between p-4 w-full">
-        <div class="flex flex-col text-center">
-          <p>Habitación:</p>
-          <strong class="text-3xl"> {{ task.room.roomNumber }}</strong>
-          <p>Planta:</p>
-          <strong class="text-3xl"> {{ task.room.floor }}</strong>
-        </div>
-        <div class="flex flex-col">
-          <p>Nota:</p>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight">
-            <strong> {{ task.observations }} </strong>
-          </h5>
-          <p>Prioridad:</p>
-          <p class="mb-3 font-normal">
-            <strong>{{ task.priority }}</strong>
-          </p>
-        </div>
-        <div class="flex flex-col justify-between w-1/4">
-          <button mat-raised-button color="warn">Incidencia</button>
-          <button mat-raised-button color="primary" *ngIf="this.task.status ==='Pendiente'" (click)="changeTaskStatus(this.task)">Completar</button>
-          <button mat-raised-button class="yellow" *ngIf="this.task.status !=='Pendiente'" (click)="changeTaskStatus(this.task)">Deshacer</button>
-
+  <div class="w-full flex items-center justify-center">
+    <button mat-icon-button class="flex items-center justify-center p-10" color="primary" title="Completar tareas programadas para hoy.">
+      <mat-icon>done_all</mat-icon>
+    </button>
+  </div>
+  <div
+    class="flex flex-col gap-3 items-center justify-between w-full pt-8 px-2 md:px-20 min-md:w-2/3"
+  >
+    <ng-container *ngFor="let task of dataSource">
+      <div
+        href="#"
+        class="h-40 flex items-center bg-white rounded-lg shadow w-full hover:bg-gray-100 dark:border-green-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+        [class.green]="this.task.status != 'Pendiente'"
+        [class.orange]="this.task.status == 'Pendiente'"
+      >
+        <div class="flex justify-between p-4 w-full">
+          <div class="flex flex-col text-center">
+            <p>Habitación:</p>
+            <strong class="text-3xl"> {{ task.room.roomNumber }}</strong>
+            <p>Planta:</p>
+            <strong class="text-3xl"> {{ task.room.floor }}</strong>
+          </div>
+          <div class="flex flex-col">
+            <p>Nota:</p>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight">
+              <strong> {{ task.observations }} </strong>
+            </h5>
+            <p>Prioridad:</p>
+            <p class="mb-3 font-normal">
+              <strong>{{ task.priority }}</strong>
+            </p>
+          </div>
+          <div class="flex flex-col justify-between w-1/4">
+            <button mat-raised-button color="warn" class="flex justify-center  items-center" title="Informar de una incidencia."><mat-icon class="position">error</mat-icon></button>
+            <button
+              mat-raised-button
+              color="primary"
+              *ngIf="this.task.status === 'Pendiente'"
+              (click)="changeTaskStatus(this.task)"
+              class="flex justify-center items-center" 
+              title="Marcar tarea como 'Finalizada'"
+            >
+              <mat-icon class="position">done</mat-icon>
+            </button>
+            <button
+              mat-raised-button
+              class="yellow"
+              *ngIf="this.task.status !== 'Pendiente'"
+              (click)="changeTaskStatus(this.task)"
+              title="Marcar como 'Pendiente'"
+            >
+              <mat-icon class="position">rotate_left</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </div>
