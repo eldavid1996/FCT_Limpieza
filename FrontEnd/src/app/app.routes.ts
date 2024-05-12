@@ -4,12 +4,14 @@ import { LoginComponent } from './components/security/login/login.component';
 import { DashboardComponent } from './components/shared/dashboard/dashboard.component';
 import { RoomTableComponent } from './components/admin/room/room.component';
 import {
+  SecurityNoRolesRouter,
   SecurityRolesRouter,
   SecurityRouter,
 } from './components/security/security.router';
 import { TaskTableComponent } from './components/admin/task/task.component';
 import { ProfileComponent } from './components/shared/profile/profile.component';
 import { CalendarComponent } from './components/shared/calendar/calendar.component';
+import { TasksUsersComponent } from './components/user/tasksUser.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,6 +19,11 @@ export const routes: Routes = [
     path: 'inicio',
     component: DashboardComponent,
     canActivate: [SecurityRouter],
+  },
+  {
+    path: 'mistareas',
+    component: TasksUsersComponent,
+    canActivate: [SecurityRouter, SecurityNoRolesRouter],
   },
   {
     path: 'tareas',

@@ -45,6 +45,10 @@ export class UpdateTaskModalComponent implements OnInit {
 
   // Validators
   ngOnInit() {
+    const index = this.data.roomNumbers.indexOf(this.data.task.room.roomNumber);
+    if (index !== -1) {
+      this.data.roomNumbers.splice(index, 1);
+    }
     this.userId = this.data.task.user.id;
     this.roomId = this.data.task.room.id;
     this.taskForm = this.formBuilder.group({
@@ -105,6 +109,27 @@ export class UpdateTaskModalComponent implements OnInit {
   // For button that update the status
   updateStatus(status: string) {
     this.data.task.status = status;
-    this.updateTask();
+
+    const statusTask: string = this.data.task.status;
+    var user: TaskUser = { Id: this.data.task.user.id };
+    var room: TaskRoom = {
+      Id: this.data.task.room.id,
+      roomNumber: '',
+    };
+    const taskRequest: Task = {
+      User: user,
+      Room: room,
+      Priority: this.data.task.priority,
+      Status: statusTask,
+      Observations: this.data.task.observations,
+    };
+    this.taskService.updateTask(this.data.task.id, taskRequest).subscribe({
+      next: () => this.openSnackBar('Estado actualizado correctamente.'),
+      error: () =>
+        this.openSnackBar(
+          'Error al actualizar el estado de la tarea'
+        ),
+    });
+    this.modalClosed.emit();
   }
 }

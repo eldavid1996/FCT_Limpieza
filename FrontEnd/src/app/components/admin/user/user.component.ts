@@ -156,7 +156,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(InsertUserModalComponent);
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe(() => {
         this.userService.searchUsers(this.paginationRequest);
       });

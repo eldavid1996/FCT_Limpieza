@@ -40,6 +40,8 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   @Input() selectedIdRoom: string | any;
   @Output() selectedIdRoomChange = new EventEmitter<string>();
 
+  @Input() data: any;
+
   searchRadioButtonValue = 'RoomNumber';
 
   dataSource = new MatTableDataSource<Room>();
@@ -96,8 +98,11 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     this.roomSubscription = this.roomService
       .getRooms()
       .subscribe((pagination: PaginationRoom) => {
-        this.dataSource = new MatTableDataSource<Room>(pagination.data);
-        this.totalRooms = pagination.totalRows;
+        var filteredData = pagination.data.filter(room => {
+          return !this.data.includes(room.roomNumber);
+        });
+        this.dataSource = new MatTableDataSource<Room>(filteredData);
+        this.totalRooms = filteredData.length;
       });
   }
 

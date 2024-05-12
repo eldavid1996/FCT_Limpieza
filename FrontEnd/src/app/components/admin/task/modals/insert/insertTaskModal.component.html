@@ -17,6 +17,7 @@
     />
     <!-- Room table component -->
     <app-task-room-table
+      [data]="data"
       (selectedIdRoomChange)="onSelectedIdRoomChange($event)"
       class="col-span-2"
     ></app-task-room-table>
@@ -30,7 +31,11 @@
       [value]="roomId"
     />
 
-    <mat-radio-group class="col-span-2" formControlName="priority" name="priority">
+    <mat-radio-group
+      class="col-span-2"
+      formControlName="priority"
+      name="priority"
+    >
       <mat-label>Prioridad</mat-label>
       <mat-radio-button value="Baja">Baja</mat-radio-button>
       <mat-radio-button value="Normal">Normal</mat-radio-button>

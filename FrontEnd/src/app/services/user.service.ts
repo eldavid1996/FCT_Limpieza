@@ -74,7 +74,7 @@ export class UserService {
   }
 
   getPhoto(urlImage: string): string {
-    return this.photoUrl + 'photos/' + urlImage;
+    return this.baseUrl + 'User/photos/' + urlImage;
   }
 
   getCuadranteFileName() {

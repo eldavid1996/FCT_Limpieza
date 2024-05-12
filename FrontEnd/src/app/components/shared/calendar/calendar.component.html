@@ -9,6 +9,7 @@
   </div>
 </div>
 <form
+*ngIf="isAdmin()"
   [formGroup]="userForm"
   (ngSubmit)="uploadImage()"
   enctype="multipart/form-data"

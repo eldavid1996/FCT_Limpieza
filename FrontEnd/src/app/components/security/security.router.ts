@@ -41,3 +41,23 @@ export class SecurityRolesRouter implements CanActivate {
     }
   }
 }
+
+// Need user roles to navigate in some routes
+@Injectable({
+  providedIn: 'root',
+})
+export class SecurityNoRolesRouter implements CanActivate {
+  constructor(
+    private securityService: SecurityService,
+    private router: Router
+  ) {}
+
+  canActivate(): Observable<boolean> | boolean {
+    if (this.securityService.isAdmin() == false) {
+      return true;
+    } else {
+      this.router.navigate(['/inicio']);
+      return false;
+    }
+  }
+}

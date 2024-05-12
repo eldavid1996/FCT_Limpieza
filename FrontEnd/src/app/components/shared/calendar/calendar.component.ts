@@ -121,4 +121,9 @@ export class CalendarComponent {
       this.cuadranteFileName = fileName;
     });
   }
+
+    // Check if user is admin for show upload photo form
+    isAdmin(){
+      return this.securityService.isAdmin();
+    }
 }

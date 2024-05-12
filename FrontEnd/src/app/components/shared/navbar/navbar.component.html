@@ -18,6 +18,11 @@
         <mat-icon>task</mat-icon>
       </a>
     </mat-list-item>
+    <mat-list-item *ngIf="!isAdmin()" title="Tareas">
+      <a routerLink="mistareas" class="flex w-full h-full justify-center">
+        <mat-icon>task</mat-icon>
+      </a>
+    </mat-list-item>
     <mat-list-item *ngIf="isAdmin()" title="Empleados">
       <a routerLink="empleados" class="flex w-full h-full justify-center">
         <mat-icon>person</mat-icon>
@@ -60,6 +65,9 @@
     <div class="flex space-x-4"> <!-- Utilizamos space-x para agregar un espacio horizontal entre los elementos -->
       <!-- Botones para navegación -->
       <button *ngIf="isAdmin()" routerLink="tareas" title="Tareas" class="button-style">
+        <mat-icon>task</mat-icon>
+      </button>
+      <button *ngIf="!isAdmin()" routerLink="mistareas" title="Tareas" class="button-style">
         <mat-icon>task</mat-icon>
       </button>
       <button *ngIf="isAdmin()" routerLink="empleados" title="Empleados" class="button-style">

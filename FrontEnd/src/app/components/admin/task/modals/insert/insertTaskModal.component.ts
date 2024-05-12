@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -13,6 +13,7 @@ import { Task, TaskUser, TaskRoom } from '../../../../../models/task.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskUserTableComponent } from '../tables/user/userTable.component';
 import { TaskRoomTableComponent } from '../tables/room/roomTable.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-insert-task-modal',
@@ -38,7 +39,8 @@ export class InsertTaskModalComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private formBuilder: FormBuilder,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   // Validators
@@ -69,7 +71,9 @@ export class InsertTaskModalComponent implements OnInit {
     this.taskService.insertTask(taskRequest).subscribe({
       next: () => this.openSnackBar('Tarea añadida'),
       error: () =>
-        this.openSnackBar('Error al añadir la tarea ¿La habitación ya está asignada?'),
+        this.openSnackBar(
+          'Error al añadir la tarea ¿La habitación ya está asignada?'
+        ),
     });
     this.modalClosed.emit();
   }

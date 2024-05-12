@@ -1,0 +1,29 @@
+.yellow {
+    background-color: rgb(233, 255, 199)  !important;
+    border: 3px solid rgb(251, 114, 64) !important;
+  }
+  .yellow:hover{
+      background-color: rgb(251, 114, 64) !important;
+      color: white;
+  }
+  .orange {
+    background: orange !important;
+    border: 3px solid rgb(249, 219, 165);
+    color: rgb(112, 1, 1);
+  }
+  .green {
+    background: greenyellow !important;
+    border: 3px solid rgb(226, 252, 187);
+    color: rgb(0, 130, 0);
+  }
+  .position{
+    position: relative;
+    bottom: 4px;
+  }
+  
+  
+  mat-icon{
+    font-size: 27px !important;
+    overflow: visible;
+  }
+  

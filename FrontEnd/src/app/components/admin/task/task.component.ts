@@ -36,6 +36,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   private taskSubscription: Subscription | undefined;
 
+  roomNumbers: string[] = [];
+
   showActiveTasks: boolean = true;
 
   searchRadioButtonValue = 'Priority';
@@ -103,6 +105,14 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .subscribe((pagination: PaginationTask) => {
         this.dataSource = new MatTableDataSource<Task>(pagination.data);
         this.totalTasks = pagination.totalRows;
+
+        // Save all roomNumbers assigned into an array for pass it to the tables
+        this.roomNumbers = [];
+        pagination.data.forEach((task) => {
+          if (task.room && task.room.roomNumber) {
+            this.roomNumbers.push(task.room.roomNumber);
+          }
+        });
       });
   }
 
@@ -180,10 +190,11 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   insertTask(): void {
     const dialogRef = this.dialog.open(InsertTaskModalComponent, {
       width: '800px',
+      data: this.roomNumbers,
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe(() => {
         this.taskService.searchTasks(this.paginationRequest);
       });
@@ -191,9 +202,11 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   // Open a modal for watch or update task data
   updateTask(task: string): void {
+    const roomNumbers = this.roomNumbers;
+
     const dialogRef = this.dialog.open(UpdateTaskModalComponent, {
       width: '800px',
-      data: { task },
+      data: { task, roomNumbers },
     });
     dialogRef
       .afterClosed()

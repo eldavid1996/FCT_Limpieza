@@ -18,6 +18,7 @@
     />
     <!-- Room table component -->
     <app-task-room-table
+      [data]="data.roomNumbers"
       [selectedIdRoom]="roomId"
       (selectedIdRoomChange)="onSelectedIdRoomChange($event)"
       class="col-span-2"
