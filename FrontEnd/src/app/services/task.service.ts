@@ -45,7 +45,13 @@ export class TaskService {
   getRooms(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl +'Room');
   }
-
+  actulizarTask(task:Task){
+    console.log('Enviando solicitud para ediatr task:', task);
+    this.http.put(this.baseUrl +'Room/' + task.id,task).subscribe((data) => {
+      console.log('Respuesta del servidor:', data);
+      this.taskSubject.next(task);
+    });
+  }
 
 
   guardarTask(task: Task): Observable<any> {

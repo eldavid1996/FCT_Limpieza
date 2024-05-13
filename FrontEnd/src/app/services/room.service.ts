@@ -82,6 +82,7 @@ export class RoomService {
       this.roomSubject.next(room);
     });
   }
+
   editarRoomListener() {
     return this.roomSubject.asObservable();
   }

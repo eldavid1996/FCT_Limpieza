@@ -34,7 +34,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
   statusOptions = [
     { label: 'En Curso', value: 'enCurso' },
     { label: 'Terminada', value: 'terminada' },
-    { label: 'Por Hacer', value: 'porHacer' }
+    { label: 'Por Hacer', value: 'por hacer' }
   ];
   defaultStatus: string = 'Por Hacer';
 
@@ -88,6 +88,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       const selectedUser = this.users.find(user => user.id === this.taskForm.value.userId);
 
       const tareaRequest: Task = {
+        id:'',
         room: selectedRoom,
         priority: this.taskForm.value.priority,
         observations: this.taskForm.value.observations,
@@ -104,7 +105,7 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
         },
         error => {
           console.error('Error al guardar la tarea:', error);
-          this.openSnackBar('Error al guardar la tarea. Por favor, inténtelo de nuevo.');
+          this.openSnackBar('La habitación seleccionada ya esta asignada a una tarea');
           this.dialogRef.closeAll();
         }
       );
@@ -112,8 +113,6 @@ export class TaskDialogNuevoComponent implements OnInit, OnDestroy {
       console.log('Formulario inválido. Por favor, complete todos los campos correctamente.');
     }
   }
-
-
   openSnackBar(message: string) {
     this._snackbar.open(message, 'Cerrar', {
       duration: this.snackbarDuration * 1000

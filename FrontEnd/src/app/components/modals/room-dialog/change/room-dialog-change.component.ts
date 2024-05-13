@@ -46,7 +46,6 @@ export class RoomDialogChangeComponent implements OnInit, OnDestroy {
   }
   editarRoom(form: NgForm) {
 
-
     if (form.valid) {
       const roomRequest = {
         id:this.data.room.id,
@@ -58,10 +57,7 @@ export class RoomDialogChangeComponent implements OnInit, OnDestroy {
       this.roomService.getAllRooms().subscribe( //Comprobamos si alguna de todas de las habitaciones tiene el mismo roomNumber
       (rooms) => {
         const existingRoom = rooms.find(room => room.roomNumber === roomRequest.roomNumber);
-        if (existingRoom) {
-          // Habitación con el mismo número ya existe
-          this.openSnackBar('¡La habitación ya existe!');
-        } else {
+
           // editar la nueva habitación
           this.roomService.editarRoom(roomRequest);
           this.roomSubscription = this.roomService.editarRoomListener().subscribe(
@@ -75,8 +71,7 @@ export class RoomDialogChangeComponent implements OnInit, OnDestroy {
               this.openSnackBar('Error al editar la habitación');
             }
           );
-        }
-      },
+        },
       (error) => {
         console.error('Error al obtener las habitaciones:', error);
         this.openSnackBar('Error al obtener las habitaciones');

@@ -1,7 +1,8 @@
-<div mat-dialog-content>
-  <form [formGroup]="roomForm" (ngSubmit)="guardarRoom()">
+<div id="add" class="w-full p-8 bg-[#aec3b0]">
+  <h2>Añadir Habitacion</h2>
+  <form [formGroup]="roomForm" (ngSubmit)="guardarRoom()" class="space-y-4">
     <div class="grid grid-cols-2 gap-4">
-      <!-- Campo de prioridad -->
+      <!-- Campo de RoomNumber -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>RoomNumber</mat-label>
@@ -9,6 +10,7 @@
           <mat-error>RoomNumber son requeridas</mat-error>
         </mat-form-field>
       </div>
+      <!-- Campo de Floor -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Floor</mat-label>
@@ -16,6 +18,7 @@
           <mat-error>Floor son requeridas</mat-error>
         </mat-form-field>
       </div>
+      <!-- Campo de Type -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Type</mat-label>
@@ -24,6 +27,7 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <!-- Campo de Status -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Status</mat-label>
@@ -34,11 +38,13 @@
       </div>
     </div>
 
-    <div mat-dialog-actions>
-      <button mat-raised-button color="primary" (click)="cerrarDialog()">
+    <div class="flex justify-end space-x-4 mt-4">
+      <button mat-raised-button color="primary" type="button" (click)="cerrarDialog()"
+        class="bg-custom-light-gray text-custom-gray rounded-md px-4 py-2 hover:bg-custom-medium-gray focus:outline-none focus:bg-custom-medium-gray">
         Cancelar
       </button>
-      <button mat-raised-button color="primary" [disabled]="!roomForm.valid">
+      <button mat-raised-button color="#01161e" type="submit" [disabled]="!roomForm.valid"
+        class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]">
         Agregar Habitación
       </button>
     </div>
