@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.API.Hotel.Core;
 using Services.API.Hotel.Core.Dto;
 using Services.API.Hotel.Core.Entities;
 using Services.API.Hotel.Repository;
@@ -15,10 +16,13 @@ namespace Services.API.Hotel.Controllers
 
         private readonly IMongoRepository<RoomEntity> _roomRepository;
 
-        public TaskHistoryServiceController(IMongoRepository<TaskHistoryEntity> taskGenericRepository, IMongoRepository<RoomEntity> roomGenericRepository)
+        private readonly NotificationHub _notificationHub;
+
+        public TaskHistoryServiceController(IMongoRepository<TaskHistoryEntity> taskGenericRepository, IMongoRepository<RoomEntity> roomGenericRepository, NotificationHub notificationHub)
         {
             _taskRepository = taskGenericRepository;
             _roomRepository = roomGenericRepository;
+            _notificationHub = notificationHub;
         }
 
         [HttpGet]
@@ -43,6 +47,11 @@ namespace Services.API.Hotel.Controllers
         public async Task<IActionResult> Insert(TaskHistoryEntity task)
         {
             await _taskRepository.InsertDocument(task);
+
+            var notification = task.User.Email?.ToString();
+
+            await _notificationHub.SendNotification(notification);
+
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
 

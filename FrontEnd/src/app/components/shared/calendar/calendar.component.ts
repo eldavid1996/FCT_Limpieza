@@ -56,7 +56,7 @@ export class CalendarComponent {
 
   uploadImage() {
     // 2 cases: delete last imagen from db or upload a new image
-    if (this.imageData === null) {
+    if (this.imageData === null && this.cuadranteFileName !== '') {
       this.userService.deletePhoto('cuadrante').subscribe(() => {
         this.getAndUpdatePhoto();
       });

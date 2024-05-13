@@ -191,7 +191,9 @@ export class UserTableComponent implements OnInit, AfterViewInit {
         if (result === 'confirm') {
           this.userService.deleteUser(userId).subscribe((response) => {
             // Delethe the user photo
-            this.userService.deletePhoto(user.urlImage).subscribe();
+            if(user.urlImage){
+              this.userService.deletePhoto(user.urlImage).subscribe();
+            }
             // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list users

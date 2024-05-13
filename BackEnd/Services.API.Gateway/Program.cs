@@ -7,16 +7,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-// builder.Services.AddControllers();
-
 // Rule for Access, open for all
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsRule", rule =>
     {
-        rule.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+        rule.WithOrigins("http://localhost:4200")
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .AllowCredentials();
     });
 });
 
@@ -41,13 +40,12 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseStaticFiles();
-
+app.UseCors("CorsRule");
+app.UseRouting();
 app.UseHttpsRedirection();
 
 // Middleware for centralize manage errors
 app.UseMiddleware<ErrorHandlerMiddleware>();
-
-app.UseCors("CorsRule");
 
 app.UseAuthorization(); // for jwt
 
