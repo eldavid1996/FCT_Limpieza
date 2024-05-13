@@ -476,3 +476,4 @@ C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\BackEnd\Tests\bi
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\BackEnd\Tests\bin\Debug\net8.0\Services.API.Security.pdb
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\BackEnd\Tests\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Tests\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Tests\bin\Debug\net8.0\Services.API.Security.staticwebassets.runtime.json

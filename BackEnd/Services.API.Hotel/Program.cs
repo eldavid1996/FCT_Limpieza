@@ -77,7 +77,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    _ = endpoints.MapHub<NotificationHub>("/notificationHub");
+    _ = endpoints.MapHub<NotificationHub>("/notificationHub/notificationHub");
 });
 
 // Middleware for centralize manage errors

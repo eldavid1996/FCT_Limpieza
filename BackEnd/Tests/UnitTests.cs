@@ -580,7 +580,7 @@ namespace Hotel
     {
         private readonly Mock<IMongoRepository<TaskHistoryEntity>> _mockTaskHistoryRepository;
         private readonly Mock<IMongoRepository<RoomEntity>> _mockRoomRepository;
-
+        private readonly NotificationHub notificationHub;
         private readonly TaskHistoryServiceController _taskController;
 
         public TasksHistoryTests()
@@ -589,7 +589,8 @@ namespace Hotel
             _mockRoomRepository = new Mock<IMongoRepository<RoomEntity>>();
             _taskController = new TaskHistoryServiceController(
                 taskGenericRepository: _mockTaskHistoryRepository.Object,
-                roomGenericRepository: _mockRoomRepository.Object
+                roomGenericRepository: _mockRoomRepository.Object,
+                notificationHub: notificationHub
             );
         }
 
@@ -668,7 +669,8 @@ namespace Hotel
             // Mock Controller
             var taskController = new TaskHistoryServiceController(
                 taskGenericRepository: _mockTaskHistoryRepository.Object,
-                roomGenericRepository: mockRoomRepository.Object
+                roomGenericRepository: mockRoomRepository.Object,
+                notificationHub: notificationHub
             );
 
             var taskId = "1";

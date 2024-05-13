@@ -1,4 +1,12 @@
 {
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "DownstreamHeaderTransform": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization"
+    }
+  },
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/RoomService",
@@ -346,25 +354,6 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/api/TaskHistoryService/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 8562
-        }
-      ],
-      "UpstreamPathTemplate": "/TaskHistory/{id}",
-      "UpstreamHttpMethod": [ "GET", "DELETE" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "roleAdmin": true
-      }
-    },
-    {
       "DownstreamPathTemplate": "/api/TaskHistoryService/deleteHistory",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -394,6 +383,63 @@
       ],
       "UpstreamPathTemplate": "/TaskHistory/pagination",
       "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "roleAdmin": true
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/notificationHub/notificationHub",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8562
+        }
+      ],
+      "UpstreamPathTemplate": "/TaskHistory/notificationHub/notificationHub",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "ReRoutes": [
+        {
+          "DownstreamScheme": "wss"
+        },
+        {
+          "DownstreamScheme": "https"
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/notificationHub/{notificationHub}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8562
+        }
+      ],
+      "UpstreamPathTemplate": "/TaskHistory/notificationHub/{notificationHub}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+      "ReRoutes": [
+        {
+          "DownstreamScheme": "wss"
+        },
+        {
+          "DownstreamScheme": "https"
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/TaskHistoryService/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8562
+        }
+      ],
+      "UpstreamPathTemplate": "/TaskHistory/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []

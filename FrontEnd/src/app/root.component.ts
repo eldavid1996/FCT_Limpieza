@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SecurityService } from './services/security.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NotificationService } from './services/notifications.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +15,26 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './root.component.css',
 })
 export class RootComponent implements OnInit {
+  notifications: string[] = [];
+  private notificationSubscription: Subscription;
+
   constructor(
     private router: Router,
-    private securityService: SecurityService
-  ) {}
+    private securityService: SecurityService,
+    private notificationService: NotificationService,
+    private snackBar: MatSnackBar
+  ) {
+    this.notificationSubscription = this.notificationService.notifications$.subscribe(notification => {
+      this.notifications.push(notification);
+      this.showNotification(notification);
+    });
+  }
 
   ngOnInit(): void {
+    const lastTask = this.notifications.pop();
+    if (lastTask !== undefined) {
+        this.showNotification(lastTask);
+    }
     // Check if exist session token for load the account without login in any component
     if (typeof localStorage !== 'undefined') {
       if (localStorage.getItem('token')) {
@@ -38,4 +55,12 @@ export class RootComponent implements OnInit {
       return false;
     }
   }
+
+  showNotification(message: string): void {
+    this.snackBar.open(message+" terminó sus tareas", 'Cerrar', {
+        duration: 5000, 
+        horizontalPosition: 'end',
+        verticalPosition: 'bottom' 
+    });
+}
 }

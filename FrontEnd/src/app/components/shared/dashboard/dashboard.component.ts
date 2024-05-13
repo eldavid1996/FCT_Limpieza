@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../material.module';
 import { SecurityService } from '../../../services/security.service';
 import { User } from '../../../models/user.model';
-import { NotificationService } from '../../../services/notifications.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +13,9 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  notifications: string[] = [];
-  private notificationSubscription: Subscription;
 
-  constructor(private securityService: SecurityService,private notificationService: NotificationService) {
+  constructor(private securityService: SecurityService) {
     this.getLoggedUser();
-    this.notificationSubscription = this.notificationService.notifications$.subscribe(notification => {
-      this.notifications.push(notification);
-    });
   }
 
   userData: User = {
