@@ -16,30 +16,34 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RootComponent implements OnInit {
   notifications: string[] = [];
-  private notificationSubscription: Subscription;
+  private notificationSubscription?: Subscription;
 
   constructor(
     private router: Router,
     private securityService: SecurityService,
     private notificationService: NotificationService,
     private snackBar: MatSnackBar
-  ) {
-    this.notificationSubscription = this.notificationService.notifications$.subscribe(notification => {
-      this.notifications.push(notification);
-      this.showNotification(notification);
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     const lastTask = this.notifications.pop();
     if (lastTask !== undefined) {
-        this.showNotification(lastTask);
+      this.showNotification(lastTask);
     }
     // Check if exist session token for load the account without login in any component
     if (typeof localStorage !== 'undefined') {
       if (localStorage.getItem('token')) {
         // In this method, is token expired, go to login anyway
         this.securityService.getLoggedUser();
+        if (localStorage.getItem('rol') === "true") {
+          this.notificationSubscription =
+            this.notificationService.notifications$.subscribe(
+              (notification) => {
+                this.notifications.push(notification);
+                this.showNotification(notification);
+              }
+            );
+        }
       } else {
         // If there are no sesion, go to login
         this.router.navigate(['/']);
@@ -57,10 +61,10 @@ export class RootComponent implements OnInit {
   }
 
   showNotification(message: string): void {
-    this.snackBar.open(message+" terminó sus tareas", 'Cerrar', {
-        duration: 5000, 
-        horizontalPosition: 'end',
-        verticalPosition: 'bottom' 
+    this.snackBar.open(message + ' terminó sus tareas', 'Cerrar', {
+      duration: 5000,
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
     });
-}
+  }
 }
