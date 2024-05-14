@@ -1,88 +1,20 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Services.API.Hotel.Core;
-using Services.API.Hotel.Core.Entities;
-using Services.API.Hotel.Repository;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddSignalR();
-
-
-// MongoDB Driver - Conexion
-builder.Services.Configure<MongoSettings>(options =>
+using Services.API.Hotel;
+public class Program
 {
-    options.ConnectionString = builder.Configuration.GetSection("MongoDB:ConnectionString").Value;
-    options.Database = builder.Configuration.GetSection("MongoDB:Database").Value;
-});
-
-// Singleton for Inject ONLY 1 instance for Connect with DB --> MongoDBDriver
-builder.Services.AddSingleton<MongoSettings>();
-
-// For notifications
-builder.Services.AddSingleton<NotificationHub>();
-
-// Scoped for MORE than 1 instance for each API request and auto delete it when end --> Repository
-builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
-
-builder.Services.AddControllers();
-
-// Rule for Access, open for all
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CorsRule", rule =>
+    public static void Main(string[] args)
     {
-        rule.WithOrigins("http://localhost:4200") 
-                       .AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .AllowCredentials(); 
-    });
-});
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-// Create indexs for MongoDB
-using (var context = app.Services.CreateScope())
-{
-    var services = context.ServiceProvider;
-    try
-    {
-        var client = new MongoClient(builder.Configuration.GetSection("MongoDB:ConnectionString").Value);
-
-        var cmdStr = "{ createIndexes: 'Room', indexes: [ { key: { RoomNumber: 1 }, name: 'RoomNumber-1', unique: true } ] }";
-        var cmd = BsonDocument.Parse(cmdStr);
-        var resultRoom = client.GetDatabase(builder.Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
-        Console.WriteLine(resultRoom);
-
-        cmdStr = "{ createIndexes: 'Task', indexes: [ { key: { 'Room.RoomNumber': 1 }, name: 'TaskRoomNumber-1', unique: true } ] }";
-        cmd = BsonDocument.Parse(cmdStr);
-        var resultTask = client.GetDatabase(builder.Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
-        Console.WriteLine(resultTask);
-
+        CreateHostBuilder(args).Build().Run();
     }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
-    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+   Host.CreateDefaultBuilder(args)
+       .ConfigureAppConfiguration((hostingContext, config) =>
+       {
+           // Configurar para usar variables de entorno
+           config.AddEnvironmentVariables("APP_");
+       })
+       .ConfigureWebHostDefaults(webBuilder =>
+       {
+           webBuilder.UseStartup<Startup>();
+       });
 }
-app.UseCors("CorsRule");
-app.UseRouting();
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapHub<NotificationHub>("/notificationHub/notificationHub");
-});
-
-// Middleware for centralize manage errors
-app.UseMiddleware<ErrorHandlerMiddleware>();
-
-app.MapControllers();
-
-app.Run();
