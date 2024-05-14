@@ -39,4 +39,5 @@ td {
   }
   th{
     cursor: default;
+    background: white !important;
   }

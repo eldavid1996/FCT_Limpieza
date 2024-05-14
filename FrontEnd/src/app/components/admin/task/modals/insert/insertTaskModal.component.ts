@@ -49,7 +49,7 @@ export class InsertTaskModalComponent implements OnInit {
       user: ['', Validators.required],
       room: ['', Validators.required],
       priority: ['Normal'],
-      status: ['Por hacer'],
+      status: ['Pendiente'],
       observations: [''],
     });
   }

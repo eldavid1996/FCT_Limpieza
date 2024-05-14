@@ -2,3 +2,14 @@
   max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
+.orange{
+  background-color: rgb(255, 121, 72) !important;
+}
+.green{
+  background-color: #124559;
+  color: white;
+}
+.edit-button{
+  background-color: #124559 !important;
+  color: white;
+}

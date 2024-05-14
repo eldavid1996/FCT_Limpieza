@@ -8,7 +8,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Cancelar</button>
-  <button mat-button (click)="onConfirmClick()" [disabled]="confirmText !== 'CONFIRMAR'">
+  <button mat-button (click)="onConfirmClick()" [disabled]="confirmText !== 'CONFIRMAR'" cdkFocusInitial>
     Eliminar histórico
   </button>
 </div>

@@ -60,9 +60,9 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   ];
   // Request for get rooms paginated with the filter (default null)
   paginationRequest: PaginationList = {
-    pageSize: 3,
+    pageSize: 9999,
     page: 1,
-    sort: 'name',
+    sort: 'RoomNumber',
     sortDirection: 'asc',
     filter: this.paginationFilter,
   };
@@ -95,14 +95,15 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     // Set variable value for color the row
     this.selectedId = this.selectedIdRoom;
     this.roomService.searchRooms(this.paginationRequest);
+    this.paginationRequest.pageSize = 3;
     this.roomSubscription = this.roomService
       .getRooms()
       .subscribe((pagination: PaginationRoom) => {
         var filteredData = pagination.data.filter(room => {
           return !this.data.includes(room.roomNumber);
         });
-        this.dataSource = new MatTableDataSource<Room>(filteredData);
-        this.totalRooms = filteredData.length;
+        this.dataSource = new MatTableDataSource<Room>((filteredData.slice(0, this.paginationRequest.pageSize)));
+        this.totalRooms = (pagination.totalRows - this.data.length);
       });
   }
 
@@ -148,9 +149,20 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
 
   // For pagination and ordering (bot options)
   eventPager(event: PageEvent): void {
+    this.paginationRequest.pageSize = 9999;
+    this.paginationRequest.page = 1;
+    this.roomService.searchRooms(this.paginationRequest);
+    this.roomSubscription = this.roomService
+    .getRooms()
+    .subscribe((pagination: PaginationRoom) => {
+      var filteredData = pagination.data.filter(room => {
+        return !this.data.includes(room.roomNumber);
+      });
+      this.dataSource = new MatTableDataSource<Room>((filteredData.slice(0, this.paginationRequest.pageSize)));
+      this.totalRooms = (pagination.totalRows - this.data.length);
+    });
     this.paginationRequest.pageSize = event.pageSize;
     this.paginationRequest.page = event.pageIndex + 1;
-    this.roomService.searchRooms(this.paginationRequest);
   }
 
   // For pagination and ordering (column options)

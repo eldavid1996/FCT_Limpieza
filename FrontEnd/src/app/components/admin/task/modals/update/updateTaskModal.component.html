@@ -1,4 +1,8 @@
-<form [formGroup]="taskForm" (ngSubmit)="updateTask()" class="modal-content">
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="updateTask()"
+  class="modal-content bg-[#eff6e0] p-10"
+>
   <h1 class="mat-dialog-title w-full text-center">Modificar tarea</h1>
   <div class="grid grid-cols-2 gap-4">
     <!-- User table component -->
@@ -15,6 +19,7 @@
       name="user"
       type="text"
       [value]="userId"
+      class="dark:text-white"
     />
     <!-- Room table component -->
     <app-task-room-table
@@ -51,36 +56,38 @@
         matAutosizeMaxRows="5"
       ></textarea>
     </mat-form-field>
+    <mat-label>Estado: {{ data.task.status }}</mat-label>
 
-    <mat-dialog-actions>
+    <mat-dialog-actions class="col-span-2 flex justify-between">
+      <button
+        (click)="updateStatus('Finalizada')"
+        mat-raised-button
+        mat-dialog-close
+        class="green"
+        *ngIf="data.task.status === 'Pendiente'"
+      >
+        Marcar como finalizada
+      </button>
+      <button
+        (click)="updateStatus('Pendiente')"
+        mat-raised-button
+        mat-dialog-close
+        class="orange"
+        *ngIf="data.task.status === 'Finalizada'"
+      >
+        Marcar como pendiente
+      </button>
+
       <button mat-button mat-dialog-close>Cerrar</button>
       <button
         [disabled]="taskForm.invalid"
         type="submit"
-        mat-button
+        mat-raised-button
         [mat-dialog-close]="true"
+        class="edit-button green"
       >
         Modificar tarea
       </button>
-      <mat-label
-        >Estado: {{ data.task.status }}
-        <button
-          (click)="updateStatus('Finalizada')"
-          mat-button
-          mat-dialog-close
-          *ngIf="data.task.status === 'Pendiente'"
-        >
-          Marcar como finalizada
-        </button>
-        <button
-          (click)="updateStatus('Pendiente')"
-          mat-button
-          mat-dialog-close
-          *ngIf="data.task.status === 'Finalizada'"
-        >
-          Marcar como pendiente
-        </button>
-      </mat-label>
     </mat-dialog-actions>
   </div>
 </form>

@@ -1,22 +1,7 @@
-.position {
-  position: relative;
-  top: 2px;
-  left: -2px;
+.orange{
+  background: orange !important;
 }
-.boton-borrar {
-  background-color: #e54646 !important;
-  border-radius: 60px;
-  color: white !important;
+.green{
+  background: #4ed469!important;
 }
-.boton-nuevo {
-  background-color: #4f46e5 !important;
-  border-radius: 60px;
-  color: white !important;
-}
-.boton-nuevo[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.beige {
-  background-color: #eff6e0;
-}
+

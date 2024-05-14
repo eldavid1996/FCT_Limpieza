@@ -11,9 +11,31 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #aec3b0;
 }
-.orange{
-  background: orange !important;
+
+
+input
+{
+  padding: 10px 5px;
+  border-radius: 5px;
 }
-.green{
-  background: greenyellow !important;
+.position {
+  position: relative;
+  top: 2px;
+  left: -2px;
 }
+.boton-borrar {
+  background-color: #e54646 !important;
+  color: white !important;
+}
+.boton-nuevo {
+  background-color: #124559 !important;
+  color: white !important;
+}
+.boton-nuevo[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.beige {
+  background-color: #eff6e0;
+}
+

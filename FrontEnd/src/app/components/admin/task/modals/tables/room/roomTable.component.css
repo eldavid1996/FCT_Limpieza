@@ -38,4 +38,7 @@ tr:hover {
 }
 th {
   cursor: default;
+  background-color: white !important;
 }
+
+

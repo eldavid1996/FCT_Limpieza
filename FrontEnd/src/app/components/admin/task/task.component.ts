@@ -205,7 +205,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     const roomNumbers = this.roomNumbers;
 
     const dialogRef = this.dialog.open(UpdateTaskModalComponent, {
-      width: '800px',
       data: { task, roomNumbers },
     });
     dialogRef
@@ -242,7 +241,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   // Open the modal with a confirmation to delete task
   deleteHistory(): void {
     const dialogRef = this.dialog.open(DeleteHistoryModalComponent, {
-      width: '250px',
+      
     });
 
     // If modal was closed with a 'confirm' status delete the task
