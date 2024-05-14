@@ -20,7 +20,7 @@
   style="border-collapse: collapse"
 >
   <!-- Room Number Column -->
-  <ng-container matColumnDef="RoomNumber" class="hover:bg-gray-700">
+  <ng-container matColumnDef="RoomNumber">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nº Habitación</th>
     <td mat-cell *matCellDef="let element" (click)="selectCell(element.id)"
     [ngClass]="{'highlighted-row': element.id === selectedId}">{{ element.roomNumber }}</td>

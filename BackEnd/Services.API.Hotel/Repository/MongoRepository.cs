@@ -85,7 +85,12 @@ namespace Services.API.Hotel.Repository
                     {
                         return filterBuilder.Gte(f.Property, date.Date) & filterBuilder.Lt(f.Property, date.Date.AddDays(1));
                     }
-                    // if is a string
+                    // If is a string and exactValues is true
+                    else if (pagination.ExactValues.HasValue && pagination.ExactValues.Value)
+                    {
+                        return filterBuilder.Eq(f.Property, f.Value);
+                    }
+                    // Default case (use regex)
                     else
                     {
                         return filterBuilder.Regex(f.Property, new BsonRegularExpression(".*" + f.Value + ".*", "i"));
@@ -93,6 +98,12 @@ namespace Services.API.Hotel.Repository
                 }
                 );
                 combinedFilter = filterBuilder.Or(filterDefinitions);
+            }
+
+            if (pagination.Exclude.HasValue && pagination.Exclude.Value)
+            {
+                combinedFilter = filterBuilder.Not(combinedFilter);
+
             }
 
             pagination.Data = await _collection.Find(combinedFilter)

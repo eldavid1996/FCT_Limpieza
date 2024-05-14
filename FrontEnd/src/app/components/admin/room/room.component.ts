@@ -37,7 +37,7 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<Room>();
   totalRooms = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = ['RoomNumber', 'Floor', 'Type', 'Status', 'actions'];
 
   timeout: any = null;
@@ -53,7 +53,7 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
   paginationRequest: PaginationList = {
     pageSize: 5,
     page: 1,
-    sort: 'name',
+    sort: 'RoomNumber',
     sortDirection: 'asc',
     filter: this.paginationFilter,
   };

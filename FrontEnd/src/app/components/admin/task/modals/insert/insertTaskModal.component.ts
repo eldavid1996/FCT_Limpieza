@@ -48,7 +48,7 @@ export class InsertTaskModalComponent implements OnInit {
     this.taskForm = this.formBuilder.group({
       user: ['', Validators.required],
       room: ['', Validators.required],
-      priority: ['Normal'],
+      priority: ['1'],
       status: ['Pendiente'],
       observations: [''],
     });

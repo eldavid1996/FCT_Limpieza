@@ -1,11 +1,11 @@
 /* Used in the coponent */
 .highlighted-row {
   background-color: lightblue;
-  cursor: pointer;
+  cursor: default;
 }
 
 td {
-  cursor: default;
+  cursor: pointer;
 }
 
 .position {
@@ -40,5 +40,3 @@ th {
   cursor: default;
   background-color: white !important;
 }
-
-

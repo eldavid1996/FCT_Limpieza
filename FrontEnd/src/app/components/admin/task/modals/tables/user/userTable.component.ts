@@ -36,17 +36,17 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
+  private userSubscription: Subscription | undefined;
+
   selectedId: string = '';
   @Input() selectedIdUser: string | any;
   @Output() selectedIdUserChange = new EventEmitter<string>();
-
-  private userSubscription: Subscription | undefined;
 
   searchRadioButtonValue = 'Name';
 
   dataSource = new MatTableDataSource<User>();
   totalUsers = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = ['Name', 'Surname', 'Email', 'PhoneNumber', 'City'];
 
   timeout: any = null;
@@ -58,7 +58,7 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
   };
   // Request for get users paginated with the filter (default null)
   paginationRequest: Pagination = {
-    pageSize: 3,
+    pageSize: 5,
     page: 1,
     sort: 'Name',
     sortDirection: 'asc',

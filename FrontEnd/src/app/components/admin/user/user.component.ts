@@ -38,7 +38,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<User>();
   totalUsers = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = [
     'Name',
     'Surname',

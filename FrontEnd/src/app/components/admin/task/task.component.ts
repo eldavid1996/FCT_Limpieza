@@ -40,16 +40,16 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   showActiveTasks: boolean = true;
 
-  searchRadioButtonValue = 'Priority';
+  searchRadioButtonValue = 'Status';
 
   dataSource = new MatTableDataSource<Task>();
   totalTasks = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = [
-    'Priority',
     'Status',
-    'User',
-    'Room',
+    'Priority',
+    'User.Name',
+    'Room.RoomNumber',
     'Observations',
     'actions',
   ];
@@ -59,7 +59,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   // Filter for search by column
   paginationFilter: PaginationFilter[] = [
     {
-      property: 'Priority',
+      property: 'Status',
       value: '',
     },
   ];
@@ -67,7 +67,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   paginationRequest: PaginationList = {
     pageSize: 5,
     page: 1,
-    sort: 'Priority',
+    sort: 'Status',
     sortDirection: 'asc',
     filter: this.paginationFilter,
   };
@@ -126,12 +126,12 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         value: this.paginationFilter[0].value,
       },
     ];
-    if (event.value === 'Room') {
+    if (event.value === 'Room.RoomNumber') {
       updatedPaginationFilter = this.searchByRoom(
         this.paginationFilter[0].value
       );
     }
-    if (event.value === 'User') {
+    if (event.value === 'User.Name') {
       updatedPaginationFilter = this.searchByUser(
         this.paginationFilter[0].value
       );
@@ -154,10 +154,10 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             value: event.target.value,
           },
         ];
-        if (this.searchRadioButtonValue === 'Room') {
+        if (this.searchRadioButtonValue === 'Room.RoomNumber') {
           $this.paginationFilter = this.searchByRoom(event.target.value);
         }
-        if (this.searchRadioButtonValue === 'User') {
+        if (this.searchRadioButtonValue === 'User.Name') {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         this.paginationRequest.filter = $this.paginationFilter;
@@ -240,9 +240,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   // Open the modal with a confirmation to delete task
   deleteHistory(): void {
-    const dialogRef = this.dialog.open(DeleteHistoryModalComponent, {
-      
-    });
+    const dialogRef = this.dialog.open(DeleteHistoryModalComponent, {});
 
     // If modal was closed with a 'confirm' status delete the task
     dialogRef

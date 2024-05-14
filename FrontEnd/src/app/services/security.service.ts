@@ -37,7 +37,10 @@ export class SecurityService {
         this.token = localStorage.getItem('token');
         this.userId = localStorage.getItem('userId');
         this.userRole = localStorage.getItem('rol');
-        this.router.navigate(['inicio']);
+        // With reload for admins for suscribe to signalR from backend
+        this.router.navigate(['/inicio']).then(() => {
+          window.location.reload();
+        });
       },
       error: (e) => {
         // set login Subject failed

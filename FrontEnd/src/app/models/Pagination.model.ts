@@ -6,6 +6,8 @@ export interface Pagination {
   sort: string;
   sortDirection: string;
   filter?: PaginationFilter;
+  exactValues?: boolean;
+  exclude?: boolean;
 }
 
 export interface PaginationList {
@@ -14,4 +16,6 @@ export interface PaginationList {
   sort: string;
   sortDirection: string;
   filter?: PaginationFilter[];
+  exactValues?: boolean;
+  exclude?: boolean;
 }

@@ -20,13 +20,20 @@ export class NotificationService {
       this.notifications$.next(data);
     });
 
-    this.hubConnection
-      .start()
-      .then(() =>
-        console.log('Conexión establecida con el servidor de SignalR')
-      )
-      .catch((err) =>
-        console.error('Error al conectar con el servidor de SignalR:', err)
-      );
+    if (typeof localStorage !== 'undefined') {
+      if (localStorage.getItem('token')) {
+        if (localStorage.getItem('rol') === "true") {
+          this.hubConnection
+          .start()
+          .then(() =>
+            console.log('Conexión establecida con el servidor de SignalR')
+          )
+          .catch((err) =>
+            console.error('Error al conectar con el servidor de SignalR:', err)
+          );
+        }
+      }
+    }
+
   }
 }

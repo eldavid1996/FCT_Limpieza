@@ -60,11 +60,13 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   ];
   // Request for get rooms paginated with the filter (default null)
   paginationRequest: PaginationList = {
-    pageSize: 9999,
+    pageSize: 5,
     page: 1,
     sort: 'RoomNumber',
     sortDirection: 'asc',
     filter: this.paginationFilter,
+    exactValues: true,
+    exclude: true
   };
 
   constructor(
@@ -94,16 +96,17 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // Set variable value for color the row
     this.selectedId = this.selectedIdRoom;
+
+    this.data.forEach((element: { toString: () => any; }) => {
+      this.paginationFilter.push({ property: 'RoomNumber', value: element.toString() });
+    });
+    
     this.roomService.searchRooms(this.paginationRequest);
-    this.paginationRequest.pageSize = 3;
     this.roomSubscription = this.roomService
       .getRooms()
       .subscribe((pagination: PaginationRoom) => {
-        var filteredData = pagination.data.filter(room => {
-          return !this.data.includes(room.roomNumber);
-        });
-        this.dataSource = new MatTableDataSource<Room>((filteredData.slice(0, this.paginationRequest.pageSize)));
-        this.totalRooms = (pagination.totalRows - this.data.length);
+        this.dataSource = new MatTableDataSource<Room>(pagination.data);
+        this.totalRooms = pagination.totalRows;
       });
   }
 
@@ -149,20 +152,9 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
 
   // For pagination and ordering (bot options)
   eventPager(event: PageEvent): void {
-    this.paginationRequest.pageSize = 9999;
-    this.paginationRequest.page = 1;
-    this.roomService.searchRooms(this.paginationRequest);
-    this.roomSubscription = this.roomService
-    .getRooms()
-    .subscribe((pagination: PaginationRoom) => {
-      var filteredData = pagination.data.filter(room => {
-        return !this.data.includes(room.roomNumber);
-      });
-      this.dataSource = new MatTableDataSource<Room>((filteredData.slice(0, this.paginationRequest.pageSize)));
-      this.totalRooms = (pagination.totalRows - this.data.length);
-    });
     this.paginationRequest.pageSize = event.pageSize;
     this.paginationRequest.page = event.pageIndex + 1;
+    this.roomService.searchRooms(this.paginationRequest);
   }
 
   // For pagination and ordering (column options)

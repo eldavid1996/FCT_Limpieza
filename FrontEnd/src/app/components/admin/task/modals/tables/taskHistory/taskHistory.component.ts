@@ -41,17 +41,17 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   showActiveTasks: boolean = true;
   @Output() showActiveTasksChange = new EventEmitter<void>();
 
-  searchRadioButtonValue = 'Priority';
+  searchRadioButtonValue = 'Status';
   searchDateDefaultValue: Date;
 
   dataSource = new MatTableDataSource<Task>();
   totalTasks = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = [
-    'Priority',
     'Status',
-    'User',
-    'Room',
+    'Priority',
+    'User.Name',
+    'Room.RoomNumber',
     'CreatedDate',
     'actions',
   ];
@@ -61,7 +61,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   // Filter for search by column
   paginationFilter: PaginationFilter[] = [
     {
-      property: 'Priority',
+      property: 'Status',
       value: '',
     },
   ];
@@ -69,7 +69,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   paginationRequest: PaginationList = {
     pageSize: 5,
     page: 1,
-    sort: 'Priority',
+    sort: 'Status',
     sortDirection: 'asc',
     filter: this.paginationFilter,
   };
@@ -121,12 +121,12 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
         value: this.paginationFilter[0].value,
       },
     ];
-    if (event.value === 'Room') {
+    if (event.value === 'Room.RoomNumber') {
       updatedPaginationFilter = this.searchByRoom(
         this.paginationFilter[0].value
       );
     }
-    if (event.value === 'User') {
+    if (event.value === 'User.Name') {
       updatedPaginationFilter = this.searchByUser(
         this.paginationFilter[0].value
       );
@@ -144,7 +144,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
     if (event.value !== 'CreatedDate' && !isNaN(date.getTime())) {
       this.paginationRequest.filter = [
         {
-          property: 'Priority',
+          property: event.value,
           value: '',
         },
       ];
@@ -166,10 +166,10 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
             value: event.target.value,
           },
         ];
-        if (this.searchRadioButtonValue === 'Room') {
+        if (this.searchRadioButtonValue === 'Room.RoomNumber') {
           $this.paginationFilter = this.searchByRoom(event.target.value);
         }
-        if (this.searchRadioButtonValue === 'User') {
+        if (this.searchRadioButtonValue === 'User.Name') {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         if (this.searchRadioButtonValue === 'CreatedDate') {
