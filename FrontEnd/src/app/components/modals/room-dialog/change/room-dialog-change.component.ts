@@ -87,9 +87,10 @@ export class RoomDialogChangeComponent implements OnInit, OnDestroy {
     this._snackBar.open(message, 'Cerrar', {
       duration: this.snackbarDuration * 1000
     });
-    this.cerrarEditar();
+
   }
-  cerrarEditar() {
+  cerrarEditar(event: Event) {
+    event.stopPropagation();
     this.dialogRef.closeAll();
   }
   ngOnDestroy() {

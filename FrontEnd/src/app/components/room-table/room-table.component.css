@@ -27,5 +27,10 @@
     cursor:pointer
   }
   th{
+    text-align: center;
+  vertical-align: middle;
     cursor: default;
+  }
+  th:hover{
+    background-color: transparent;
   }

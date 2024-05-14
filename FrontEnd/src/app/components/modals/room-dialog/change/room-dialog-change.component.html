@@ -1,9 +1,8 @@
-<h1 class="mat-dialog-title">Edit {{ data.room.name }}</h1>
-
-<div mat-dialog-content>
+<div class="w-full p-8 bg-[#eff6e0]">
+  <h2 class="text-center">Editar habitación nº {{ data.room.roomNumber }}</h2>
   <form [formGroup]="form" (ngSubmit)="editarRoom(form)">
     <div class="grid grid-cols-2 gap-4">
-      <!-- Campo de nombre -->
+      <!-- Campo de número de habitación -->
       <div class="mb-4">
         <mat-form-field appearance="fill">
           <mat-label>RoomNumber</mat-label>
@@ -14,11 +13,13 @@
             type="text"
             [(ngModel)]="data.room.roomNumber"
           />
-          <mat-error *ngIf="form.get('roomNumber').errors?.required">RoomNumber is required</mat-error>
+          <mat-error *ngIf="form.get('roomNumber').errors?.required">
+            RoomNumber is required
+          </mat-error>
         </mat-form-field>
       </div>
 
-      <!-- Campo de apellido -->
+      <!-- Campo de piso -->
       <div class="mb-4">
         <mat-form-field appearance="fill">
           <mat-label>Floor</mat-label>
@@ -29,33 +30,51 @@
             type="text"
             [(ngModel)]="data.room.floor"
           />
-          <mat-error *ngIf="form.get('floor').errors?.required">Floor is required</mat-error>
+          <mat-error *ngIf="form.get('floor').errors?.required">
+            Floor is required
+          </mat-error>
         </mat-form-field>
       </div>
+
+      <!-- Campo de tipo -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Type</mat-label>
           <mat-select formControlName="type" [(ngModel)]="data.room.type">
-            <mat-option *ngFor="let option of typeOptions" [value]="option.value">{{ option.label }}</mat-option>
+            <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+
+      <!-- Campo de estado -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" [(ngModel)]="data.room.status">
-            <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</mat-option>
+            <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
     </div>
 
-    <div mat-dialog-actions>
-      <button mat-raised-button color="primary" [disabled]="!form.valid">Edit room</button>
+    <div class="flex justify-end space-x-4 mt-4">
+      <button mat-raised-button color="warn" (click)="cerrarEditar($event)">
+        Cerrar
+      </button>
+      <button
+        mat-raised-button
+        [ngStyle]="{
+          'background-color': form.valid ? '#124559' : '#b0b0b0',
+          color: form.valid ? '#eff6e0' : '#ffffff'
+        }"
+        [disabled]="!form.valid"
+        class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]">
+        Edit room
+      </button>
     </div>
   </form>
-  <button mat-raised-button color="primary" (click)="cerrarEditar()">
-    Cancel
-  </button>
-
 </div>

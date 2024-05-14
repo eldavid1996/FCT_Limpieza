@@ -1,11 +1,8 @@
 <section class="p-5 mt-10">
-  <div
-    class="sm:w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 beige"
-  >
-    <div class="px-6 py-4 flex justify-between">
-      <div class="font-bold text-xl mb-2">Habitaciones</div>
-      <span
-        ><form>
+  <div class="font-bold text-xl mb-3 w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 beige text-center">Habitaciones</div>
+  <div class="mb-3 w-full lg:w-4/5 mx-auto rounded overflow-hidden shadow-lg py-3 beige text-center">
+    <div class="px-6 pt-4 pb-2 grid flex justify-end">
+      <span><form>
           <div class="w-full flex">
             <div class="mb-4 flex">
               <input
@@ -22,8 +19,8 @@
               </button>
             </div>
           </div>
-        </form></span
-      >
+        </form>
+        </span>
     </div>
     <div>
       <mat-table
@@ -94,9 +91,9 @@
         [length]="totalRooms"
       ></mat-paginator>
     </div>
-    <div class="px-6 pt-4 pb-2 grid ">
+    <div class="px-6 pt-4 pb-2 py-3 grid">
       <div class="place-self-end rounded-lg">
-        <button mat-flat-button style="background-color: #01161e;border-radius: 10px;color:#eff6e0" (click)="abrirDialog()">
+        <button mat-flat-button style="background-color: #124559;border-radius: 10px;color:#eff6e0" (click)="abrirDialog()">
           Añadir Habitacion<mat-icon>person</mat-icon>
         </button>
       </div>

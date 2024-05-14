@@ -1,12 +1,12 @@
-<div id="add" class="w-full p-8 bg-[#aec3b0]">
-  <h2>Añadir Habitacion</h2>
+<div class="w-full p-8 bg-[#eff6e0]">
+  <h2 class="text-center">Añadir Habitacion</h2>
   <form [formGroup]="roomForm" (ngSubmit)="guardarRoom()" class="space-y-4">
     <div class="grid grid-cols-2 gap-4">
       <!-- Campo de RoomNumber -->
       <div class="mb-4">
         <mat-form-field>
           <mat-label>RoomNumber</mat-label>
-          <input matInput formControlName="roomNumber" required type="text" />
+          <input matInput formControlName="roomNumber" required type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
           <mat-error>RoomNumber son requeridas</mat-error>
         </mat-form-field>
       </div>
@@ -23,7 +23,11 @@
         <mat-form-field>
           <mat-label>Type</mat-label>
           <mat-select formControlName="type" [(ngModel)]="defaultType">
-            <mat-option *ngFor="let option of typeOptions" [value]="option.value">{{ option.label }}</mat-option>
+            <mat-option
+              *ngFor="let option of typeOptions"
+              [value]="option.value"
+              >{{ option.label }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
@@ -32,19 +36,35 @@
         <mat-form-field>
           <mat-label>Status</mat-label>
           <mat-select formControlName="status" [(ngModel)]="defaultStatus">
-            <mat-option *ngFor="let option of statusOptions" [value]="option.value">{{ option.label }}</mat-option>
+            <mat-option
+              *ngFor="let option of statusOptions"
+              [value]="option.value"
+              >{{ option.label }}</mat-option
+            >
           </mat-select>
         </mat-form-field>
       </div>
     </div>
 
     <div class="flex justify-end space-x-4 mt-4">
-      <button mat-raised-button color="primary" type="button" (click)="cerrarDialog()"
-        class="bg-custom-light-gray text-custom-gray rounded-md px-4 py-2 hover:bg-custom-medium-gray focus:outline-none focus:bg-custom-medium-gray">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="cerrarDialog()"
+        class=""
+      >
         Cancelar
       </button>
-      <button mat-raised-button color="#01161e" type="submit" [disabled]="!roomForm.valid"
-        class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]">
+      <button
+        mat-raised-button
+        [ngStyle]="{
+          'background-color': roomForm.valid ? '#124559' : '#b0b0b0',
+          color: roomForm.valid ? '#eff6e0' : '#ffffff'
+        }"
+        [disabled]="!roomForm.valid"
+        class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]"
+      >
         Agregar Habitación
       </button>
     </div>

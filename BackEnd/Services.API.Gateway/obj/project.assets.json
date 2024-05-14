@@ -824,11 +824,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "projectUniqueName": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\Nuevo\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
       "projectName": "Services.API.Gateway",
-      "projectPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
+      "projectPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\Nuevo\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\Services.API.Gateway.csproj",
       "packagesPath": "C:\\Users\\esteban.dominguez\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
+      "outputPath": "C:\\Users\\esteban.dominguez\\OneDrive - GABITEL INGENIEROS\\Escritorio\\esteban\\Nuevo\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
