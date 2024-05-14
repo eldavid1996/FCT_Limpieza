@@ -43,7 +43,7 @@
         Quitar imagen
       </button>
     </mat-label>
-    <button [disabled]="userForm.invalid" type="submit" mat-button>
+    <button [disabled]="this.imageData === null && this.cuadranteFileName === ''" type="submit" mat-button>
       Actualizar cuadrante
     </button>
   </div>
