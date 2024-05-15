@@ -1,7 +1,11 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
+      "Id": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\3a59a498-db23-4e09-b884-880d4f301488.jpeg",
+      "PackagePath": "staticwebassets\\photos\\3a59a498-db23-4e09-b884-880d4f301488.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
       "PackagePath": "staticwebassets\\photos\\cuadrante.txt"
     },
     {

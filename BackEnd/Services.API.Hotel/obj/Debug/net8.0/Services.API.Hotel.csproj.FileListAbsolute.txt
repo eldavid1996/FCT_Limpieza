@@ -201,3 +201,4 @@ C:\Users\josve\Desktop\TFG\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net
 C:\Users\josve\Desktop\TFG\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.genruntimeconfig.cache
 C:\Users\josve\Desktop\TFG\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\ref\Services.API.Hotel.dll
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Hotel\obj\Debug\net8.0\Services.API.Hotel.sourcelink.json
+C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Services.API.Hotel\bin\Debug\net8.0\Services.API.Hotel.staticwebassets.runtime.json

@@ -657,3 +657,4 @@ C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\Bac
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Tests\obj\Debug\net8.0\Tests.pdb
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Tests\obj\Debug\net8.0\Tests.genruntimeconfig.cache
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Tests\obj\Debug\net8.0\ref\Tests.dll
+C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Tests\bin\Debug\net8.0\Services.API.Hotel.staticwebassets.runtime.json

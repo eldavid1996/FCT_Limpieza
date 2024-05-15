@@ -19,17 +19,13 @@ namespace Services.API.Hotel
         {
             var sqlServerConnectionString = Environment.GetEnvironmentVariable("APP_CONNECTION_STRING");
             var sqlServerConnectionDatabase = Environment.GetEnvironmentVariable("APP_DATABASE");
-            Console.WriteLine("antes de comprobar: " + sqlServerConnectionString);
-            Console.WriteLine("antes de comprobar: " + sqlServerConnectionString);
 
             if (string.IsNullOrEmpty(sqlServerConnectionString))
             {
-                Console.WriteLine("default"+sqlServerConnectionString);
                 sqlServerConnectionString = Configuration.GetSection("MongoDB:ConnectionString").Value;
             }
             if (string.IsNullOrEmpty(sqlServerConnectionDatabase))
             {
-                Console.WriteLine("default"+sqlServerConnectionDatabase);
                 sqlServerConnectionDatabase = Configuration.GetSection("MongoDB:Database").Value;
             }
 
@@ -40,8 +36,7 @@ namespace Services.API.Hotel
                 options.Database = sqlServerConnectionDatabase;
             });
 
-            Console.WriteLine("despues de comprobar: " + sqlServerConnectionString);
-            Console.WriteLine("despues de comprobar: " + sqlServerConnectionString);
+
 
             // SQL Driver - Conexion
             services.AddSignalR();
@@ -62,7 +57,7 @@ namespace Services.API.Hotel
             {
                 opt.AddPolicy("CorsRule", rule =>
                 {
-                    rule.WithOrigins("http://localhost:4200")
+                    rule.WithOrigins("http://192.168.1.226:4200")
                                    .AllowAnyHeader()
                                    .AllowAnyMethod()
                                    .AllowCredentials();
@@ -72,19 +67,8 @@ namespace Services.API.Hotel
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
 
-            app.UseHttpsRedirection();
-            // Middleware for centralize manage errors
-            app.UseMiddleware<ErrorHandlerMiddleware>();
+            //app.UseHttpsRedirection();
 
             app.UseCors("CorsRule");
             app.UseStaticFiles();
@@ -101,27 +85,41 @@ namespace Services.API.Hotel
                 endpoints.MapControllers();
             });
 
+            // Middleware for centralize manage errors
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
             CreateIndexs(app).GetAwaiter().GetResult();
 
         }
         private async Task CreateIndexs(IApplicationBuilder app)
         {
+            var sqlServerConnectionString = Environment.GetEnvironmentVariable("APP_CONNECTION_STRING");
+            var sqlServerConnectionDatabase = Environment.GetEnvironmentVariable("APP_DATABASE");
             // Create indexs for MongoDB
+            if (string.IsNullOrEmpty(sqlServerConnectionString))
+            {
+                sqlServerConnectionString = Configuration.GetSection("MongoDB:ConnectionString").Value;
+            }
+            if (string.IsNullOrEmpty(sqlServerConnectionDatabase))
+            {
+                sqlServerConnectionDatabase = Configuration.GetSection("MongoDB:Database").Value;
+            }
+
             using (var context = app.ApplicationServices.CreateScope())
             {
                 var services = context.ServiceProvider;
                 try
                 {
-                    var client = new MongoClient(Configuration.GetSection("MongoDB:ConnectionString").Value);
+                    var client = new MongoClient(sqlServerConnectionString);
 
                     var cmdStr = "{ createIndexes: 'Room', indexes: [ { key: { RoomNumber: 1 }, name: 'RoomNumber-1', unique: true } ] }";
                     var cmd = BsonDocument.Parse(cmdStr);
-                    var resultRoom = client.GetDatabase(Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
+                    var resultRoom = client.GetDatabase(sqlServerConnectionDatabase).RunCommand<BsonDocument>(cmd);
                     Console.WriteLine(resultRoom);
 
                     cmdStr = "{ createIndexes: 'Task', indexes: [ { key: { 'Room.RoomNumber': 1 }, name: 'TaskRoomNumber-1', unique: true } ] }";
                     cmd = BsonDocument.Parse(cmdStr);
-                    var resultTask = client.GetDatabase(Configuration.GetSection("MongoDB:Database").Value).RunCommand<BsonDocument>(cmd);
+                    var resultTask = client.GetDatabase(sqlServerConnectionDatabase).RunCommand<BsonDocument>(cmd);
                     Console.WriteLine(resultTask);
 
                 }

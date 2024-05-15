@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "MOV+omhC+FfuVvn8/pRYJVOYmVJBZenQOYlOk/IG8KQ=",
+  "Hash": "cnErvm3ATFFCkPoNB3g33IU2A6LVq+dpahHqZej5zdU=",
   "Source": "Services.API.Gateway",
   "BasePath": "_content/Services.API.Gateway",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Services.API.Gateway\\wwwroot",
+      "Source": "Services.API.Gateway",
+      "ContentRoot": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\wwwroot\\",
+      "BasePath": "_content/Services.API.Gateway",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\wwwroot\\photos\\cuadrante.txt",
+      "SourceId": "Services.API.Gateway",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Gateway\\wwwroot\\",
+      "BasePath": "_content/Services.API.Gateway",
+      "RelativePath": "photos/cuadrante.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\photos\\cuadrante.txt"
+    }
+  ]
 }
