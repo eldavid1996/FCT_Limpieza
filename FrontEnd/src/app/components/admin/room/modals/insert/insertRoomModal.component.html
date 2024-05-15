@@ -5,23 +5,29 @@
       <!-- Campo de RoomNumber -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>RoomNumber</mat-label>
-          <input matInput formControlName="roomNumber" required type="text" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" />
-          <mat-error>RoomNumber son requeridas</mat-error>
+          <mat-label>Nº Habitación</mat-label>
+          <input
+            matInput
+            formControlName="roomNumber"
+            required
+            type="text"
+            class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          />
+          <mat-error>Nº Habitación es requerido</mat-error>
         </mat-form-field>
       </div>
       <!-- Campo de Floor -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>Floor</mat-label>
+          <mat-label>Planta</mat-label>
           <input matInput formControlName="floor" required type="text" />
-          <mat-error>Floor son requeridas</mat-error>
+          <mat-error>Planta es requerido</mat-error>
         </mat-form-field>
       </div>
       <!-- Campo de Type -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>Type</mat-label>
+          <mat-label>Tipo</mat-label>
           <mat-select formControlName="type" [(ngModel)]="defaultType">
             <mat-option
               *ngFor="let option of typeOptions"
@@ -34,7 +40,7 @@
       <!-- Campo de Status -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>Status</mat-label>
+          <mat-label>Estado</mat-label>
           <mat-select formControlName="status" [(ngModel)]="defaultStatus">
             <mat-option
               *ngFor="let option of statusOptions"
@@ -47,7 +53,9 @@
     </div>
 
     <div class="flex justify-end space-x-4 mt-4">
-      <button mat-raised-button class="cancelar" mat-dialog-close>Cerrar</button>
+      <button mat-raised-button class="cancelar" mat-dialog-close>
+        Cerrar
+      </button>
       <button
         [disabled]="roomForm.invalid"
         type="submit"
@@ -58,7 +66,7 @@
           color: roomForm.valid ? '#eff6e0' : '#ffffff'
         }"
         class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]"
-        >
+      >
         Añadir habitación
       </button>
     </div>

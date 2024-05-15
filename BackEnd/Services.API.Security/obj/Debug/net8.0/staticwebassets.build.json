@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cHGI3+OuKxAErKOoe/o/YZdm3GGASrMGMLmVc5Ylf40=",
+  "Hash": "8t3uBSzVEqyXhA8qWANZZJ2f6NkvCC0W5leFXAByvM0=",
   "Source": "Services.API.Security",
   "BasePath": "_content/Services.API.Security",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Services.API.Security\\wwwroot",
       "Source": "Services.API.Security",
-      "ContentRoot": "C:\\Users\\josecarlos.velez\\Desktop\\rama main\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
       "BasePath": "_content/Services.API.Security",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\josecarlos.velez\\Desktop\\rama main\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
+      "Identity": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
       "SourceId": "Services.API.Security",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\josecarlos.velez\\Desktop\\rama main\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
       "BasePath": "_content/Services.API.Security",
       "RelativePath": "photos/cuadrante.txt",
       "AssetKind": "All",

@@ -10,9 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddSignalR();
-
-
 // MongoDB Driver - Conexion
 builder.Services.Configure<MongoSettings>(options =>
 {
@@ -22,9 +19,6 @@ builder.Services.Configure<MongoSettings>(options =>
 
 // Singleton for Inject ONLY 1 instance for Connect with DB --> MongoDBDriver
 builder.Services.AddSingleton<MongoSettings>();
-
-// For notifications
-builder.Services.AddSingleton<NotificationHub>();
 
 // Scoped for MORE than 1 instance for each API request and auto delete it when end --> Repository
 builder.Services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
@@ -36,10 +30,7 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsRule", rule =>
     {
-        rule.WithOrigins("http://localhost:4200") 
-                       .AllowAnyHeader()
-                       .AllowAnyMethod()
-                       .AllowCredentials(); 
+        rule.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
 
@@ -75,10 +66,6 @@ app.UseCors("CorsRule");
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-{
-    _ = endpoints.MapHub<NotificationHub>("/notificationHub/notificationHub");
-});
 
 // Middleware for centralize manage errors
 app.UseMiddleware<ErrorHandlerMiddleware>();

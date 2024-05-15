@@ -5,7 +5,7 @@
       <!-- Campo de número de habitación -->
       <div class="mb-4">
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>RoomNumber</mat-label>
+          <mat-label>Nº Habitación</mat-label>
           <input
             matInput
             formControlName="roomNumber"
@@ -14,7 +14,7 @@
             [(ngModel)]="data.room.roomNumber"
           />
           <mat-error *ngIf="roomForm.get('roomNumber').errors?.required">
-            RoomNumber is required
+            Nº Habitación requerido
           </mat-error>
         </mat-form-field>
       </div>
@@ -22,7 +22,7 @@
       <!-- Campo de piso -->
       <div class="mb-4">
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Floor</mat-label>
+          <mat-label>Planta</mat-label>
           <input
             matInput
             formControlName="floor"
@@ -31,7 +31,7 @@
             [(ngModel)]="data.room.floor"
           />
           <mat-error *ngIf="roomForm.get('floor').errors?.required">
-            Floor is required
+            Planta es requerida
           </mat-error>
         </mat-form-field>
       </div>
@@ -39,7 +39,7 @@
       <!-- Campo de tipo -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>Type</mat-label>
+          <mat-label>Tipo</mat-label>
           <mat-select formControlName="type" [(ngModel)]="data.room.type">
             <mat-option *ngFor="let option of typeOptions" [value]="option.value">
               {{ option.label }}
@@ -51,7 +51,7 @@
       <!-- Campo de estado -->
       <div class="mb-4">
         <mat-form-field class="w-full">
-          <mat-label>Status</mat-label>
+          <mat-label>Estado</mat-label>
           <mat-select formControlName="status" [(ngModel)]="data.room.status">
             <mat-option *ngFor="let option of statusOptions" [value]="option.value">
               {{ option.label }}
