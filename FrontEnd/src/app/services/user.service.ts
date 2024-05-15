@@ -77,6 +77,10 @@ export class UserService {
     return this.baseUrl + 'User/photos/' + urlImage;
   }
 
+  getUserById(id: string) {
+    return this.http.get<User>(this.baseUrl + 'User/' + id);
+  }
+  
   getCuadranteFileName() {
     return this.http.get(this.baseUrl + 'User/getCuadranteFileName', {responseType: 'text'});
   }

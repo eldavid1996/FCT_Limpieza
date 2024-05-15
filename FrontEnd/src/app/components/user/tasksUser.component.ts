@@ -19,7 +19,7 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
   private taskSubscription: Subscription | undefined;
   dataSource: Task[] = [];
   userLoggedId: string | undefined;
-  
+
   constructor(
     private taskService: TaskService,
     private securityService: SecurityService
@@ -41,7 +41,7 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
     filter: this.paginationFilter,
   };
 
-  
+
   ngOnInit(): void {
     this.userLoggedId = this.securityService.getUserLoggedId();
 
@@ -66,20 +66,20 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
      });
   }
 
-  
 
-  
+
+
 
   ngOnDestroy(): void {
     this.taskSubscription?.unsubscribe();
   }
-  
+
   // Method that change the task status
   changeTaskStatus(task: Task) {
     if (task.status.toLowerCase() == 'pendiente') {
       const tasktemp = {...task};
       tasktemp.status = 'Finalizada';
-   
+
       // Update task status to "finished"
       this.taskService.updateTask(task.id, tasktemp).subscribe(()=>{
         this.taskService.searchTasks(this.paginationRequest);
@@ -95,12 +95,12 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
       this.taskService.updateTask(task.id, task).subscribe(()=>{
         this.taskService.searchTasks(this.paginationRequest);
       });
-      
+
     }else{
       console.log('Fallo al cambiar el estado de la tarea: ' + task.id);
-      
+
     }
-    
+
   }
- 
+
 }

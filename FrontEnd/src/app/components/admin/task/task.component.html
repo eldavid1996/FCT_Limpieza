@@ -2,7 +2,9 @@
   <div
     class="font-bold text-3xl mb-2 w-4/5 mx-auto py-5 text-[#01161e] shadow-lg text-center bg-[#eff6e0] rounded"
   >
-    <p class="drop-shadow-lg">Tareas activas</p>
+    <p class="drop-shadow-lg" *ngIf="showActiveTasks">Tareas activas</p>
+    <p class="drop-shadow-lg" *ngIf="!showActiveTasks">Histórico de Tareas</p>
+
   </div>
   <!-- TASKS TABLE-->
   <div
@@ -226,6 +228,15 @@
     <p>
       <strong>Info: </strong>La información puede ser filtrada por las distintas
       opciones para facilitar el uso de la aplicación.
+    </p>
+    <p class="text-[#4ed469] flex items-center">
+      <mat-icon>fiber_manual_record</mat-icon> Tarea
+      &nbsp;<strong>finalizada</strong>&nbsp;
+      <span class="text-orange-500 flex items-center"
+        ><mat-icon>fiber_manual_record</mat-icon>Tarea &nbsp;<strong
+          >pendiente</strong
+        ></span
+      >
     </p>
   </div>
 </section>

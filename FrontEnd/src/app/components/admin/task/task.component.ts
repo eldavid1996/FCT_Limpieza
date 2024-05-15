@@ -33,7 +33,7 @@ import { DeleteHistoryModalComponent } from './modals/delete/deleteHistoryModal.
 export class TaskTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) ordering?: MatSort | any;
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
-
+  titleValue = 'Tareas Activas';
   private taskSubscription: Subscription | undefined;
 
   roomNumbers: string[] = [];
@@ -347,4 +347,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     ];
     return updatedPaginationFilter;
   }
+
+  
 }

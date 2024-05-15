@@ -1,47 +1,83 @@
-<form [formGroup]="roomForm" (ngSubmit)="updateRoom(data.room.id)">
-  <h1 class="mat-dialog-title w-full text-center">
-    Modificar habitación {{ data.room.roomNumber }}
-  </h1>
-  <div class="grid grid-cols-2 gap-4">
-    <mat-form-field appearance="fill">
-      <mat-label>Nº habitación</mat-label>
-      <input
-        formControlName="roomNumber"
-        matInput
-        name="roomNumber"
-        required
-        type="text"
-      />
-      <mat-error *ngIf="this.roomForm.get('roomNumber')?.hasError('required')"
-        >Nº habitación requerido</mat-error
-      >
-    </mat-form-field>
+<div class="w-full p-8 bg-[#eff6e0]">
+  <h2 class="text-center">Editar habitación nº {{ data.room.roomNumber }}</h2>
+  <form [formGroup]="roomForm" (ngSubmit)="updateRoom(data.room.id)">
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Campo de número de habitación -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>RoomNumber</mat-label>
+          <input
+            matInput
+            formControlName="roomNumber"
+            required
+            type="text"
+            [(ngModel)]="data.room.roomNumber"
+          />
+          <mat-error *ngIf="roomForm.get('roomNumber').errors?.required">
+            RoomNumber is required
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Planta</mat-label>
-      <input formControlName="floor" matInput name="floor" type="text" />
-    </mat-form-field>
+      <!-- Campo de piso -->
+      <div class="mb-4">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Floor</mat-label>
+          <input
+            matInput
+            formControlName="floor"
+            required
+            type="text"
+            [(ngModel)]="data.room.floor"
+          />
+          <mat-error *ngIf="roomForm.get('floor').errors?.required">
+            Floor is required
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Tipo de habitación</mat-label>
-      <input formControlName="type" matInput name="type" type="text" />
-    </mat-form-field>
+      <!-- Campo de tipo -->
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Type</mat-label>
+          <mat-select formControlName="type" [(ngModel)]="data.room.type">
+            <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Estado</mat-label>
-      <input formControlName="status" matInput name="status" type="text" />
-    </mat-form-field>
+      <!-- Campo de estado -->
+      <div class="mb-4">
+        <mat-form-field class="w-full">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" [(ngModel)]="data.room.status">
+            <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cerrar</button>
-      <button
-        [disabled]="roomForm.invalid"
-        type="submit"
-        mat-button
-        [mat-dialog-close]="true"
-      >
-        Modificar habitación
+    <div class="flex justify-end space-x-4 mt-4">
+      <button mat-raised-button class="cancelar"mat-dialog-close>
+        Cerrar
       </button>
-    </mat-dialog-actions>
-  </div>
-</form>
+      <button
+      [disabled]="roomForm.invalid"
+      type="submit"
+      mat-raised-button
+      [mat-dialog-close]="true"
+      [ngStyle]="{
+        'background-color': roomForm.valid ? '#124559' : '#b0b0b0',
+        color: roomForm.valid ? '#eff6e0' : '#ffffff'
+      }"
+      [disabled]="!roomForm.valid"
+      class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]">
+      Modificar habitación
+    </button>
+    </div>
+  </form>
+</div>

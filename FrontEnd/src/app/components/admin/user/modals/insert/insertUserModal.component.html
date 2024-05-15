@@ -1,10 +1,10 @@
-<div class="overflow-y-auto max-h-screen">
+<div class="w-full p-8 bg-[#eff6e0] rounded-lg shadow-lg">
+  <h2 class="text-center">Añadir Usuario</h2>
   <form
     [formGroup]="userForm"
     (ngSubmit)="insertUser()"
     enctype="multipart/form-data"
   >
-    <h1 class="mat-dialog-title w-full text-center">Añadir nuevo empleado</h1>
     <div class="grid grid-cols-2 gap-4">
       <mat-form-field appearance="fill">
         <mat-label>Nombre</mat-label>
@@ -138,11 +138,12 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-radio-group formControlName="roleAdmin">
-        <mat-label>Rol</mat-label>
+      <mat-radio-group formControlName="roleAdmin" class="flex items-center justify-center space-x-4 col-span-2">
+        <mat-label class="mr-4">Rol</mat-label>
         <mat-radio-button [value]="false">User</mat-radio-button>
         <mat-radio-button [value]="true">Admin</mat-radio-button>
       </mat-radio-group>
+
 
       <mat-form-field appearance="fill">
         <mat-label>Teléfono</mat-label>
@@ -180,49 +181,57 @@
         <input formControlName="cp" matInput name="cp" type="text" />
       </mat-form-field>
 
-      <mat-label
-        >Imagen
-        <input
-          formControlName="urlImage"
-          #fileInput
-          hidden
-          type="file"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-        />
-        <button
-          type="button"
-          mat-raised-button
-          color="primary"
-          (click)="fileInput.click()"
-        >
-          <span *ngIf="!imageName">Elegir imagen</span>
-          <span *ngIf="imageName">{{ imageName }}</span>
-        </button>
-        <button
-          *ngIf="imageName"
-          mat-raised-button
-          color="warn"
-          (click)="clearImage()"
-        >
-          Quitar imagen
-        </button>
-      </mat-label>
-      <div *ngIf="imageData" style="margin-top: 10px" class="text-end">
-        <img [src]="imageData" alt="Miniatura de la imagen" width="100" />
-      </div>
 
-      <mat-dialog-actions>
-        <button mat-button mat-dialog-close>Cerrar</button>
-        <button
-          [disabled]="userForm.invalid"
-          type="submit"
-          mat-button
-          [mat-dialog-close]="true"
-        >
-          Añadir empleado
-        </button>
-      </mat-dialog-actions>
+    </div>
+    <div class="flex justify-center">
+
+    <mat-dialog-actions>
+      <mat-label
+      >Imagen
+      <input
+        formControlName="urlImage"
+        #fileInput
+        hidden
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="fileInput.click()"
+      >
+        <span *ngIf="!imageName">Elegir imagen</span>
+        <span *ngIf="imageName">{{ imageName }}</span>
+      </button>&nbsp;&nbsp;
+      <button
+        *ngIf="imageName"
+        mat-raised-button
+        color="warn"
+        (click)="clearImage()"
+      >
+        Quitar imagen
+      </button>
+    </mat-label>
+    <div *ngIf="imageData" style="margin-top: 10px" class="text-end">
+      <img [src]="imageData" alt="Miniatura de la imagen" width="100" />
+    </div>
+      <button mat-raised-button class="cancelar" mat-dialog-close>Cerrar</button>
+      <button
+        [disabled]="userForm.invalid"
+        type="submit"
+        mat-button
+        [mat-dialog-close]="true"
+        [ngStyle]="{
+          'background-color': userForm.valid ? '#124559' : '#b0b0b0',
+          color: userForm.valid ? '#eff6e0' : '#ffffff'
+        }"
+        class="bg-[#01161e] text-white  px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]"
+      >
+        Añadir empleado
+      </button>
+    </mat-dialog-actions>
     </div>
   </form>
 </div>

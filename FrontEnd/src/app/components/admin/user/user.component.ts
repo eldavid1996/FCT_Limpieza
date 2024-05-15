@@ -20,6 +20,7 @@ import { DeleteUserModalComponent } from './modals/delete/deleteUserModal.compon
 import { SecurityService } from '../../../services/security.service';
 import { InsertUserModalComponent } from './modals/insert/insertUserModal.component';
 import { UpdateUserModalComponent } from './modals/update/updateUserModal.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @Component({
   selector: 'app-user-table',
@@ -38,7 +39,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<User>();
   totalUsers = 0;
-  comboPages = [5, 10, 25, 50];
+  comboPages = [1, 3, 5, 8];
   displayedColumns = [
     'Name',
     'Surname',
@@ -190,21 +191,32 @@ export class UserTableComponent implements OnInit, AfterViewInit {
       .subscribe((result) => {
         if (result === 'confirm') {
           this.userService.deleteUser(userId).subscribe((response) => {
-            // Delethe the user photo
-            if(user.urlImage){
+            if (user.urlImage) {
               this.userService.deletePhoto(user.urlImage).subscribe();
             }
-            // And show a snackbar with the request result
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
-            // Then, get updated list users
             this.userService.searchUsers(this.paginationRequest);
           });
         }
       });
   }
 
-  // Used for dont show some options for the user logged (for example, he cant delete him user)
   getUserLoggedId(): string {
     return this.securityService.getUserLoggedId();
+  }
+
+ // Get the user and open the profile modal view
+  checkUser(userId: string): void {
+    this.userService.getUserById(userId).subscribe((user: User) => {
+      console.log(user);
+
+      const dialogRef = this.dialog.open(UserProfileComponent, {
+        data: { user }
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.userService.searchUsers(this.paginationRequest);
+      });
+    });
   }
 }

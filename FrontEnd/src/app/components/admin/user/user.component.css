@@ -1,36 +1,35 @@
-td {
-  cursor: default;
+.position{
+  position: relative;
+  top:2px;
+  left: -2px;
 }
 
-.position{
-    position: relative;
-    top:2px;
-    left: -2px;
-}
-.boton-nuevo{
-    background-color: #4f46e5 !important;
-    border-radius: 60px;
-    color: white !important;
+.add{
+background-color: #01161e;
 }
 .beige{
-    background-color: #eff6e0;
+  background-color: #eff6e0;
 }
 @media screen and (max-width: 650px) {
-    #col-telf{
-        display: none;
-    }
+  #col-telf{
+      display: none;
+  }
 
 }
 @media (max-width: 767px) {
-    .col-telf {
-      display: none !important;
-    }
+  .col-telf {
+    display: none !important;
   }
+}
 
-  tr:hover{
-    background-color: #eff6e0;
-    cursor:pointer
-  }
-  th{
-    cursor: default;
-  }
+tr:hover{
+  background-color: #eff6e0;
+  cursor:pointer
+}
+th{
+  text-align: center;
+  vertical-align: middle;
+  cursor: default;
+  background-color: white;
+}
+

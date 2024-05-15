@@ -38,4 +38,11 @@ input
 .beige {
   background-color: #eff6e0;
 }
-
+tr:hover {
+  background-color: #eff6e0;
+  cursor: pointer;
+}
+td,th {
+  cursor: default;
+  vertical-align: middle;
+}
