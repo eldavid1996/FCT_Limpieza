@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Services.API.Gateway;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -7,17 +10,13 @@ public class Program
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
-   Host.CreateDefaultBuilder(args)
-       .ConfigureAppConfiguration((hostingContext, config) =>
-       {
-           // Configurar para usar variables de entorno
-           config.AddEnvironmentVariables("APP_");
-
-           config.AddJsonFile("ocelot.json");
-
-       })
-       .ConfigureWebHostDefaults(webBuilder =>
-       {
-           webBuilder.UseStartup<Startup>();
-       });
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+                });
+                webBuilder.UseStartup<Startup>();
+            });
 }

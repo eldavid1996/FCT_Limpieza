@@ -22,6 +22,17 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class UpdateRoomModalComponent implements OnInit {
   roomForm: FormGroup | any;
+  statusOptions = [
+    { label: 'Vacia', value: 'Vacia' },
+    { label: 'Ocupada', value: 'Ocupada' },
+  ];
+  typeOptions = [
+    { label: 'Individual', value: 'Individual' },
+    { label: 'Doble', value: 'Doble' },
+    { label: 'Triple', value: 'Triple' },
+    { label: 'Minusválidos', value: 'Minusvalido' },
+    { label: 'Personalizada', value: 'Personalizada' },
+  ];
   @Output() modalClosed = new EventEmitter<void>();
 
   constructor(

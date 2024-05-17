@@ -1,58 +1,11 @@
 {
   "Version": 1,
-  "Hash": "x3Y6bqpyQYWkYhZcYdU0ZzJNo+b7lpN1PIaXrbo9fiE=",
+  "Hash": "8MSsFZOf0ty8ZK6CIKrpusLCbE96GCDiFc+3CsrCHMU=",
   "Source": "Services.API.Security",
   "BasePath": "_content/Services.API.Security",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [
-    {
-      "Name": "Services.API.Security\\wwwroot",
-      "Source": "Services.API.Security",
-      "ContentRoot": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
-      "BasePath": "_content/Services.API.Security",
-      "Pattern": "**"
-    }
-  ],
-  "Assets": [
-    {
-      "Identity": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\3a59a498-db23-4e09-b884-880d4f301488.jpeg",
-      "SourceId": "Services.API.Security",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
-      "BasePath": "_content/Services.API.Security",
-      "RelativePath": "photos/3a59a498-db23-4e09-b884-880d4f301488.jpeg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\photos\\3a59a498-db23-4e09-b884-880d4f301488.jpeg"
-    },
-    {
-      "Identity": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\photos\\cuadrante.txt",
-      "SourceId": "Services.API.Security",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\david.mendoza\\OneDrive - GABITEL INGENIEROS\\Escritorio\\FCT_Limpieza\\BackEnd\\Services.API.Security\\wwwroot\\",
-      "BasePath": "_content/Services.API.Security",
-      "RelativePath": "photos/cuadrante.txt",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\photos\\cuadrante.txt"
-    }
-  ]
+  "DiscoveryPatterns": [],
+  "Assets": []
 }

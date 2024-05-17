@@ -1,6 +1,33 @@
 version: '3.8'
 
 services:
+  SQLServerSecurity:
+    image: mcr.microsoft.com/mssql/server
+    container_name: SQLServerSecurity
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: StrongPassword1!
+    ports:
+      - '1433:1433'
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P StrongPassword1! -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  MongoDBHotel:
+    image: mongo
+    container_name: MongoDBHotel
+    ports:
+      - '27017:27017'
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
   hotel:
     image: hotel
     container_name: hotel
@@ -9,13 +36,14 @@ services:
       context: ./
       dockerfile: Hotel.Dockerfile
     restart: always
-    #expose:
-    #  - '3000'
     ports:
       - '8562:3000'
     environment:
-      - APP_CONNECTION_STRING=mongodb://192.168.1.226:27017
+      - APP_CONNECTION_STRING=mongodb://MongoDBHotel:27017
       - APP_DATABASE=MongoDBHotel
+    depends_on:
+      - MongoDBHotel
+
   security:
     image: security
     container_name: security
@@ -24,12 +52,15 @@ services:
       context: ./
       dockerfile: Security.Dockerfile
     restart: always
-    #expose:
-    #  - '3000'
     ports:
       - '8563:3000'
+    volumes:
+      - ./wwwroot/photos:/app/wwwroot/photos
     environment:
-      - APP_CONNECTION_STRING=Data Source=192.168.1.226; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
+      - APP_CONNECTION_STRING=Data Source=SQLServerSecurity; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
+    depends_on:
+      - SQLServerSecurity
+
   gateway:
     image: gateway
     container_name: gateway
@@ -42,9 +73,8 @@ services:
       - '3000'
     ports:
       - '8561:3000'
-    links:
-      - hotel
-      - security
+    volumes:
+      - ./wwwroot/photos:/app/wwwroot/photos
     depends_on:
       - hotel
       - security

@@ -186,3 +186,4 @@ C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\Bac
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Services.API.Gateway\obj\Debug\net8.0\ref\Services.API.Gateway.dll
 C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Gateway\obj\Debug\net8.0\Services.API.Gateway.sourcelink.json
 C:\Users\david.mendoza\OneDrive - GABITEL INGENIEROS\Escritorio\FCT_Limpieza\BackEnd\Services.API.Gateway\bin\Debug\net8.0\Services.API.Gateway.staticwebassets.runtime.json
+C:\Users\ADMIN\Desktop\FCT_Limpieza\BackEnd\Services.API.Gateway\bin\Debug\net8.0\Services.API.Gateway.staticwebassets.runtime.json

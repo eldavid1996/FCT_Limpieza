@@ -44,9 +44,6 @@ namespace Services.API.Hotel
             // Singleton for Inject ONLY 1 instance for Connect with DB --> MongoDBDriver
             services.AddSingleton<MongoSettings>();
 
-            // For notifications
-            services.AddSingleton<NotificationHub>();
-
             // Scoped for MORE than 1 instance for each API request and auto delete it when end --> Repository
             services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
@@ -80,8 +77,6 @@ namespace Services.API.Hotel
 
             app.UseEndpoints(endpoints =>
             {
-                _ = endpoints.MapHub<NotificationHub>("/notificationHub/notificationHub");
-
                 endpoints.MapControllers();
             });
 

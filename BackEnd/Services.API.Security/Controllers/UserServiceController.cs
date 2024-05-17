@@ -25,13 +25,17 @@ namespace Services.API.Security.Controllers
 
         private readonly PasswordHasher<IdentityUser> _passwordHasher;
 
-        public UserServiceController(IMediator mediator, SQLServerContext context, IMapper mapper, UserManager<UserEntity> userManager, PasswordHasher<IdentityUser> passwordHasher)
+        private readonly IWebHostEnvironment _environment;
+
+
+        public UserServiceController(IMediator mediator, SQLServerContext context, IMapper mapper, UserManager<UserEntity> userManager, PasswordHasher<IdentityUser> passwordHasher, IWebHostEnvironment environment)
         {
             _mediator = mediator;
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
             _passwordHasher = passwordHasher;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -210,8 +214,8 @@ namespace Services.API.Security.Controllers
 
                 if (file != null && file.Length > 0)
                 {
-                    var filePath = Path.Combine("wwwroot/photos", file.FileName);
-
+                    var uploads = Path.Combine(_environment.WebRootPath, "photos");
+                    var filePath = Path.Combine(uploads, file.FileName);
 
                     if (file.FileName.Contains("cuadrante"))
                     {
@@ -221,16 +225,16 @@ namespace Services.API.Security.Controllers
                         var extension = Path.GetExtension(file.FileName);
                         var newFileName = "cuadrante" + cacheBusterQueryString + extension;
 
-                        filePath = Path.Combine("wwwroot/photos", newFileName);
-                        var formatoFilePath = Path.Combine("wwwroot/photos", "cuadrante.txt");
+                        filePath = Path.Combine(uploads, newFileName);
+                        var formatoFilePath = Path.Combine(uploads, "cuadrante.txt");
 
                         var existingContent = await System.IO.File.ReadAllTextAsync(formatoFilePath);
-                        if(existingContent != newFileName) { 
+                        if (existingContent != newFileName)
+                        {
                             await DeletePhotoAsync(existingContent);
                         }
 
                         await System.IO.File.WriteAllTextAsync(formatoFilePath, newFileName);
-
                     }
 
                     using (var stream = new FileStream(filePath, FileMode.Create))

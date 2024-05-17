@@ -1,44 +1,6 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/notificationHub/notificationHub",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "hotel",
-          "Port": 3000
-        }
-      ],
-      "UpstreamPathTemplate": "/TaskHistory/notificationHub/notificationHub",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
-      "ReRoutes": [
-        {
-          "DownstreamScheme": "ws"
-        },
-        {
-          "DownstreamScheme": "http"
-        }
-      ]
-    },
-    {
-      "DownstreamPathTemplate": "/notificationHub/{notificationHub}",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "hotel",
-          "Port": 3000
-        }
-      ],
-      "UpstreamPathTemplate": "/TaskHistory/notificationHub/{notificationHub}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
-      "ReRoutes": [
-        {
-          "DownstreamScheme": "ws"
-        },
-        {
-          "DownstreamScheme": "http"
-        }
-      ]
-    },
-    {
       "DownstreamPathTemplate": "/api/RoomService",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

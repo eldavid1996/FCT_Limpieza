@@ -93,18 +93,6 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/photos/{photoName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "security",
-          "Port": 3000
-        }
-      ],
-      "UpstreamPathTemplate": "/User/photos/{photoName}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
       "DownstreamPathTemplate": "/api/UserService/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -344,41 +332,6 @@
       "RouteClaimsRequirement": {
         "roleAdmin": true
       }
-    },
-    {
-      "DownstreamPathTemplate": "/notificationHub/notificationHub",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "hotel",
-          "Port": 3000
-        }
-      ],
-      "UpstreamPathTemplate": "/TaskHistory/notificationHub/notificationHub",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
-      "ReRoutes": [
-        {
-          "DownstreamScheme": "http"
-        }
-      ]
-    },
-    {
-      "DownstreamPathTemplate": "/notificationHub/{notificationHub}",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "hotel",
-          "Port": 3000
-        }
-      ],
-      "UpstreamPathTemplate": "/TaskHistory/notificationHub/{notificationHub}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
-      "ReRoutes": [
-        {
-          "DownstreamScheme": "http"
-        },
-        {
-          "DownstreamScheme": "ws"
-        }
-      ]
     },
     {
       "DownstreamPathTemplate": "/api/TaskHistoryService/deleteHistory",

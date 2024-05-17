@@ -1,9 +1,11 @@
-<h2 mat-dialog-title>Confirmar eliminación</h2>
-<div mat-dialog-content>
-  ¿Está seguro de que desea eliminar el empleado
-  {{ data.user.name + " " + data.user.surname }}?
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Cancelar</button>
-  <button mat-button (click)="onConfirmClick()" cdkFocusInitial>Eliminar</button>
+<div class="w-full p-6 bg-[#eff6e0] rounded-lg shadow-lg">
+  <h1 mat-dialog-title class="text-xl font-semibold mb-4">Confirmar eliminación</h1>
+  <mat-dialog-content class="w-full mb-4">
+    ¿Está seguro de que desea eliminar el empleado
+    {{ data.user.name + " " + data.user.surname }}?
+  </mat-dialog-content>
+      <div class="flex justify-end space-x-4">
+        <button mat-raised-button color="bg-gray-700" (click)="onCancelClick()">Cancelar</button>
+        <button mat-raised-button class="cancelar" (click)="onConfirmClick()" cdkFocusInitial>Eliminar</button>
+      </div>
 </div>

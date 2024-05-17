@@ -9,6 +9,7 @@ using System.Text;
 using Services.API.Security.Core.Persistence;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Services.API.Security.Core;
+using Microsoft.Extensions.FileProviders;
 
 namespace Services.API.Security
 {
@@ -97,7 +98,6 @@ namespace Services.API.Security
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             // Middleware for centralize manage errors
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
