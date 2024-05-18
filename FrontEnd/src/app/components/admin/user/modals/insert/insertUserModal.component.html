@@ -1,5 +1,5 @@
-<div class="w-full p-8 bg-[#eff6e0] rounded-lg shadow-lg">
-  <h2 class="text-center">Añadir Usuario</h2>
+<div class="w-full p-8 bg-[#aec3b0] rounded-lg shadow-lg">
+  <h2 class="text-center">Añadir Empleado</h2>
   <form
     [formGroup]="userForm"
     (ngSubmit)="insertUser()"
@@ -138,12 +138,14 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-radio-group formControlName="roleAdmin" class="flex items-center justify-center space-x-4 col-span-2">
-        <mat-label class="mr-4">Rol</mat-label>
+      <mat-radio-group
+        formControlName="roleAdmin"
+        class="flex items-center justify-center space-x-4 col-span-2"
+      >
+        <mat-label class="mr-4"><strong>Rol:</strong></mat-label>
         <mat-radio-button [value]="false">User</mat-radio-button>
         <mat-radio-button [value]="true">Admin</mat-radio-button>
       </mat-radio-group>
-
 
       <mat-form-field appearance="fill">
         <mat-label>Teléfono</mat-label>
@@ -180,58 +182,66 @@
         <mat-label>CP</mat-label>
         <input formControlName="cp" matInput name="cp" type="text" />
       </mat-form-field>
-
-
     </div>
     <div class="flex justify-center">
+      <mat-dialog-actions>
+        <div class="flex items-center justify-center space-x-2">
+          <button mat-raised-button mat-dialog-close>
+            <mat-icon>cancel</mat-icon>Cancelar
+          </button>
 
-    <mat-dialog-actions>
-      <mat-label
-      >Imagen
-      <input
-        formControlName="urlImage"
-        #fileInput
-        hidden
-        type="file"
-        (change)="onFileSelected($event)"
-        accept="image/*"
-      />
-      <button
-        type="button"
-        mat-raised-button
-        color="primary"
-        (click)="fileInput.click()"
-      >
-        <span *ngIf="!imageName">Elegir imagen</span>
-        <span *ngIf="imageName">{{ imageName }}</span>
-      </button>&nbsp;&nbsp;
-      <button
-        *ngIf="imageName"
-        mat-raised-button
-        color="warn"
-        (click)="clearImage()"
-      >
-        Quitar imagen
-      </button>
-    </mat-label>
-    <div *ngIf="imageData" style="margin-top: 10px" class="text-end">
-      <img [src]="imageData" alt="Miniatura de la imagen" width="100" />
-    </div>
-      <button mat-raised-button class="cancelar" mat-dialog-close>Cerrar</button>
-      <button
-        [disabled]="userForm.invalid"
-        type="submit"
-        mat-button
-        [mat-dialog-close]="true"
-        [ngStyle]="{
-          'background-color': userForm.valid ? '#124559' : '#b0b0b0',
-          color: userForm.valid ? '#eff6e0' : '#ffffff'
-        }"
-        class="bg-[#01161e] text-white  px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]"
-      >
-        Añadir empleado
-      </button>
-    </mat-dialog-actions>
+          <input
+            formControlName="urlImage"
+            #fileInput
+            hidden
+            type="file"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+          <button
+            type="button"
+            mat-raised-button
+            class="boton-mover"
+            (click)="fileInput.click()"
+          >
+            <span *ngIf="!imageName">
+              <mat-icon style="font-size: 20px; vertical-align: middle"
+                >image</mat-icon
+              >
+              Elegir imagen</span
+            >
+            <span *ngIf="imageName">
+              <mat-icon style="font-size: 20px; vertical-align: middle"
+                >image</mat-icon
+              >
+              {{ imageName }}</span
+            >
+          </button>
+          <button
+            *ngIf="imageName"
+            mat-raised-button
+            color="warn"
+            (click)="clearImage()"
+          ><mat-icon>delete</mat-icon>
+            Quitar imagen
+          </button>
+
+          <div *ngIf="imageData">
+            <img [src]="imageData" class="w-16 h-16" />
+          </div>
+          <button
+            [disabled]="userForm.invalid"
+            type="submit"
+            class="boton-nuevo"
+            mat-raised-button
+            [mat-dialog-close]="true"
+          >
+            <mat-icon>person</mat-icon>
+
+            Añadir empleado
+          </button>
+        </div>
+      </mat-dialog-actions>
     </div>
   </form>
 </div>

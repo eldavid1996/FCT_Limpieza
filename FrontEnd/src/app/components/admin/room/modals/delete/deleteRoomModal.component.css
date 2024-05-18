@@ -1,4 +1,6 @@
-.cancelar{
-  color: #eff6e0;
-  background-color: rgb(253, 53, 53);
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  gap: 1rem;
 }

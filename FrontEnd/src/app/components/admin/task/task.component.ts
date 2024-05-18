@@ -186,10 +186,18 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     this.taskService.searchTasks(this.paginationRequest);
   }
 
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
+
   // Open a modal for insert a new task
   insertTask(): void {
     const dialogRef = this.dialog.open(InsertTaskModalComponent, {
-      width: '800px',
       data: this.roomNumbers,
     });
     dialogRef
@@ -218,7 +226,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   // Open the modal with a confirmation to delete task
   deleteTask(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(DeleteTaskModalComponent, {
-      width: '250px',
       data: { taskId, task, message: '' },
     });
 
@@ -260,7 +267,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   moveTaskToHistory(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(MoveToHistoryTaskModalComponent, {
-      width: '250px',
       data: { taskId, task },
     });
 
@@ -347,6 +353,4 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     ];
     return updatedPaginationFilter;
   }
-
-  
 }

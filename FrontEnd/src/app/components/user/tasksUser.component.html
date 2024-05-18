@@ -2,7 +2,12 @@
   class="flex flex-col gap-3 items-center justify-between w-full pt-8 px-2 md:px-20"
 >
   <div class="w-full flex items-center justify-center">
-    <button mat-icon-button class="flex items-center justify-center p-10" color="primary" title="Completar tareas programadas para hoy.">
+    <button
+      mat-icon-button
+      class="flex items-center justify-center p-10"
+      color="primary"
+      title="Completar tareas programadas para hoy."
+    >
       <mat-icon>done_all</mat-icon>
     </button>
   </div>
@@ -29,18 +34,38 @@
               <strong> {{ task.observations }} </strong>
             </h5>
             <p>Prioridad:</p>
-            <p class="mb-3 font-normal">
-              <strong>{{ task.priority }}</strong>
-            </p>
+
+            <!-- priority cases -->
+            <div class="mb-3 font-normal" [ngSwitch]="task.priority">
+              <ng-container *ngSwitchCase="'0'">
+                <span>Baja</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'1'">
+                <span>Normal</span>
+              </ng-container>
+              <ng-container *ngSwitchCase="'2'">
+                <span>Alta</span>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <span>{{ task.priority }}</span>
+              </ng-container>
+            </div>
           </div>
           <div class="flex flex-col justify-between w-1/4">
-            <button mat-raised-button color="warn" class="flex justify-center  items-center" title="Informar de una incidencia."><mat-icon class="position">error</mat-icon></button>
+            <button
+              mat-raised-button
+              color="warn"
+              class="flex justify-center items-center"
+              title="Informar de una incidencia."
+            >
+              <mat-icon class="position">error</mat-icon>
+            </button>
             <button
               mat-raised-button
               color="primary"
               *ngIf="this.task.Status === 'Pendiente'"
               (click)="changeTaskStatus(this.task)"
-              class="flex justify-center items-center" 
+              class="flex justify-center items-center"
               title="Marcar tarea como 'Finalizada'"
             >
               <mat-icon class="position">done</mat-icon>

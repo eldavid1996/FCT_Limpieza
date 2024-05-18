@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { MaterialModule } from '../../../material.module';
 import { SecurityService } from '../../../services/security.service';
-import { User } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -27,27 +26,11 @@ export class CalendarComponent {
   imageData: string | null = null;
   photo: File | any;
 
-  userData: User = {
-    id: '',
-    name: '',
-    surname: '',
-    email: '',
-    dni: '',
-    phoneNumber: '',
-    birthDate: new Date(Date.now()),
-    cp: '',
-    city: '',
-    roleAdmin: true,
-    token: '',
-    urlImage: '',
-  };
-
   constructor(
     private securityService: SecurityService,
     private userService: UserService,
     private formBuilder: FormBuilder
   ) {
-    this.getLoggedUser();
     this.userForm = this.formBuilder.group({
       urlImage: [''],
     });
@@ -74,17 +57,6 @@ export class CalendarComponent {
         this.getAndUpdatePhoto();
       });
     }
-  }
-
-  getLoggedUser() {
-    this.securityService.getLoggedUser()?.subscribe(
-      (response) => {
-        this.userData = response;
-      },
-      (error) => {
-        console.error('Error al obtener los datos del usuario:', error);
-      }
-    );
   }
 
   onFileSelected(event: any) {
@@ -115,15 +87,12 @@ export class CalendarComponent {
 
   getAndUpdatePhoto() {
     this.userService.getCuadranteFileName().subscribe((fileName) => {
-      if(fileName == this.cuadranteFileName){
-        this.cuadranteFileName = 'reset';
-      }
       this.cuadranteFileName = fileName;
     });
   }
 
-    // Check if user is admin for show upload photo form
-    isAdmin(){
-      return this.securityService.isAdmin();
-    }
+  // Check if user is admin for show upload photo form
+  isAdmin() {
+    return this.securityService.isAdmin();
+  }
 }

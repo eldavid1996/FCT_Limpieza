@@ -76,7 +76,8 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
 
   // Method that change the task status
   changeTaskStatus(task: Task) {
-    if (task.status.toLowerCase() == 'pendiente') {
+
+    if (task.status == 'Pendiente') {
       const tasktemp = {...task};
       tasktemp.status = 'Finalizada';
 
@@ -88,9 +89,8 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
       // We have to write the task on history task collection
       //this.taskService.completeTask(task).subscribe();
     }
-    else if (task.status.toLowerCase() == 'finalizada') {
+    else if (task.status == 'Finalizada') {
       task.status = 'Pendiente';
-      console.log(task);
       // Update de task status to "To do"
       this.taskService.updateTask(task.id, task).subscribe(()=>{
         this.taskService.searchTasks(this.paginationRequest);

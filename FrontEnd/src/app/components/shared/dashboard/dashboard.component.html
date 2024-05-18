@@ -1,15 +1,32 @@
-<h4 class="text-center">Sesión iniciada como {{userData.email}} -  <span *ngIf="userData.roleAdmin">Administrador</span><span *ngIf="!userData.roleAdmin">Usuario</span></h4>
-<div class="flex flex-col w-fulljustify-center mt-10">
-    <div class="titulo">
-      <h1>NOVOTEL</h1>
-      <h3>HOTELS, SUITES & RESORTS</h3>
-    </div>
-    <div class="image-container flex justify-center">
-      <!-- Añade la clase justify-center para centrar horizontalmente -->
-      <img src="../../../../assets/source/plano.jpeg" alt="Imagen" class="image mr-2" />
-      <img src="../../../../assets/source/plano.jpeg" alt="Imagen" class="image" style="transform: rotate(180deg)" />
-    </div>
+<div class="mt-20">
+  <!-- Titles -->
+  <h1>
+    <span
+      class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
+      >NOVOTEL</span
+    >
+  </h1>
+  <h3 class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+    HOTELS, SUITES & RESORTS
+  </h3>
+
+  <h3>Planos del hotel</h3>
+  <!-- Planos -->
+  <div class="flex flex-wrap justify-center mx-auto gap-8">
+    <img
+      src="../../../../assets/source/plano.jpeg"
+      class="imagen w-full sm:max-w-xl h-auto"
+    />
+    <img
+      src="../../../../assets/source/plano.jpeg"
+      class="imagen w-full sm:max-w-xl h-auto"
+      style="transform: rotate(180deg)"
+    />
   </div>
-  <footer>
-    <img src="../../../assets/source/logo.png" alt="" class="h-8">
-  </footer>
+</div>
+
+<!-- Logo -->
+<img
+  src="../../../assets/source/logo.png"
+  class="h-8 absolute bottom-4 right-6"
+/>

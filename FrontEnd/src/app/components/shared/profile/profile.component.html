@@ -1,13 +1,13 @@
 <div
-  class="w-2/3 mx-auto rounded shadow-lg color mt-10 py-3 text-white max-sm:w-full max-sm:px-3 md:px-10 md: w1/10"
+  class="w-2/3 mx-auto rounded shadow-lg color mt-20 py-3 text-white max-sm:w-full max-sm:px-3 md:px-10 md: w1/10"
 >
   <!-- Encabezado -->
   <div class="mx-auto text-center mt-5">
     <img
-    *ngIf="userData.urlImage"
-    [src]="getPhoto()"
-    class="imagen mx-auto mb-3 h-20"
-  />
+      *ngIf="userData.urlImage"
+      [src]="getPhoto()"
+      class="imagen mx-auto mb-3 h-20"
+    />
     <img
       *ngIf="userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/admin.png"
@@ -28,14 +28,16 @@
       Limpiador - Empleado
     </h3>
 
-    <div class="flex justify-around overflow-hidden w-1/4 max-sm:w-1/3 mx-auto">
+    <div class="flex justify-center mx-auto gap-4">
       <button
-        class="rounded-full bg-indigo-600 p-2 flex items-center content-center"
+        title="Mi Teléfono"
+        class="rounded-full boton-nuevo p-2 flex items-center content-center cursor-default"
       >
         <mat-icon>phone</mat-icon> {{ userData.phoneNumber }}
       </button>
       <button
-        class="rounded-full bg-indigo-600 p-2 flex items-center content-center"
+        title="Mi Email"
+        class="rounded-full boton-mover bg-indigo-600 p-2 flex items-center content-center cursor-default"
       >
         <mat-icon>email</mat-icon> {{ userData.email }}
       </button>
@@ -48,23 +50,9 @@
   <!-- Primer grupo de datos -->
   <div class="space-y-2 ml-10 mt-5">
     <div class="flex items-center">
-      <mat-icon class="profile-icons">account_circle</mat-icon>
-      <p><strong class="ml-2">Nombre:</strong> {{ userData.name }}</p>
-    </div>
-
-    <div class="flex items-center">
-      <mat-icon class="profile-icons">lens</mat-icon>
-      <p><strong class="ml-2">Apellido:</strong> {{ userData.surname }}</p>
-    </div>
-
-    <div class="flex items-center">
       <mat-icon class="profile-icons">fingerprint</mat-icon>
       <p><strong class="ml-2">DNI:</strong> {{ userData.dni }}</p>
     </div>
-  </div>
-
-  <!-- Segundo grupo de datos -->
-  <div class="min-sm:row-span-2 md:px-10 space-y-2 ml-10 mt-5">
     <div class="flex items-center">
       <mat-icon class="profile-icons">date_range</mat-icon>
       <p>
@@ -72,15 +60,17 @@
         {{ userData.birthDate | date : "dd/MM/YYYY" }}
       </p>
     </div>
+  </div>
 
-    <div class="flex items-center">
-      <mat-icon class="profile-icons">lens</mat-icon>
-      <p><strong class="ml-2">Código Postal:</strong> {{ userData.cp }}</p>
-    </div>
-
+  <!-- Segundo grupo de datos -->
+  <div class="min-sm:row-span-2 md:px-10 space-y-2 ml-10 mt-5">
     <div class="flex items-center">
       <mat-icon class="profile-icons">business</mat-icon>
       <p><strong class="ml-2">Ciudad:</strong> {{ userData.city }}</p>
+    </div>
+    <div class="flex items-center">
+      <mat-icon class="profile-icons">lens</mat-icon>
+      <p><strong class="ml-2">Código Postal:</strong> {{ userData.cp }}</p>
     </div>
   </div>
 
@@ -89,8 +79,9 @@
     <button
       (click)="openDialog()"
       class="rounded-full p-2 w-1/3 bg-indigo-600 text-white md:1/2 sm:w-1/2 content-center"
+      title="Actualizar contraseña"
     >
-      <mat-icon class="position">password</mat-icon>&nbsp; Cambiar contraseña
+      <mat-icon class="position">password</mat-icon>&nbsp; Actualizar contraseña
     </button>
   </div>
 </div>

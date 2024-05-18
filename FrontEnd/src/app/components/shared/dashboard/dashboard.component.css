@@ -1,53 +1,29 @@
-
-/* Estilos para centrar la sección en la página */
-section {
- /* Esto asegura que la sección ocupe toda la altura de la ventana */
-  background-color: #aec3b0;
-}
-
-
-
-.image {
-  width: 30%; /* La imagen ocupará todo el ancho de su contenedor */
-  height: 30%; /* La imagen ocupará todo el alto del contenedor */
-  object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
-
-}
-
-
-
-.image-container {
-  margin-top: 50px; /* Ajusta el margen superior del contenedor de imágenes */
-}
-
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 50px;
-  padding-right: 20px;
-}
 h1 {
-  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 90px;
-  letter-spacing: 6px;
+  text-shadow: 0.1em 0.02em 0.2em rgba(0, 0, 0, 0.25);
+  font-size: 5rem;
+  letter-spacing: 0.25em;
   text-align: center;
-  margin-bottom: 50px; /* Reduce el margen inferior del título */
-  color:#01161e;
+  margin-bottom: 4%;
+  color: #01161e;
 }
+
 h3 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 30px;
-  letter-spacing: 10px;
+  text-shadow: 0.05em 0.05em 0.4em rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  letter-spacing: 0.25em;
   text-align: center;
+  margin-top: 4%;
+  margin-bottom: 2%;
 }
-.container{
-  margin-bottom: 200px;
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 0.25em;
+  }
+
+  h3 {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+  }
 }
-
-
-

@@ -6,15 +6,15 @@ import { SecurityService } from '../../../services/security.service';
 import { clockComponent } from './clock.component';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-navbar-top',
   standalone: true,
   imports: [
     [MaterialModule, RouterModule, CommonModule, clockComponent, RouterOutlet],
   ],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  templateUrl: './navbar-top.component.html',
+  styleUrl: './navbar-top.component.css',
 })
-export class NavbarComponent {
+export class NavbarTopComponent {
   constructor(private securityService: SecurityService) {}
 
   // Logout, delete tokens

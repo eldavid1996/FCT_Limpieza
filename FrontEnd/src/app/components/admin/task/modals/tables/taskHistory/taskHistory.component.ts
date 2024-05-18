@@ -24,6 +24,7 @@ import { TaskService } from '../../../../../../services/task.service';
 import { PaginationTask } from '../../../../../../models/paginationTask.model';
 import { DeleteTaskModalComponent } from '../../delete/deleteTaskModal.component';
 import { Task } from '../../../../../../models/task.model';
+import { TaskObservationsModalComponent } from './TaskObservationsModal.component';
 
 @Component({
   selector: 'app-task-history-table',
@@ -82,6 +83,8 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   ) {
     this.searchDateDefaultValue = new Date(Date.now());
     // Pagination in spanish
+    this.paginatorIntl.nextPageLabel = 'Siguiente página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
       page: number,
@@ -201,10 +204,26 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
     this.taskService.searchTasksFromHistory(this.paginationRequest);
   }
 
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
+
+  showObservations(task: Task) {
+    if (task.observations) {
+      this.dialog.open(TaskObservationsModalComponent, {
+        data: { task },
+      });
+    }
+  }
+
   // Open the modal with a confirmation to delete task
   deleteTask(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(DeleteTaskModalComponent, {
-      width: '250px',
       data: { taskId, task, message: ' del histórico de tareas' },
     });
 

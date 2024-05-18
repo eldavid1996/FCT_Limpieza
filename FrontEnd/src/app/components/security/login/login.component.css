@@ -4,11 +4,10 @@
   justify-content: space-between; /* Separa los dos elementos */
   align-items: center;
   height: 100vh;
-  padding-bottom: 5px;
+  padding-bottom: 1%;
   padding-left: 20%;
   padding-right: 20%;
 }
-
 
 .login {
   display: flex;
@@ -45,18 +44,6 @@
   object-fit: cover; /* Hace que la imagen cubra todo el espacio disponible sin deformarse */
 }
 
-h1 {
-  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 90px;
-  letter-spacing: 6px;
-  text-align: center;
-  margin-bottom: 50px;
-  color: #01161e;
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: normal;
-}
 h3 {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 3em;
@@ -64,16 +51,6 @@ h3 {
   text-align: center;
   line-height: 1em;
   margin-top: 2%;
-}
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 50px;
-  padding-right: 20px;
 }
 
 /* Media queries para dispositivos móviles */
