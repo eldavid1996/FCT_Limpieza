@@ -49,8 +49,10 @@ Additionally, a web application made in ``Angular 17`` with standalone component
         npm install; ng serve --o
 
 **3º BackEnd - Https & DataBases**
+
+       1º Update docker-compose.yml environments IP
    
-        docker compose up
+       2º run 'docker compose up' command
 
 ## ⭐️ GIVE IT A STAR
 
