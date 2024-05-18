@@ -71,6 +71,8 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
     private paginatorIntl: MatPaginatorIntl
   ) {
     // Pagination in spanish
+    this.paginatorIntl.nextPageLabel = 'Siguiente página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
       page: number,
@@ -151,6 +153,15 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
     this.paginationRequest.sort = event.active;
     this.paginationRequest.sortDirection = event.direction;
     this.userService.searchUsers(this.paginationRequest);
+  }
+
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
   }
 
   // For set user selected id value

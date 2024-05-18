@@ -101,13 +101,13 @@
         <!-- priority cases -->
         <div [ngSwitch]="element.priority">
           <ng-container *ngSwitchCase="'0'"
-            ><span><strong>Baja</strong></span>
+            ><span><strong>0 (Baja)</strong></span>
           </ng-container>
           <ng-container *ngSwitchCase="'1'">
-            <span><strong>Normal</strong></span>
+            <span><strong>1 (Normal)</strong></span>
           </ng-container>
           <ng-container *ngSwitchCase="'2'">
-            <span><strong>Alta</strong></span>
+            <span><strong>2 (Alta)</strong></span>
           </ng-container>
           <ng-container *ngSwitchDefault>
             <span
