@@ -137,9 +137,7 @@
               [class.green]="this.element.status === 'Finalizada'"
               [class.orange]="this.element.status === 'Pendiente'"
             >
-              <strong
-                >{{ element.user.name }} {{ element.user.surname }}</strong
-              >
+              <strong>{{ element.user.email }}</strong>
             </td>
           </ng-container>
 
@@ -246,6 +244,7 @@
       *ngIf="!showActiveTasks"
       (showActiveTasksChange)="toggleShowActiveTasks(true)"
     ></app-task-history-table>
+
     <div *ngIf="!showActiveTasks" class="px-8 pt-4 pb-2 flex justify-between">
       <button
         class="boton-borrar px-4 py-2"
@@ -254,6 +253,15 @@
         title="Vaciar histórico"
       >
         Vaciar histórico<mat-icon>delete</mat-icon>
+      </button>
+
+      <button
+        class="boton-mover px-4 py-2"
+        mat-flat-button
+        (click)="downloadPDF()"
+        title="Vaciar histórico"
+      >
+        Descargar histórico como PDF<mat-icon>download</mat-icon>
       </button>
 
       <button
@@ -297,3 +305,71 @@
     </div>
   </div>
 </section>
+
+<!-- Hidden table for download PDF -->
+<div class="table-responsive" id="pdfTable" hidden>
+  <table class="table text-center items-center bordered">
+    <thead>
+      <tr class="pdfTable">
+        <th scope="col" rowspan="2">Fecha</th>
+        <th scope="col" rowspan="2">Estado</th>
+        <th scope="col" rowspan="2">Prioridad</th>
+        <th scope="col" rowspan="2">Observaciones</th>
+        <th scope="col" colspan="4">Habitación</th>
+        <th scope="col" colspan="9">Empleado</th>
+      </tr>
+      <tr>
+        <!-- Room PDF -->
+        <th scope="col" class="bordeHeader">Nº Habitación</th>
+        <th scope="col" class="bordeHeader">Planta</th>
+        <th scope="col" class="bordeHeader">Tipo</th>
+        <th scope="col" class="bordeHeader">Estado</th>
+        <!-- USER PDF -->
+        <th scope="col" class="bordeHeader">Nombre</th>
+        <th scope="col" class="bordeHeader">Apellidos</th>
+        <th scope="col" class="bordeHeader">Email</th>
+        <th scope="col" class="bordeHeader">DNI</th>
+        <th scope="col" class="bordeHeader">Rol</th>
+        <th scope="col" class="bordeHeader">Teléfono</th>
+        <th scope="col" class="bordeHeader">Ciudad</th>
+        <th scope="col" class="bordeHeader">CP</th>
+        <th scope="col" class="bordeHeader">Fecha Nacimiento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pdfTask of pdfTasks">
+        <!-- Task -->
+        <td>
+          {{ pdfTask.createdDate | date : "dd/MM/yyyy HH:mm a" }}
+        </td>
+        <td>{{ pdfTask.status }}</td>
+        <td [ngSwitch]="pdfTask.priority">
+          {{ pdfTask.priority }}
+          <span *ngSwitchCase="'0'">Baja</span>
+          <span *ngSwitchCase="'1'">Normal</span>
+          <span *ngSwitchCase="'2'">Alta</span>
+        </td>
+        <td>{{ pdfTask.observations }}</td>
+        <!-- Room -->
+        <td>{{ pdfTask.room.roomNumber }}</td>
+        <td>{{ pdfTask.room.floor }}</td>
+        <td>{{ pdfTask.room.type }}</td>
+        <td>{{ pdfTask.room.status }}</td>
+        <!-- USER -->
+        <td>{{ pdfTask.user.name }}</td>
+        <td>{{ pdfTask.user.surname }}</td>
+        <td>{{ pdfTask.user.email }}</td>
+        <td>{{ pdfTask.user.dni }}</td>
+        <td>
+          {{ pdfTask.user.roleAdmin ? "Administrador" : "Usuario" }}
+        </td>
+        <td>{{ pdfTask.user.phoneNumber }}</td>
+        <td>{{ pdfTask.user.city }}</td>
+        <td>{{ pdfTask.user.cp }}</td>
+        <td>
+          {{ pdfTask.user.birthDate | date : "dd/MM/yyyy" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { delay, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material.module';
 import { Task } from '../../models/task.model';
@@ -7,6 +7,11 @@ import { TaskService } from '../../services/task.service';
 import { SecurityService } from '../../services/security.service';
 import { PaginationFilter } from '../../models/paginationFilter.model';
 import { PaginationList } from '../../models/Pagination.model';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CompleteTasksUserModalComponent } from './modals/complete/completeTasksUserModal.component';
+import { PaginationTask } from '../../models/paginationTask.model';
+import { IncidenceTasksUserModalComponent } from './modals/incidence/incidenceTasksUserModal.component';
 
 @Component({
   selector: 'app-tasks-users-board',
@@ -15,14 +20,16 @@ import { PaginationList } from '../../models/Pagination.model';
   templateUrl: './tasksUser.component.html',
   styleUrls: ['./tasksUser.component.css'],
 })
-export class TasksUsersComponent implements OnInit, OnDestroy {
+export class TasksUsersComponent implements OnInit {
   private taskSubscription: Subscription | undefined;
   dataSource: Task[] = [];
   userLoggedId: string | undefined;
-
+  isLoading = false;
   constructor(
     private taskService: TaskService,
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar
   ) {}
 
   // Dinamic filter to check more than one property and value
@@ -34,73 +41,77 @@ export class TasksUsersComponent implements OnInit, OnDestroy {
   ];
 
   paginationRequest: PaginationList = {
-    pageSize: 50,
+    pageSize: 100,
     page: 1,
     sort: 'Status',
     sortDirection: 'desc',
     filter: this.paginationFilter,
   };
 
-
   ngOnInit(): void {
     this.userLoggedId = this.securityService.getUserLoggedId();
+    this.paginationFilter[0].value = this.userLoggedId;
 
-    if (this.userLoggedId) {
-      this.paginationFilter[0].value = this.userLoggedId;
-      this.taskService.searchTasks(this.paginationRequest);
-      this.taskService.getTasks()?.subscribe(
-        (data: any) => {
-          this.dataSource = data;
-        },
-        (error: any) => {
-          console.error('Error en la solicitud HTTP:', error);
-        }
-      );
-    }
-
-     // Subscribe to task updates
-     this.taskSubscription = this.taskService
-     .getTasks()
-     .subscribe((data: any) => {
-       this.dataSource = data.data;
-     });
-  }
-
-
-
-
-
-  ngOnDestroy(): void {
-    this.taskSubscription?.unsubscribe();
+    this.taskService.searchTasks(this.paginationRequest);
+    this.taskSubscription = this.taskService
+      .getTasks()
+      .subscribe((pagination: PaginationTask) => {
+        this.dataSource = pagination.data;
+      });
   }
 
   // Method that change the task status
   changeTaskStatus(task: Task) {
-
     if (task.status == 'Pendiente') {
-      const tasktemp = {...task};
-      tasktemp.status = 'Finalizada';
-
-      // Update task status to "finished"
-      this.taskService.updateTask(task.id, tasktemp).subscribe(()=>{
-        this.taskService.searchTasks(this.paginationRequest);
-      });
-
-      // We have to write the task on history task collection
-      //this.taskService.completeTask(task).subscribe();
-    }
-    else if (task.status == 'Finalizada') {
+      task.status = 'Finalizada';
+    } else if (task.status == 'Finalizada') {
       task.status = 'Pendiente';
-      // Update de task status to "To do"
-      this.taskService.updateTask(task.id, task).subscribe(()=>{
-        this.taskService.searchTasks(this.paginationRequest);
-      });
-
-    }else{
-      console.log('Fallo al cambiar el estado de la tarea: ' + task.id);
-
     }
-
+    this.taskService.updateTask(task.id, task).subscribe(() => {
+      this.taskService.searchTasks(this.paginationRequest);
+    });
   }
 
+  // Method that change the task incidence (observations)
+  incidence(task: Task) {
+    const dialogRef = this.dialog.open(IncidenceTasksUserModalComponent, {
+      data: { task },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(delay(300))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          this.taskService.updateTask(task.id, task).subscribe(() => {
+            this.taskService.searchTasks(this.paginationRequest);
+          });
+
+          this.snackbar.open('Incidencia actualizada', 'Cerrar', {
+            duration: 3000,
+          });
+        }
+      });
+  }
+  // Method to put the completed task on historic task collection
+  completeTaskList(taskList: Task[]) {
+    const dialogRef = this.dialog.open(CompleteTasksUserModalComponent);
+
+    dialogRef
+      .afterClosed()
+      .pipe(delay(300))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          taskList.forEach((task) => {
+            // Move task to history
+            this.taskService.moveTaskToHistory(task.id, task).subscribe(() => {
+              this.taskService.searchTasks(this.paginationRequest);
+            });
+          });
+          this.snackbar.open('Tareas completadas', 'Cerrar', {
+            duration: 3000,
+          });
+        }
+      });
+  }
 }

@@ -22,6 +22,9 @@ import { Task } from '../../../models/task.model';
 import { MoveToHistoryTaskModalComponent } from './modals/moveToHistory/moveToHistoryTaskModal.component';
 import { TaskHistoryTableComponent } from './modals/tables/taskHistory/taskHistory.component';
 import { DeleteHistoryModalComponent } from './modals/delete/deleteHistoryModal.component';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { pdfTask } from '../../../models/pdfTasks.model';
 
 @Component({
   selector: 'app-task-table',
@@ -35,6 +38,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
   titleValue = 'Tareas Activas';
   private taskSubscription: Subscription | undefined;
+
+  pdfTasks: pdfTask | any;
 
   roomNumbers: string[] = [];
 
@@ -78,6 +83,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
   ) {
+    this.taskService.getAllHistory().subscribe((pdfTasks) => {
+      this.pdfTasks = pdfTasks;
+    });
     // Pagination in spanish
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
@@ -352,5 +360,37 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       },
     ];
     return updatedPaginationFilter;
+  }
+
+  downloadPDF() {
+    const element = document.getElementById('pdfTable');
+
+    if (element !== null) {
+      element.style.display = 'block';
+
+      html2canvas(element).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF();
+        const imgWidth = 208;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save('histórico.pdf');
+
+        element.style.display = 'none';
+      });
+    }
   }
 }

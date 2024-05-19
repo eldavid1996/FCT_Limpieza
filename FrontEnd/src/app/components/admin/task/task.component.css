@@ -1,7 +1,18 @@
 h3 {
-    text-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.5);
-    font-size: 2.5rem;
-    letter-spacing: 0.25em;
-    text-align: center;
-  }
-  
+  text-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.5);
+  font-size: 2.5rem;
+  letter-spacing: 0.25em;
+  text-align: center;
+}
+table {
+  border: 2px solid rgb(140 140 140);
+}
+
+.pdfTable > th,
+td {
+  border: 1px solid rgb(160 160 160);
+}
+
+.bordeHeader{
+  border: 1px solid rgb(160 160 160);
+}
