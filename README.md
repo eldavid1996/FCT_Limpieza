@@ -44,11 +44,7 @@ Additionally, a web application made in ``Angular 17`` with standalone component
 
        https://github.com/eldavid1996/FCT_Limpieza
 
-**2º FrontEnd - Install modules**
-
-        npm install; ng serve --o
-
-**3º BackEnd - Https & DataBases**
+**2º Install containers**
 
         docker compose up
 
