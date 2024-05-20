@@ -23,6 +23,6 @@ h3 {
 }
 
 .green-button:disabled {
-  background-color: #cccccc !important;
-  color: #666666 !important;
+  opacity: 0.5;
+  cursor: not-allowed;
 }

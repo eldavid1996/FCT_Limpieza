@@ -1,6 +1,6 @@
 .imagen {
   object-fit: contain;
-  width: 169px;
+  width: 150px;
 }
 .position {
   position: relative;
@@ -19,6 +19,5 @@
   background-color: #7c3aed !important;
 }
 .rounded-full-green:hover {
-    background-color: #2ECC71 !important;
-  }
-  
+  background-color: #2ecc71 !important;
+}

@@ -25,6 +25,7 @@ import { PaginationTask } from '../../../../../../models/paginationTask.model';
 import { DeleteTaskModalComponent } from '../../delete/deleteTaskModal.component';
 import { Task } from '../../../../../../models/task.model';
 import { TaskObservationsModalComponent } from './TaskObservationsModal.component';
+import { pdfTask } from '../../../../../../models/pdfTasks.model';
 
 @Component({
   selector: 'app-task-history-table',
@@ -38,6 +39,10 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
 
   private taskSubscription: Subscription | undefined;
+
+  private taskHistorySubscription: Subscription | undefined;
+
+  pdfTasks: pdfTask | any;
 
   showActiveTasks: boolean = true;
   @Output() showActiveTasksChange = new EventEmitter<void>();
@@ -105,6 +110,13 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.taskService.searchAllHistory();
+    this.taskSubscription = this.taskService
+      .getAllHistory()
+      .subscribe((pdfTasks: pdfTask) => {
+        this.pdfTasks = pdfTasks;
+      });
+
     this.taskService.searchTasksFromHistory(this.paginationRequest);
     this.taskSubscription = this.taskService
       .getTasksFromHistory()
@@ -240,6 +252,7 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
               this.snackbar.open(response, 'Cerrar', { duration: 3000 });
               // Then, get updated list tasks
               this.taskService.searchTasksFromHistory(this.paginationRequest);
+              this.taskService.searchAllHistory();
             });
         }
       });

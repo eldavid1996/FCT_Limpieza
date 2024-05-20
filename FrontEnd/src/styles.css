@@ -65,3 +65,7 @@ th {
   cursor: default;
   vertical-align: middle;
 }
+
+img{
+  border-radius: 10px;
+}

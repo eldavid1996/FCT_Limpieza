@@ -38,6 +38,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
   titleValue = 'Tareas Activas';
   private taskSubscription: Subscription | undefined;
+  private taskHistorySubscription: Subscription | undefined;
 
   pdfTasks: pdfTask | any;
 
@@ -83,9 +84,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
   ) {
-    this.taskService.getAllHistory().subscribe((pdfTasks) => {
-      this.pdfTasks = pdfTasks;
-    });
     // Pagination in spanish
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
@@ -107,6 +105,13 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.taskService.searchAllHistory();
+    this.taskSubscription = this.taskService
+      .getAllHistory()
+      .subscribe((pdfTasks: pdfTask) => {
+        this.pdfTasks = pdfTasks;
+      });
+
     this.taskService.searchTasks(this.paginationRequest);
     this.taskSubscription = this.taskService
       .getTasks()
@@ -268,6 +273,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
             this.taskService.searchTasksFromHistory(this.paginationRequest);
+            this.taskService.searchAllHistory();
+
           });
         }
       });
@@ -292,12 +299,14 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               });
               // Then, get updated list tasks
               this.taskService.searchTasks(this.paginationRequest);
+              this.taskService.searchAllHistory();
             },
             error: () => {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
                 duration: 3000,
               });
               this.taskService.searchTasks(this.paginationRequest);
+              this.taskService.searchAllHistory();
             },
           });
         }
@@ -363,6 +372,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   }
 
   downloadPDF() {
+    this.taskService.searchAllHistory();
+
     const element = document.getElementById('pdfTable');
 
     if (element !== null) {

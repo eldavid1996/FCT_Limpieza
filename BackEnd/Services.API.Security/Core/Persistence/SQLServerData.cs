@@ -19,7 +19,7 @@ namespace Services.API.Security.Core.Persistence
                     BirthDate = DateTime.Now,
                     City = "Huelva",
                     CP = "21006",
-                    urlImage = "defaultImage.png",
+                    urlImage = "",
 
                     // user properties
                     Name = "Administrador",

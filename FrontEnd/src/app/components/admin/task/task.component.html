@@ -1,6 +1,6 @@
 <section class="mt-14">
   <div
-    class="font-bold text-3xl mb-2 w-4/5 mx-auto py-5 text-[#01161e] shadow-lg text-center bg-[#eff6e0] rounded"
+    class="font-bold text-3xl mb-2 w-4/5 mx-auto py-2 text-[#01161e] shadow-lg text-center bg-[#eff6e0] rounded"
   >
     <h3 class="pt-2" *ngIf="showActiveTasks">Tareas Activas</h3>
     <h3 class="pt-2" *ngIf="!showActiveTasks">Histórico de Tareas</h3>
@@ -251,6 +251,7 @@
         mat-flat-button
         (click)="deleteHistory()"
         title="Vaciar histórico"
+        [disabled]="pdfTasks.length < 1"
       >
         Vaciar histórico<mat-icon>delete</mat-icon>
       </button>
@@ -260,6 +261,7 @@
         mat-flat-button
         (click)="downloadPDF()"
         title="Vaciar histórico"
+        [disabled]="pdfTasks.length < 1"
       >
         Descargar histórico como PDF<mat-icon>download</mat-icon>
       </button>

@@ -19,10 +19,22 @@ export class TaskService {
   // Observable for send the task request data to components
   taskPaginationSubject = new Subject<PaginationTask>();
 
+  taskHistorySubject = new Subject<pdfTask>();
+  taskHistory: pdfTask | undefined;
+
   constructor(private http: HttpClient) {}
 
   getAllHistory() {
-    return this.http.get<pdfTask>(this.baseUrl + 'TaskHistory');
+    return this.taskHistorySubject.asObservable();
+  }
+
+  searchAllHistory() {
+    this.http
+      .get<pdfTask>(this.baseUrl + 'TaskHistory')
+      .subscribe((response) => {
+        this.taskHistory = response;
+        this.taskHistorySubject.next(this.taskHistory);
+      });
   }
 
   // Search tasks with filters

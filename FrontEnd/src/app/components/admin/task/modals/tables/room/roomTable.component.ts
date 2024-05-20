@@ -201,9 +201,11 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     return '';
   }
   // For set user selected id value
-  selectCell(id: string) {
-    this.selectedId = id;
-    this.selectedIdRoomChange.emit(this.selectedId);
+  selectCell(id: string, roomNumber: string) {
+    if (!this.data.includes(roomNumber)) {
+      this.selectedId = id;
+      this.selectedIdRoomChange.emit(this.selectedId);
+    }
   }
 
   // For manage the selected item color
@@ -213,5 +215,9 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
 
   unhighlightRow(event: any) {
     event.currentTarget.classList.remove('highlighted-row');
+  }
+
+  isRoomUsed(roomNumber: string): boolean {
+    return this.data.includes(roomNumber);
   }
 }

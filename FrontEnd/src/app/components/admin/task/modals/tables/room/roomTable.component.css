@@ -27,3 +27,8 @@ th {
   cursor: default;
   background-color: white !important;
 }
+
+.red-row {
+  background-color: red;
+  cursor: default;
+}
