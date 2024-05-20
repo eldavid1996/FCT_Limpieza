@@ -63,7 +63,7 @@ services:
     #ports:
     #  - '8563:3000'
     volumes:
-      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+      - backend_photos:/app/wwwroot/photos
     environment:
       - APP_CONNECTION_STRING=Data Source=SQLServerSecurity; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
     depends_on:
@@ -82,7 +82,7 @@ services:
     ports:
       - '8561:3000'
     volumes:
-      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+      - backend_photos:/app/wwwroot/photos
     depends_on:
       - hotel
       - security
@@ -103,3 +103,6 @@ services:
       - gateway
       - SQLServerSecurity
       - MongoDBHotel
+
+volumes:
+  backend_photos:
