@@ -1,26 +1,27 @@
 <div class="beige p-4 rounded-lg">
   <p class="text-xl"><strong>Empleados</strong></p>
-  <mat-radio-group
-    [value]="searchRadioButtonValue"
-    (change)="onRadioButtonChange($event)"
-    class="flex flex-wrap items-center"
-  >
-    <mat-radio-button value="Name" title="Nombre" class="mr-4 mb-2">
-      <strong>Nombre</strong>
-    </mat-radio-button>
-    <mat-radio-button value="Surname" title="Apellidos" class="mr-4 mb-2">
-      <strong>Apellidos</strong>
-    </mat-radio-button>
-    <mat-radio-button value="Email" title="Email" class="mr-4 mb-2">
-      <strong>Email</strong>
-    </mat-radio-button>
-    <mat-radio-button value="PhoneNumber" title="Teléfono" class="mr-4 mb-2">
-      <strong>Teléfono</strong>
-    </mat-radio-button>
-    <mat-radio-button value="City" title="Ciudad" class="mr-4 mb-2">
-      <strong>Ciudad</strong>
-    </mat-radio-button>
-
+  <div class="flex flex-wrap items-center">
+    <mat-radio-group
+      [value]="searchRadioButtonValue"
+      (change)="onRadioButtonChange($event)"
+      class="flex flex-wrap items-center"
+    >
+      <mat-radio-button value="Name" title="Nombre" class="mr-4 mb-2">
+        <strong>Nombre</strong>
+      </mat-radio-button>
+      <mat-radio-button value="Surname" title="Apellidos" class="mr-4 mb-2">
+        <strong>Apellidos</strong>
+      </mat-radio-button>
+      <mat-radio-button value="Email" title="Email" class="mr-4 mb-2">
+        <strong>Email</strong>
+      </mat-radio-button>
+      <mat-radio-button value="PhoneNumber" title="Teléfono" class="mr-4 mb-2">
+        <strong>Teléfono</strong>
+      </mat-radio-button>
+      <mat-radio-button value="City" title="Ciudad" class="mr-4 mb-2">
+        <strong>Ciudad</strong>
+      </mat-radio-button>
+    </mat-radio-group>
     <input
       type="text"
       class="border border-black w-full md:w-auto md:ml-auto mb-2 md:mt-0"
@@ -28,8 +29,7 @@
       placeholder="Buscar..."
       title="Buscar..."
     />
-  </mat-radio-group>
-
+  </div>
   <div class="overflow-x-auto mx-auto w-full">
     <mat-table
       [dataSource]="dataSource"

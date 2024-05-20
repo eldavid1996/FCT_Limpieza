@@ -1,22 +1,22 @@
 <div
-  class="w-full mx-auto rounded shadow-lg color text-white max-sm:w-full max-sm:px-3 md:p-10 md: w1/10"
+  class="w-full mx-auto rounded shadow-lg color text-white max-sm:w-full max-sm:px-3 p-10 md: w1/10"
 >
   <!-- Encabezado -->
   <div class="mx-auto text-center mt-5">
     <img
       *ngIf="userData.urlImage"
       [src]="getPhoto()"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
     <img
       *ngIf="userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/admin.png"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
     <img
       *ngIf="!userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/user.png"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
 
     <h1>

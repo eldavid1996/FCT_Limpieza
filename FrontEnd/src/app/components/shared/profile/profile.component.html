@@ -6,17 +6,17 @@
     <img
       *ngIf="userData.urlImage"
       [src]="getPhoto()"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
     <img
       *ngIf="userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/admin.png"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
     <img
       *ngIf="!userData.roleAdmin && !userData.urlImage"
       src="assets/images/profile/user.png"
-      class="imagen mx-auto mb-3 h-20"
+      class="imagen mx-auto mb-3"
     />
     <h1>
       <strong>{{ userData.name }} {{ userData.surname }}</strong>
