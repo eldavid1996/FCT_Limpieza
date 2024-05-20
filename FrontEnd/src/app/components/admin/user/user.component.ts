@@ -39,7 +39,7 @@ export class UserTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<User>();
   totalUsers = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = [
     'Name',
     'Surname',
@@ -73,6 +73,8 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     private paginatorIntl: MatPaginatorIntl
   ) {
     // Pagination in spanish
+    this.paginatorIntl.nextPageLabel = 'Siguiente página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
       page: number,
@@ -152,6 +154,15 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     this.userService.searchUsers(this.paginationRequest);
   }
 
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
+
   // Open a modal for insert a new user
   insertUser(): void {
     const dialogRef = this.dialog.open(InsertUserModalComponent);
@@ -166,7 +177,6 @@ export class UserTableComponent implements OnInit, AfterViewInit {
   // Open a modal for watch or update user data
   updateUser(user: string): void {
     const dialogRef = this.dialog.open(UpdateUserModalComponent, {
-      width: '800px',
       data: { user },
     });
     dialogRef
@@ -180,7 +190,6 @@ export class UserTableComponent implements OnInit, AfterViewInit {
   // Open the modal with a confirmation to delete user
   deleteUser(userId: string, user: User): void {
     const dialogRef = this.dialog.open(DeleteUserModalComponent, {
-      width: '400px',
       data: { userId, user },
     });
 
@@ -205,13 +214,11 @@ export class UserTableComponent implements OnInit, AfterViewInit {
     return this.securityService.getUserLoggedId();
   }
 
- // Get the user and open the profile modal view
+  // Get the user and open the profile modal view
   checkUser(userId: string): void {
     this.userService.getUserById(userId).subscribe((user: User) => {
-      console.log(user);
-
       const dialogRef = this.dialog.open(UserProfileComponent, {
-        data: { user }
+        data: { user },
       });
 
       dialogRef.afterClosed().subscribe(() => {

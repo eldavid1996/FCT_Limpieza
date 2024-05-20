@@ -46,7 +46,7 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<Room>();
   totalRooms = 0;
-  comboPages = [1, 3, 5, 8];
+  comboPages = [5, 10, 25, 50];
   displayedColumns = ['RoomNumber', 'Floor', 'Type', 'Status'];
 
   timeout: any = null;
@@ -66,7 +66,7 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     sortDirection: 'asc',
     filter: this.paginationFilter,
     exactValues: true,
-    exclude: true
+    exclude: true,
   };
 
   constructor(
@@ -74,6 +74,8 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     private paginatorIntl: MatPaginatorIntl
   ) {
     // Pagination in spanish
+    this.paginatorIntl.nextPageLabel = 'Siguiente página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
       page: number,
@@ -97,10 +99,13 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     // Set variable value for color the row
     this.selectedId = this.selectedIdRoom;
 
-    this.data.forEach((element: { toString: () => any; }) => {
-      this.paginationFilter.push({ property: 'RoomNumber', value: element.toString() });
+    this.data.forEach((element: { toString: () => any }) => {
+      this.paginationFilter.push({
+        property: 'RoomNumber',
+        value: element.toString(),
+      });
     });
-    
+
     this.roomService.searchRooms(this.paginationRequest);
     this.roomSubscription = this.roomService
       .getRooms()
@@ -120,8 +125,20 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
         value: this.paginationFilter[0].value,
       },
     ];
-    this.paginationRequest.filter = updatedPaginationFilter;
+    this.paginationRequest.exactValues = false;
+    this.paginationRequest.exclude = false;
+    if (this.paginationFilter[0].value == '') {
+      this.data.forEach((element: { toString: () => any }) => {
+        updatedPaginationFilter.push({
+          property: 'RoomNumber',
+          value: element.toString(),
+        });
+      });
+      this.paginationRequest.exactValues = true;
+      this.paginationRequest.exclude = true;
+    }
 
+    this.paginationRequest.filter = updatedPaginationFilter;
     this.roomService.searchRooms(this.paginationRequest);
   }
 
@@ -138,6 +155,18 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
             value: event.target.value,
           },
         ];
+        this.paginationRequest.exactValues = false;
+        this.paginationRequest.exclude = false;
+        if (this.paginationFilter[0].value == '') {
+          this.data.forEach((element: { toString: () => any }) => {
+            $this.paginationFilter.push({
+              property: 'RoomNumber',
+              value: element.toString(),
+            });
+          });
+          this.paginationRequest.exactValues = true;
+          this.paginationRequest.exclude = true;
+        }
         this.paginationRequest.filter = $this.paginationFilter;
         $this.roomService.searchRooms(this.paginationRequest);
       }
@@ -163,11 +192,20 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
     this.paginationRequest.sortDirection = event.direction;
     this.roomService.searchRooms(this.paginationRequest);
   }
-
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
   // For set user selected id value
-  selectCell(id: string) {
-    this.selectedId = id;
-    this.selectedIdRoomChange.emit(this.selectedId);
+  selectCell(id: string, roomNumber: string) {
+    if (!this.data.includes(roomNumber)) {
+      this.selectedId = id;
+      this.selectedIdRoomChange.emit(this.selectedId);
+    }
   }
 
   // For manage the selected item color
@@ -177,5 +215,9 @@ export class TaskRoomTableComponent implements OnInit, AfterViewInit {
 
   unhighlightRow(event: any) {
     event.currentTarget.classList.remove('highlighted-row');
+  }
+
+  isRoomUsed(roomNumber: string): boolean {
+    return this.data.includes(roomNumber);
   }
 }

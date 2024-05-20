@@ -48,6 +48,10 @@ export class RoomService {
     return this.http.put(this.baseUrl + 'Room/' + id, body);
   }
 
+  getRoomById(id: string) {
+    return this.http.get(this.baseUrl + 'Room/' + id);
+  }
+
   // insert a new room
   insertRoom(newRoom: Room) {
     return this.http.post<Room>(this.baseUrl + 'Room', newRoom);

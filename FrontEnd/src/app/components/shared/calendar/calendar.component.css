@@ -1,42 +1,28 @@
-
-/* Estilos para centrar la sección en la página */
-section {
- /* Esto asegura que la sección ocupe toda la altura de la ventana */
-  background-color: #aec3b0;
-}
-
-.image-container {
-  margin-top: 50px; /* Ajusta el margen superior del contenedor de imágenes */
-}
-
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 50px;
-  padding-right: 20px;
-}
-h1 {
-  text-shadow: 8px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 90px;
-  letter-spacing: 6px;
-  text-align: center;
-  margin-bottom: 50px; /* Reduce el margen inferior del título */
-  color:#01161e;
-}
 h3 {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  font-size: 30px;
-  letter-spacing: 10px;
+  text-shadow: 0.25em 0.25em 0.5em rgba(0, 0, 0, 0.5);
+  font-size: 2.5rem;
+  letter-spacing: 0.25em;
   text-align: center;
 }
-.container{
-  margin-bottom: 200px;
+
+@media (max-width: 940px) {
+  h3 {
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+  }
 }
 
+.green-button {
+  background-color: #4caf50 !important;
+  color: white !important;
+  margin-left: 2%;
+}
 
+.green-button:hover {
+  background-color: #45a049 !important;
+}
 
+.green-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

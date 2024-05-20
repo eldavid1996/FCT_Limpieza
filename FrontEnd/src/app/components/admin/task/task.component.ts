@@ -22,6 +22,9 @@ import { Task } from '../../../models/task.model';
 import { MoveToHistoryTaskModalComponent } from './modals/moveToHistory/moveToHistoryTaskModal.component';
 import { TaskHistoryTableComponent } from './modals/tables/taskHistory/taskHistory.component';
 import { DeleteHistoryModalComponent } from './modals/delete/deleteHistoryModal.component';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import { pdfTask } from '../../../models/pdfTasks.model';
 
 @Component({
   selector: 'app-task-table',
@@ -35,6 +38,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) pagination?: MatPaginator | any;
   titleValue = 'Tareas Activas';
   private taskSubscription: Subscription | undefined;
+  private taskHistorySubscription: Subscription | undefined;
+
+  pdfTasks: pdfTask | any;
 
   roomNumbers: string[] = [];
 
@@ -99,6 +105,13 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.taskService.searchAllHistory();
+    this.taskSubscription = this.taskService
+      .getAllHistory()
+      .subscribe((pdfTasks: pdfTask) => {
+        this.pdfTasks = pdfTasks;
+      });
+
     this.taskService.searchTasks(this.paginationRequest);
     this.taskSubscription = this.taskService
       .getTasks()
@@ -186,10 +199,18 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     this.taskService.searchTasks(this.paginationRequest);
   }
 
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
+
   // Open a modal for insert a new task
   insertTask(): void {
     const dialogRef = this.dialog.open(InsertTaskModalComponent, {
-      width: '800px',
       data: this.roomNumbers,
     });
     dialogRef
@@ -218,7 +239,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   // Open the modal with a confirmation to delete task
   deleteTask(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(DeleteTaskModalComponent, {
-      width: '250px',
       data: { taskId, task, message: '' },
     });
 
@@ -253,6 +273,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
             this.taskService.searchTasksFromHistory(this.paginationRequest);
+            this.taskService.searchAllHistory();
+
           });
         }
       });
@@ -260,7 +282,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   moveTaskToHistory(taskId: string, task: Task): void {
     const dialogRef = this.dialog.open(MoveToHistoryTaskModalComponent, {
-      width: '250px',
       data: { taskId, task },
     });
 
@@ -278,12 +299,14 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               });
               // Then, get updated list tasks
               this.taskService.searchTasks(this.paginationRequest);
+              this.taskService.searchAllHistory();
             },
             error: () => {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
                 duration: 3000,
               });
               this.taskService.searchTasks(this.paginationRequest);
+              this.taskService.searchAllHistory();
             },
           });
         }
@@ -348,5 +371,37 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     return updatedPaginationFilter;
   }
 
-  
+  downloadPDF() {
+    this.taskService.searchAllHistory();
+
+    const element = document.getElementById('pdfTable');
+
+    if (element !== null) {
+      element.style.display = 'block';
+
+      html2canvas(element).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF();
+        const imgWidth = 208;
+        const pageHeight = 295;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
+        pdf.save('histórico.pdf');
+
+        element.style.display = 'none';
+      });
+    }
+  }
 }

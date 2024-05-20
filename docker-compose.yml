@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  SQLServerSecurity:
+    image: mcr.microsoft.com/mssql/server
+    container_name: SQLServerSecurity
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: StrongPassword1!
+    expose:
+      - '1433'
+    #ports:
+    #  - '1433:1433'
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P StrongPassword1! -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  MongoDBHotel:
+    image: mongo
+    container_name: MongoDBHotel
+    expose:
+      - '27017'
+    #ports:
+    #  - '27017:27017'
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  hotel:
+    image: hotel
+    container_name: hotel
+    hostname: hotel
+    build:
+      context: ./Backend/
+      dockerfile: Hotel.Dockerfile
+    restart: always
+    expose:
+      - '3000'
+    #ports:
+    #  - '8562:3000'
+    environment:
+      - APP_CONNECTION_STRING=mongodb://MongoDBHotel:27017
+      - APP_DATABASE=MongoDBHotel
+    depends_on:
+      - MongoDBHotel
+
+  security:
+    image: security
+    container_name: security
+    hostname: security
+    build:
+      context: ./Backend/
+      dockerfile: Security.Dockerfile
+    restart: always
+    expose:
+      - '3000'
+    #ports:
+    #  - '8563:3000'
+    volumes:
+      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+    environment:
+      - APP_CONNECTION_STRING=Data Source=SQLServerSecurity; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
+    depends_on:
+      - SQLServerSecurity
+
+  gateway:
+    image: gateway
+    container_name: gateway
+    hostname: gateway
+    build:
+      context: ./Backend/
+      dockerfile: Gateway.Dockerfile
+    restart: always
+    #expose:
+    #  - '3000'
+    ports:
+      - '8561:3000'
+    volumes:
+      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+    depends_on:
+      - hotel
+      - security
+
+  web:
+    image: web
+    container_name: web
+    hostname: web
+    build:
+      context: ./Frontend/
+      dockerfile: Web.Dockerfile
+    ports:
+      - "4200:4200"
+    restart: always
+    depends_on:
+      - hotel
+      - security
+      - gateway
+      - SQLServerSecurity
+      - MongoDBHotel

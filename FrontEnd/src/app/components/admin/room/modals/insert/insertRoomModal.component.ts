@@ -21,18 +21,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class InsertRoomModalComponent implements OnInit {
   roomForm: FormGroup | any;
-  defaultType: string = 'Individual';
-  defaultStatus: string = 'Vacia';
   statusOptions = [
-    { label: 'Vacia', value: 'Vacia' },
+    { label: 'Vacía', value: 'Vacía' },
     { label: 'Ocupada', value: 'Ocupada' },
   ];
   typeOptions = [
     { label: 'Individual', value: 'Individual' },
     { label: 'Doble', value: 'Doble' },
     { label: 'Triple', value: 'Triple' },
-    { label: 'Minusválidos', value: 'Minusvalido' },
-    { label: 'Personalizada', value: 'Personalizada' },
+    { label: 'Minusválidos', value: 'Minusválidos' },
+    { label: 'Otro', value: 'Otro' },
   ];
   @Output() modalClosed = new EventEmitter<void>();
 
@@ -47,8 +45,8 @@ export class InsertRoomModalComponent implements OnInit {
     this.roomForm = this.formBuilder.group({
       roomNumber: ['', Validators.required],
       floor: [''],
-      type: [''],
-      status: [''],
+      type: ['Individual'],
+      status: ['Vacía'],
     });
   }
 

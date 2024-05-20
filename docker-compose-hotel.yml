@@ -6,13 +6,13 @@ services:
     container_name: hotel
     hostname: hotel
     build:
-      context: ./
+      context: ./Backend/
       dockerfile: Hotel.Dockerfile
     restart: always
-    #expose:
-    #  - '3000'
-    ports:
-      - '8562:3000'
+    expose:
+      - '3000'
+    #ports:
+    #  - '8562:3000'
     environment:
       - APP_CONNECTION_STRING=mongodb://192.168.1.94:27017
       - APP_DATABASE=MongoDBHotel
@@ -21,15 +21,15 @@ services:
     container_name: security
     hostname: security
     build:
-      context: ./
+      context: ./Backend/
       dockerfile: Security.Dockerfile
     restart: always
-    #expose:
-    #  - '3000'
-    ports:
-      - '8563:3000'
+    expose:
+      - '3000'
+    #ports:
+    #  - '8563:3000'
     volumes:
-      - ./wwwroot/photos:/app/wwwroot/photos
+      - ./Backend/wwwroot/photos:/app/wwwroot/photos
     environment:
       - APP_CONNECTION_STRING=Data Source=192.168.1.94; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
   gateway:
@@ -37,15 +37,15 @@ services:
     container_name: gateway
     hostname: gateway
     build:
-      context: ./
+      context: ./Backend/
       dockerfile: Gateway.Dockerfile
     restart: always
-    expose:
-      - '3000'
+    #expose:
+    #  - '3000'
     ports:
       - '8561:3000'
     volumes:
-      - ./wwwroot/photos:/app/wwwroot/photos
+      - ./Backend/wwwroot/photos:/app/wwwroot/photos
     links:
       - hotel
       - security

@@ -64,7 +64,8 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
   ) {
-    // Pagination in spanish
+    this.paginatorIntl.nextPageLabel = 'Siguiente página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
       page: number,
@@ -147,15 +148,20 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
     this.paginationRequest.sortDirection = event.direction;
     this.roomService.searchRooms(this.paginationRequest);
   }
-
+  getOrderingTitle(): string {
+    // Text for ordenation column
+    const sortDirection = this.paginationRequest.sortDirection;
+    if (sortDirection != '') {
+      return sortDirection === 'asc' ? 'Orden Ascendente' : 'Orden Descendente';
+    }
+    return '';
+  }
   // Open a modal for insert a new room
   insertRoom(): void {
-    const dialogRef = this.dialog.open(InsertRoomModalComponent, {
-      width: '400px',
-    });
+    const dialogRef = this.dialog.open(InsertRoomModalComponent, {});
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe(() => {
         this.roomService.searchRooms(this.paginationRequest);
       });
@@ -164,12 +170,11 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
   // Open a modal for watch or update room data
   updateRoom(room: string): void {
     const dialogRef = this.dialog.open(UpdateRoomModalComponent, {
-      width: '400px',
       data: { room },
     });
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe(() => {
         this.roomService.searchRooms(this.paginationRequest);
       });
@@ -178,14 +183,13 @@ export class RoomTableComponent implements OnInit, AfterViewInit {
   // Open the modal with a confirmation to delete room
   deleteRoom(roomId: string, room: Room): void {
     const dialogRef = this.dialog.open(DeleteRoomModalComponent, {
-      width: '250px',
       data: { roomId, room },
     });
 
     // If modal was closed with a 'confirm' status delete the room
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.roomService.deleteRoom(roomId).subscribe((response) => {

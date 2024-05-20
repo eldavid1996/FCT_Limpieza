@@ -50,9 +50,7 @@ Additionally, a web application made in ``Angular 17`` with standalone component
 
 **3º BackEnd - Https & DataBases**
 
-       1º Update docker-compose.yml environments IP
-   
-       2º run 'docker compose up' command
+        docker compose up
 
 ## ⭐️ GIVE IT A STAR
 

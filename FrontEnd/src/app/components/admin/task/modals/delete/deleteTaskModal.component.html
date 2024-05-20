@@ -1,4 +1,4 @@
-<div class="p-3 bg-[#aec3b0] ">
+<div class="p-3 bg-[#aec3b0] text-center">
   <h2 mat-dialog-title>Confirmar eliminación</h2>
   <div mat-dialog-content>
     ¿Está seguro de que desea eliminar la tarea perteneciente a la habitación Nº
@@ -7,9 +7,17 @@
     >{{ data.task.room.floor }} asignada al empleado {{ data.task.user.name }}
     {{ data.task.user.surname }}{{ data.message }}?
   </div>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onCancelClick()">Cancelar</button>
-    <button mat-raised-button class="boton-nuevo" (click)="onConfirmClick()" cdkFocusInitial>
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button (click)="onCancelClick()">
+      <mat-icon>cancel</mat-icon>Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="onConfirmClick()"
+      cdkFocusInitial
+    >
+      <mat-icon>delete</mat-icon>
       Eliminar
     </button>
   </div>

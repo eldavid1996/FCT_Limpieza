@@ -17,7 +17,7 @@
 
     <!-- FORM -->
     <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
-      <div class="flex flex-col gap-1 mt-5 w-full">
+      <div class="flex flex-col gap-1 w-full">
         <!-- Email -->
         <mat-form-field class="w-full">
           <mat-label>Email</mat-label>
@@ -75,9 +75,7 @@
       </div>
     </form>
 
-    <div
-      class="flex items-center md:mt-5 opacity-40 max-md:text-white max-md:opacity-100"
-    >
+    <div class="flex items-center mt-5 opacity-40 opacity-100">
       <p>POWERED BY:</p>
       &nbsp;
       <img

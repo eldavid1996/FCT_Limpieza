@@ -1,5 +1,5 @@
-<div class="w-full p-8 bg-[#eff6e0] rounded-lg shadow-lg">
-  <h2 class="text-center">Añadir Habitacion</h2>
+<div class="w-full p-8 bg-[#aec3b0] rounded-lg shadow-lg">
+  <h2 class="text-center">Añadir Habitación</h2>
   <form [formGroup]="roomForm" (ngSubmit)="insertRoom()" class="space-y-6">
     <div class="grid grid-cols-2 gap-6">
       <!-- Campo de RoomNumber -->
@@ -20,15 +20,15 @@
       <div class="mb-4">
         <mat-form-field class="w-full">
           <mat-label>Planta</mat-label>
-          <input matInput formControlName="floor" required type="text" />
-          <mat-error>Planta es requerido</mat-error>
+          <input matInput formControlName="floor" type="text" required />
+          <mat-error>Planta es requerida</mat-error>
         </mat-form-field>
       </div>
       <!-- Campo de Type -->
       <div class="mb-4">
         <mat-form-field class="w-full">
           <mat-label>Tipo</mat-label>
-          <mat-select formControlName="type" [(ngModel)]="defaultType">
+          <mat-select formControlName="type">
             <mat-option
               *ngFor="let option of typeOptions"
               [value]="option.value"
@@ -41,7 +41,7 @@
       <div class="mb-4">
         <mat-form-field class="w-full">
           <mat-label>Estado</mat-label>
-          <mat-select formControlName="status" [(ngModel)]="defaultStatus">
+          <mat-select formControlName="status">
             <mat-option
               *ngFor="let option of statusOptions"
               [value]="option.value"
@@ -54,19 +54,15 @@
 
     <div class="flex justify-end space-x-4 mt-4">
       <button mat-raised-button class="cancelar" mat-dialog-close>
-        Cerrar
+        <mat-icon>cancel</mat-icon>Cancelar
       </button>
       <button
         [disabled]="roomForm.invalid"
         type="submit"
+        class="boton-nuevo"
         mat-raised-button
         [mat-dialog-close]="true"
-        [ngStyle]="{
-          'background-color': roomForm.valid ? '#124559' : '#b0b0b0',
-          color: roomForm.valid ? '#eff6e0' : '#ffffff'
-        }"
-        class="bg-[#01161e] text-white rounded-md px-4 py-2 hover:bg-[#01161e] focus:outline-none focus:bg-[#01161e]"
-      >
+      ><mat-icon>bed</mat-icon>
         Añadir habitación
       </button>
     </div>

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { PaginationList } from '../models/Pagination.model';
 import { PaginationTask } from '../models/paginationTask.model';
 import { Task } from '../models/task.model';
+import { pdfTask } from '../models/pdfTasks.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,23 @@ export class TaskService {
   // Observable for send the task request data to components
   taskPaginationSubject = new Subject<PaginationTask>();
 
+  taskHistorySubject = new Subject<pdfTask>();
+  taskHistory: pdfTask | undefined;
+
   constructor(private http: HttpClient) {}
+
+  getAllHistory() {
+    return this.taskHistorySubject.asObservable();
+  }
+
+  searchAllHistory() {
+    this.http
+      .get<pdfTask>(this.baseUrl + 'TaskHistory')
+      .subscribe((response) => {
+        this.taskHistory = response;
+        this.taskHistorySubject.next(this.taskHistory);
+      });
+  }
 
   // Search tasks with filters
   searchTasks(paginationRequest: PaginationList): void {
