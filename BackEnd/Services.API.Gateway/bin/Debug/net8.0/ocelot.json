@@ -1,4 +1,14 @@
 {
+  "GlobalConfiguration": {
+    "HttpSettings": {
+      "UseHttps": true,
+      "KeyCertificate": {
+        "CertificatePath": "localhost.crt",
+        "KeyPath": "localhost.key"
+      }
+      
+    }
+  },
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/RoomService",

@@ -18,7 +18,7 @@ namespace Services.API.Gateway
             {
                 opt.AddPolicy("CorsRule", rule =>
                 {
-                    rule.WithOrigins("http://localhost:4200")
+                    rule.WithOrigins("https://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
