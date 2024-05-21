@@ -8,7 +8,7 @@ h1 {
 }
 
 h3 {
-  text-shadow: 0.05em 0.05em 0.4em rgba(0, 0, 0, 0.5);
+  text-shadow: 0.05em 0.05em 0.4em rgba(0, 0, 0, 0.25);
   font-size: 1.5rem;
   letter-spacing: 0.25em;
   text-align: center;
