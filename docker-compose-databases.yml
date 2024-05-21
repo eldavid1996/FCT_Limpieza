@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  MongoDBHotel:
+    image: mongo
+    container_name: MongoDBHotel
+    ports:
+      - '27017:27017'
+    restart: always
+
   SQLServerSecurity:
     image: mcr.microsoft.com/mssql/server
     container_name: SQLServerSecurity
@@ -11,9 +18,3 @@ services:
       - '1433:1433'
     restart: always
 
-  MongoDBHotel:
-    image: mongo
-    container_name: MongoDBHotel
-    ports:
-      - '27017:27017'
-    restart: always

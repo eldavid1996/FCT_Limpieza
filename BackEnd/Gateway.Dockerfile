@@ -21,7 +21,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS=https://+:3000
+ENV ASPNETCORE_URLS=https://+:3000;
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/localhost.crt
 ENV ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/app/localhost.key
 

@@ -1,37 +1,6 @@
 version: '3.8'
 
 services:
-  SQLServerSecurity:
-    image: mcr.microsoft.com/mssql/server
-    container_name: SQLServerSecurity
-    environment:
-      ACCEPT_EULA: Y
-      MSSQL_SA_PASSWORD: StrongPassword1!
-    expose:
-      - '1433'
-    #ports:
-    #  - '1433:1433'
-    restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P StrongPassword1! -Q 'SELECT 1'"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-
-  MongoDBHotel:
-    image: mongo
-    container_name: MongoDBHotel
-    expose:
-      - '27017'
-    #ports:
-    #  - '27017:27017'
-    restart: always
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-
   hotel:
     image: hotel
     container_name: hotel
@@ -45,7 +14,7 @@ services:
     #ports:
     #  - '8562:3000'
     environment:
-      - APP_CONNECTION_STRING=mongodb://MongoDBHotel:27017
+      - APP_CONNECTION_STRING=mongodb://localhost:27017
       - APP_DATABASE=MongoDBHotel
     depends_on:
       - MongoDBHotel
@@ -63,9 +32,9 @@ services:
     #ports:
     #  - '8563:3000'
     volumes:
-      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+      - backend_photos:/app/wwwroot/photos
     environment:
-      - APP_CONNECTION_STRING=Data Source=SQLServerSecurity; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
+      - APP_CONNECTION_STRING=Data Source=localhost; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
     depends_on:
       - SQLServerSecurity
 
@@ -82,7 +51,10 @@ services:
     ports:
       - '8561:3000'
     volumes:
-      - ./Backend/wwwroot/photos:/app/wwwroot/photos
+      - backend_photos:/app/wwwroot/photos
     depends_on:
       - hotel
       - security
+
+volumes:
+  backend_photos:

@@ -1,12 +1,13 @@
 {
   "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:3000",
     "HttpSettings": {
       "UseHttps": true,
       "KeyCertificate": {
         "CertificatePath": "localhost.crt",
         "KeyPath": "localhost.key"
       }
-      
+
     }
   },
   "Routes": [
