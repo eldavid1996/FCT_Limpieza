@@ -103,7 +103,7 @@ namespace Services.API.Hotel.Controllers
 
             // Check if user exists
             var httpClient = new HttpClient();
-            string urlUser = "https://localhost:8563/api/UserService/" + newtask.User.Id;
+            string urlUser = "http://security:3000/api/UserService/" + newtask.User.Id;
             try
             {
                 var response = await httpClient.GetAsync(urlUser);
