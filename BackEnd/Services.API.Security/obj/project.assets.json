@@ -4167,19 +4167,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
+    "C:\\Users\\josecarlos.velez\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+      "projectUniqueName": "C:\\Users\\josecarlos.velez\\Desktop\\Dev~branch\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
       "projectName": "Services.API.Security",
-      "projectPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\Desktop\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
+      "projectPath": "C:\\Users\\josecarlos.velez\\Desktop\\Dev~branch\\FCT_Limpieza\\BackEnd\\Services.API.Security\\Services.API.Security.csproj",
+      "packagesPath": "C:\\Users\\josecarlos.velez\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\josecarlos.velez\\Desktop\\Dev~branch\\FCT_Limpieza\\BackEnd\\Services.API.Security\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\josecarlos.velez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4272,7 +4277,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

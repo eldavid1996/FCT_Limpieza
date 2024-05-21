@@ -53,7 +53,7 @@ namespace Services.API.Hotel.Controllers
 
             // Check if user exists
             var httpClient = new HttpClient();
-            string urlUser = "https://localhost:8563/api/UserService/" + task.User.Id;
+            string urlUser = "http://security:3000/api/UserService/" + task.User.Id;
             try
             {
                 var response = await httpClient.GetAsync(urlUser);
