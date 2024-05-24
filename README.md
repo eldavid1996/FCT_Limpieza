@@ -46,7 +46,7 @@ Additionally, a web application made in ``Angular 17`` with standalone component
 
 **2º Install containers**
 
-        docker compose up
+        run_and_open.sh
 
 ## ⭐️ GIVE IT A STAR
 
