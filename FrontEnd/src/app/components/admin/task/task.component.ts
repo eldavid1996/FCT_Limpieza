@@ -49,6 +49,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   roomNumbers: string[] = [];
 
+  automaticTaskControl: boolean = false;
+
   showActiveTasks: boolean = true;
 
   searchRadioButtonValue = 'Status';
@@ -134,6 +136,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
           }
         });
       });
+
+    this.existingUsersAndRooms();
   }
 
   // Event from radio buttons for change column filter search
@@ -225,6 +229,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .pipe(delay(300))
       .subscribe(() => {
         this.taskService.searchTasks(this.paginationRequest);
+        this.existingUsersAndRooms();
       });
   }
 
@@ -240,6 +245,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       .pipe(delay(200))
       .subscribe(() => {
         this.taskService.searchTasks(this.paginationRequest);
+        this.existingUsersAndRooms();
       });
   }
 
@@ -260,6 +266,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.snackbar.open(response, 'Cerrar', { duration: 3000 });
             // Then, get updated list tasks
             this.taskService.searchTasks(this.paginationRequest);
+            this.existingUsersAndRooms();
+
           });
         }
       });
@@ -281,6 +289,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasksFromHistory(this.paginationRequest);
             this.taskService.searchAllHistory();
+            this.existingUsersAndRooms();
+
           });
         }
       });
@@ -306,6 +316,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               // Then, get updated list tasks
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
+              this.existingUsersAndRooms();
+
             },
             error: () => {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
@@ -313,6 +325,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               });
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
+              this.existingUsersAndRooms();
+
             },
           });
         }
@@ -456,7 +470,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
             while (index < rooms.length) {
               users.forEach((user) => {
-                if (index < rooms.length) {
+                if (rooms.length > 0 && index < rooms.length) {
                   var newTask: Task = {
                     Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
                     User: { Id: user.id },
@@ -490,5 +504,38 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
           }
         });
       });
+  }
+
+  existingUsersAndRooms(): void {
+    let users: User[];
+    let rooms: Room[];
+
+    forkJoin([
+      this.userService.getAllUsers(),
+      this.roomService.getAllRooms(),
+    ]).subscribe(([usersResponse, roomsResponse]) => {
+      users = usersResponse;
+      rooms = roomsResponse;
+
+      // Solo habitaciones no asignadas aún
+      rooms = rooms.filter((room) => {
+        return (
+          room.roomNumber !== undefined &&
+          !this.roomNumbers.includes(room.roomNumber)
+        );
+      });
+
+      // Solo usuarios que no sean administradores
+      users = users.filter((user) => {
+        return user.roleAdmin !== undefined && !user.roleAdmin;
+      });
+
+      // Si la longitud de users o rooms es 0, establecer result en false
+      if (users.length === 0 || rooms.length === 0) {
+        this.automaticTaskControl = false;
+      } else {
+        this.automaticTaskControl = true;
+      }
+    });
   }
 }
