@@ -30,6 +30,11 @@ export class RoomService {
       });
   }
 
+  // Get all rooms
+  getAllRooms(): Observable<Room[]> {
+    return this.http.get<Room[]>(this.baseUrl + 'Room');
+  }
+
   // Get an observable with the rooms
   getRooms(): Observable<PaginationRoom> {
     return this.roomPaginationSubject.asObservable();

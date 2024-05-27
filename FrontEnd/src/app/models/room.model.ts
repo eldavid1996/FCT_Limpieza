@@ -1,4 +1,6 @@
 export interface Room {
+  Id?: string;
+  id?: string;
   RoomNumber: string;
   roomNumber?: string; // for read from json
   Floor: string;
