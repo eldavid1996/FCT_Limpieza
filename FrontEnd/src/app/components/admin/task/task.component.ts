@@ -5,7 +5,7 @@ import {
   PageEvent,
 } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { Subscription, delay } from 'rxjs';
+import { Subscription, delay, forkJoin } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginationList } from '../../../models/Pagination.model';
@@ -18,13 +18,18 @@ import { PaginationTask } from '../../../models/paginationTask.model';
 import { InsertTaskModalComponent } from './modals/insert/insertTaskModal.component';
 import { UpdateTaskModalComponent } from './modals/update/updateTaskModal.component';
 import { DeleteTaskModalComponent } from './modals/delete/deleteTaskModal.component';
-import { Task } from '../../../models/task.model';
+import { Task, TaskRoom, TaskUser } from '../../../models/task.model';
 import { MoveToHistoryTaskModalComponent } from './modals/moveToHistory/moveToHistoryTaskModal.component';
 import { TaskHistoryTableComponent } from './modals/tables/taskHistory/taskHistory.component';
 import { DeleteHistoryModalComponent } from './modals/delete/deleteHistoryModal.component';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import { pdfTask } from '../../../models/pdfTasks.model';
+import { UserService } from '../../../services/user.service';
+import { RoomService } from '../../../services/room.service';
+import { Room } from '../../../models/room.model';
+import { User } from '../../../models/user.model';
+import { AddTaskAutoTaskModalComponent } from './modals/addTaskAuto/addTaskAutoTaskModal.component';
 
 @Component({
   selector: 'app-task-table',
@@ -80,6 +85,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   constructor(
     private taskService: TaskService,
+    private userService: UserService,
+    private roomService: RoomService,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
@@ -274,7 +281,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasksFromHistory(this.paginationRequest);
             this.taskService.searchAllHistory();
-
           });
         }
       });
@@ -399,12 +405,90 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         }
 
         const date = new Date();
-        const formatedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
-        
-        pdf.save('histórico '+formatedDate+'.pdf');
+        const formatedDate = `${String(date.getDate()).padStart(
+          2,
+          '0'
+        )}-${String(date.getMonth() + 1).padStart(
+          2,
+          '0'
+        )}-${date.getFullYear()}`;
+
+        pdf.save('histórico ' + formatedDate + '.pdf');
 
         element.style.display = 'none';
       });
     }
+  }
+
+  // Open a modal for insert a new task
+  insertTaskAuto(): void {
+    const dialogRef = this.dialog.open(AddTaskAutoTaskModalComponent, {});
+    dialogRef
+      .afterClosed()
+      .pipe(delay(300))
+      .subscribe(() => {
+        let users: User[];
+        let rooms: Room[];
+
+        forkJoin([
+          this.userService.getAllUsers(),
+          this.roomService.getAllRooms(),
+        ]).subscribe(([usersResponse, roomsResponse]) => {
+          users = usersResponse;
+          rooms = roomsResponse;
+
+          // Only rooms no assigned yet
+          rooms = rooms.filter((room) => {
+            return (
+              room.roomNumber !== undefined &&
+              !this.roomNumbers.includes(room.roomNumber)
+            );
+          });
+
+          // Only users no admin
+          users = users.filter((user) => {
+            return user.roleAdmin !== undefined && !user.roleAdmin;
+          });
+
+          // More rooms than users
+          if (users.length < rooms.length) {
+            let index = 0;
+
+            while (index < rooms.length) {
+              users.forEach((user) => {
+                if (index < rooms.length) {
+                  var newTask: Task = {
+                    Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
+                    User: { Id: user.id },
+                    Priority: '1',
+                    Status: 'Pendiente',
+                    Observations: '',
+                  };
+                  this.taskService.insertTask(newTask).subscribe(() => {
+                    this.taskService.searchTasks(this.paginationRequest);
+                  });
+                  index++;
+                }
+              });
+            }
+          } else {
+            // More users than rooms
+            users.forEach((user, index) => {
+              if (rooms.length > 0 && index < rooms.length) {
+                var newTask: Task = {
+                  Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
+                  User: { Id: user.id },
+                  Priority: '1',
+                  Status: 'Pendiente',
+                  Observations: '',
+                };
+                this.taskService.insertTask(newTask).subscribe(() => {
+                  this.taskService.searchTasks(this.paginationRequest);
+                });
+              }
+            });
+          }
+        });
+      });
   }
 }

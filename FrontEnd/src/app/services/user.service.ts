@@ -32,6 +32,11 @@ export class UserService {
       });
   }
 
+  // Get all users 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + 'User');
+  }
+
   // Get an observable with the users
   getUsers(): Observable<PaginationUser> {
     return this.userPaginationSubject.asObservable();

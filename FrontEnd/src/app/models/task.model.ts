@@ -18,7 +18,7 @@ export interface TaskUser {
 }
 
 export interface TaskRoom {
-  Id: string;
+  Id?: string;
   roomNumber: string;
   Floor?: string;
 }

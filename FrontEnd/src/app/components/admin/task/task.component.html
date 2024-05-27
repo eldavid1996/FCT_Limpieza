@@ -275,7 +275,16 @@
         Añadir tarea<mat-icon>task</mat-icon>
       </button>
     </div>
-    <div class="flex justify-end px-8 pt-4 pb-2" *ngIf="showActiveTasks">
+    <div class="flex justify-between px-8 pt-4 pb-2" *ngIf="showActiveTasks">
+      <button
+      class="boton-nuevo px-4 py-2"
+      mat-flat-button
+      (click)="insertTaskAuto()"
+      [disabled]="!showActiveTasks"
+      title="Añadir automáticamente"
+    >
+      Añadir tareas automáticamente<mat-icon>task</mat-icon>
+    </button>
       <button
         class="boton-nuevo px-4 py-2 ml-auto"
         mat-flat-button
