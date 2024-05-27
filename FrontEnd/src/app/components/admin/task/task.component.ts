@@ -398,7 +398,10 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
           heightLeft -= pageHeight;
         }
 
-        pdf.save('histórico.pdf');
+        const date = new Date();
+        const formatedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+        
+        pdf.save('histórico '+formatedDate+'.pdf');
 
         element.style.display = 'none';
       });
