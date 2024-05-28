@@ -97,6 +97,13 @@ export class TaskService {
     });
   }
 
+  // Delete all the active tasks
+  deleteAll() {
+    return this.http.delete(this.baseUrl + 'Task/deleteAll', {
+      responseType: 'text',
+    });
+  }
+
   // Search tasks with filters
   searchTasksFromHistory(paginationRequest: PaginationList): void {
     this.http

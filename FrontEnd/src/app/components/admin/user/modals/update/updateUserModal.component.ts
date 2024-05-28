@@ -97,6 +97,7 @@ export class UpdateUserModalComponent implements OnInit {
       City: this.userForm.get('city')?.value,
       RoleAdmin: this.userForm.get('roleAdmin')?.value,
       urlImage: this.data.user.urlImage,
+      Disabled:this.data.user.disabled
     };
 
     // manage the 2 cases : date from db and date null from db

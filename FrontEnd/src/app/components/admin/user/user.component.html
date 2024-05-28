@@ -58,6 +58,7 @@
               mat-cell
               *matCellDef="let element"
               (click)="checkUser(element.id)"
+              [class.orange]="this.element.disabled === true"
             >
               <div
                 class="inline-flex items-center gap-2"
@@ -98,6 +99,7 @@
               mat-cell
               *matCellDef="let element"
               (click)="checkUser(element.id)"
+              [class.orange]="this.element.disabled === true"
             >
               <strong> {{ element.surname }}</strong>
             </td>
@@ -117,6 +119,7 @@
               mat-cell
               *matCellDef="let element"
               (click)="checkUser(element.id)"
+              [class.orange]="this.element.disabled === true"
             >
               <strong> {{ element.email }}</strong>
             </td>
@@ -136,6 +139,7 @@
                 mat-cell
                 *matCellDef="let element"
                 (click)="checkUser(element.id)"
+                [class.orange]="this.element.disabled === true"
               >
                 <strong> {{ element.phoneNumber }}</strong>
               </td>
@@ -156,6 +160,7 @@
                 mat-cell
                 *matCellDef="let element"
                 (click)="checkUser(element.id)"
+                [class.orange]="this.element.disabled === true"
               >
                 <strong> {{ element.city }}</strong>
               </td>
@@ -166,7 +171,11 @@
             <th mat-header-cell *matHeaderCellDef>
               <strong class="underline">Acciones</strong>
             </th>
-            <td mat-cell *matCellDef="let element">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              [class.orange]="this.element.disabled === true"
+            >
               <button
                 title="Modificar"
                 mat-icon-button
@@ -183,6 +192,30 @@
                 (click)="deleteUser(element.id, element)"
               >
                 <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                title="Deshabilitar"
+                *ngIf="
+                  (element.id !== getUserLoggedId() &&
+                    element.disabled === null) ||
+                  element.disabled === false
+                "
+                mat-icon-button
+                (click)="disableUser(element.id, element)"
+              >
+                <mat-icon style="color: rgb(249 115 22) !important"
+                  >person_off</mat-icon
+                >
+              </button>
+              <button
+                title="Habilitar"
+                *ngIf="
+                  element.id !== getUserLoggedId() && element.disabled === true
+                "
+                mat-icon-button
+                (click)="enableUser(element.id, element)"
+              >
+                <mat-icon style="color: #4caf50 !important">person_on</mat-icon>
               </button>
               <button
                 title="Mi perfil"

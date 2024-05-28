@@ -21,7 +21,7 @@ namespace Services.API.Security.Core.Entities
         public DateTime? BirthDate { get; set; }
         public string? City { get; set; }
         public string? CP { get; set; }
-
         public string? urlImage { get; set; }
+        public bool? Disabled { get; set; }
     }
 }

@@ -30,6 +30,7 @@ import { RoomService } from '../../../services/room.service';
 import { Room } from '../../../models/room.model';
 import { User } from '../../../models/user.model';
 import { AddTaskAutoTaskModalComponent } from './modals/addTaskAuto/addTaskAutoTaskModal.component';
+import { DeleteAllModalComponent } from './modals/delete/deleteAllModal.component';
 
 @Component({
   selector: 'app-task-table',
@@ -49,7 +50,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
 
   roomNumbers: string[] = [];
 
-  automaticTaskControl: boolean = false;
+  automaticTaskControl: boolean;
 
   showActiveTasks: boolean = true;
 
@@ -93,6 +94,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     private snackbar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl
   ) {
+    this.automaticTaskControl = false;
     // Pagination in spanish
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.getRangeLabel = (
@@ -135,9 +137,9 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.roomNumbers.push(task.room.roomNumber);
           }
         });
-      });
 
-    this.existingUsersAndRooms();
+        this.existingUsersAndRooms();
+      });
   }
 
   // Event from radio buttons for change column filter search
@@ -258,7 +260,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     // If modal was closed with a 'confirm' status delete the task
     dialogRef
       .afterClosed()
-      .pipe(delay(200))
+      .pipe(delay(300))
       .subscribe((result) => {
         if (result === 'confirm') {
           this.taskService.deleteTask(taskId).subscribe((response) => {
@@ -267,7 +269,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasks(this.paginationRequest);
             this.existingUsersAndRooms();
-
           });
         }
       });
@@ -290,7 +291,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.taskService.searchTasksFromHistory(this.paginationRequest);
             this.taskService.searchAllHistory();
             this.existingUsersAndRooms();
-
           });
         }
       });
@@ -317,7 +317,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
-
             },
             error: () => {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
@@ -326,7 +325,6 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
-
             },
           });
         }
@@ -434,7 +432,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Open a modal for insert a new task
+  // Open a modal for insert all task
   insertTaskAuto(): void {
     const dialogRef = this.dialog.open(AddTaskAutoTaskModalComponent, {});
     dialogRef
@@ -451,17 +449,20 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
           users = usersResponse;
           rooms = roomsResponse;
 
-          // Only rooms no assigned yet
+          // Solo habitaciones no asignadas aún y ocupadas
           rooms = rooms.filter((room) => {
             return (
               room.roomNumber !== undefined &&
-              !this.roomNumbers.includes(room.roomNumber)
+              !this.roomNumbers.includes(room.roomNumber) &&
+              room.status !== 'Vacía'
             );
           });
 
-          // Only users no admin
+          // Solo usuarios que no sean administradores y no esten deshabilitados
           users = users.filter((user) => {
-            return user.roleAdmin !== undefined && !user.roleAdmin;
+            return (
+              user.roleAdmin !== undefined && !user.roleAdmin && !user.disabled
+            );
           });
 
           // More rooms than users
@@ -480,6 +481,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                   };
                   this.taskService.insertTask(newTask).subscribe(() => {
                     this.taskService.searchTasks(this.paginationRequest);
+                    this.existingUsersAndRooms();
                   });
                   index++;
                 }
@@ -498,6 +500,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                 };
                 this.taskService.insertTask(newTask).subscribe(() => {
                   this.taskService.searchTasks(this.paginationRequest);
+                  this.existingUsersAndRooms();
                 });
               }
             });
@@ -517,17 +520,20 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       users = usersResponse;
       rooms = roomsResponse;
 
-      // Solo habitaciones no asignadas aún
+      // Solo habitaciones no asignadas aún y ocupadas
       rooms = rooms.filter((room) => {
         return (
           room.roomNumber !== undefined &&
-          !this.roomNumbers.includes(room.roomNumber)
+          !this.roomNumbers.includes(room.roomNumber) &&
+          room.status !== 'Vacía'
         );
       });
 
-      // Solo usuarios que no sean administradores
+      // Solo usuarios que no sean administradores y no esten deshabilitados
       users = users.filter((user) => {
-        return user.roleAdmin !== undefined && !user.roleAdmin;
+        return (
+          user.roleAdmin !== undefined && !user.roleAdmin && !user.disabled
+        );
       });
 
       // Si la longitud de users o rooms es 0, establecer result en false
@@ -537,5 +543,26 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
         this.automaticTaskControl = true;
       }
     });
+  }
+
+  // Delete all active tasks
+  deleteAll() {
+    const dialogRef = this.dialog.open(DeleteAllModalComponent, {});
+
+    // If modal was closed with a 'confirm' status delete the task
+    dialogRef
+      .afterClosed()
+      .pipe(delay(200))
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          this.taskService.deleteAll().subscribe((response) => {
+            // And show a snackbar with the request result
+            this.snackbar.open(response, 'Cerrar', { duration: 3000 });
+            // Then, get updated list tasks
+            this.taskService.searchTasks(this.paginationRequest);
+            this.existingUsersAndRooms();
+          });
+        }
+      });
   }
 }

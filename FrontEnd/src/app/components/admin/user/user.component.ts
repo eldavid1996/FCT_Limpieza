@@ -21,6 +21,7 @@ import { SecurityService } from '../../../services/security.service';
 import { InsertUserModalComponent } from './modals/insert/insertUserModal.component';
 import { UpdateUserModalComponent } from './modals/update/updateUserModal.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { InsertOrUpdateUser } from '../../../models/userUpdateOrInsert.model';
 
 @Component({
   selector: 'app-user-table',
@@ -224,6 +225,22 @@ export class UserTableComponent implements OnInit, AfterViewInit {
       dialogRef.afterClosed().subscribe(() => {
         this.userService.searchUsers(this.paginationRequest);
       });
+    });
+  }
+
+  disableUser(userId: string, user: InsertOrUpdateUser) {
+    user.Disabled = true;
+    this.userService.updateUser(userId, user).subscribe(() => {
+      this.userService.searchUsers(this.paginationRequest);
+      this.snackbar.open('Usuario deshabilitado', 'Cerrar', { duration: 3000 });
+    });
+  }
+
+  enableUser(userId: string, user: InsertOrUpdateUser) {
+    user.Disabled = false;
+    this.userService.updateUser(userId, user).subscribe(() => {
+      this.userService.searchUsers(this.paginationRequest);
+      this.snackbar.open('Usuario habilitado', 'Cerrar', { duration: 3000 });
     });
   }
 }

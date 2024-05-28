@@ -38,6 +38,8 @@ namespace Services.API.Security.Core.Application
             public string? City { get; set; }
             public string? CP { get; set; }
             public string? urlImage { get; set; }
+            public bool? Disabled { get; set; }
+
 
         }
 
@@ -83,6 +85,7 @@ namespace Services.API.Security.Core.Application
                 registeredUser.City = request.City;
                 registeredUser.CP = request.CP;
                 registeredUser.urlImage = request.urlImage;
+                registeredUser.Disabled = (bool)request.Disabled;
 
                 var result = await _userManager.UpdateAsync(registeredUser);
 
