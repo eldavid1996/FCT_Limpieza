@@ -142,6 +142,13 @@ namespace Services.API.Hotel.Controllers
             return Ok("Tarea eliminada correctamente.");
         }
 
+        [HttpDelete("deleteAll")]
+        public async Task<IActionResult> DeleteAll()
+        {
+            await _taskRepository.DeleteAll();
+            return Ok("Tareas eliminadas correctamente");
+        }
+
         [HttpPost("pagination")]
         public async Task<ActionResult<PaginationDto<TaskEntity>>> Pagination(PaginationDto<TaskEntity> pagination)
         {

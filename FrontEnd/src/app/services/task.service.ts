@@ -59,6 +59,13 @@ export class TaskService {
     });
   }
 
+  // Delete all the active tasks
+  deleteAll() {
+    return this.http.delete(this.baseUrl + 'Task/deleteAll', {
+      responseType: 'text',
+    });
+  }
+
   // Update the selected task
   updateTask(id: string, updatedTask: Task) {
     const body = { ...updatedTask, id };

@@ -11,4 +11,5 @@ export interface User{
   roleAdmin:boolean;
   token:string;
   urlImage: string;
+  disabled?:boolean;
 }

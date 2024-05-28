@@ -277,14 +277,24 @@
     </div>
     <div class="flex justify-between px-8 pt-4 pb-2" *ngIf="showActiveTasks">
       <button
-      class="boton-nuevo px-4 py-2"
-      mat-flat-button
-      (click)="insertTaskAuto()"
-      [disabled]="!automaticTaskControl"
-      title="Añadir automáticamente"
-    >
-      Añadir tareas automáticamente<mat-icon>task</mat-icon>
-    </button>
+        class="boton-borrar px-4 py-2"
+        mat-flat-button
+        (click)="deleteAll()"
+        title="Vaciar tareas"
+        [disabled]="dataSource.data.length <= 0"
+      >
+        Vaciar tareas<mat-icon>delete</mat-icon>
+      </button>
+      <button
+        class="px-4 py-2 ml-auto"
+        color="primary"
+        mat-flat-button
+        (click)="insertTaskAuto()"
+        [disabled]="!automaticTaskControl"
+        title="Añadir automáticamente"
+      >
+        Añadir tareas automáticamente<mat-icon>task</mat-icon>
+      </button>
       <button
         class="boton-nuevo px-4 py-2 ml-auto"
         mat-flat-button

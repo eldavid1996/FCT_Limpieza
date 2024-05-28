@@ -38,6 +38,7 @@ namespace Services.API.Security.Core.Application
             public string? City { get; set; }
             public string? CP { get; set; }
             public string? urlImage { get; set; }
+            public bool? Disabled { get; set; }
 
         }
 
@@ -79,6 +80,7 @@ namespace Services.API.Security.Core.Application
                 registeredUser.Surname = request.Surname;
                 registeredUser.DNI = request.DNI;
                 registeredUser.RoleAdmin = (bool)request.RoleAdmin;
+                registeredUser.Disabled = (bool)request.Disabled;
                 registeredUser.BirthDate = request.BirthDate;
                 registeredUser.City = request.City;
                 registeredUser.CP = request.CP;

@@ -24,5 +24,8 @@
         public string? Token { get; set; }
 
         public string? urlImage { get; set; }
+
+        public bool? Disabled { get; set; }
+
     }
 }

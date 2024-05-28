@@ -23,5 +23,7 @@ namespace Services.API.Security.Core.Entities
         public string? CP { get; set; }
 
         public string? urlImage { get; set; }
+
+        public bool? Disabled { get; set; }
     }
 }

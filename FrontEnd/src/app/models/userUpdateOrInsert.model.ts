@@ -10,4 +10,5 @@ export interface InsertOrUpdateUser {
   City: string;
   RoleAdmin: boolean;
   urlImage: string;
+  Disabled?:boolean;
 }
