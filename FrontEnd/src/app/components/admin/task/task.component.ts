@@ -508,6 +508,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                 }
               });
             }
+            this.snackbar.open('Tareas añadidas automáticamente', 'Cerrar', { duration: 3000 });
           });
         }
       });
