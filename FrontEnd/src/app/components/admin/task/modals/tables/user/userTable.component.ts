@@ -165,9 +165,11 @@ export class TaskUserTableComponent implements OnInit, AfterViewInit {
   }
 
   // For set user selected id value
-  selectCell(id: string) {
-    this.selectedId = id;
-    this.selectedIdUserChange.emit(this.selectedId);
+  selectCell(id: string, disabled: boolean) {
+    if(disabled != true){
+      this.selectedId = id;
+      this.selectedIdUserChange.emit(this.selectedId);
+    }
   }
 
   // For manage the selected item color

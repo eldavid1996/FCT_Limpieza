@@ -27,3 +27,8 @@ th {
   cursor: default;
   background: white !important;
 }
+
+.orange-row {
+  background-color: orange;
+  cursor: default;
+}

@@ -51,8 +51,11 @@
         <td
           mat-cell
           *matCellDef="let element"
-          (click)="selectCell(element.id)"
-          [ngClass]="{ 'highlighted-row': element.id === selectedId }"
+          (click)="selectCell(element.id, element.disabled)"
+          [ngClass]="{
+            'highlighted-row': element.id === selectedId,
+            'orange-row': this.element.disabled === true
+          }"
         >
           <div
             class="inline-flex items-center gap-2"
@@ -92,8 +95,11 @@
         <td
           mat-cell
           *matCellDef="let element"
-          (click)="selectCell(element.id)"
-          [ngClass]="{ 'highlighted-row': element.id === selectedId }"
+          (click)="selectCell(element.id, element.disabled)"
+          [ngClass]="{
+            'highlighted-row': element.id === selectedId,
+            'orange-row': this.element.disabled === true
+          }"
         >
           <strong>{{ element.surname }}</strong>
         </td>
@@ -112,8 +118,11 @@
         <td
           mat-cell
           *matCellDef="let element"
-          (click)="selectCell(element.id)"
-          [ngClass]="{ 'highlighted-row': element.id === selectedId }"
+          (click)="selectCell(element.id, element.disabled)"
+          [ngClass]="{
+            'highlighted-row': element.id === selectedId,
+            'orange-row': this.element.disabled === true
+          }"
         >
           <strong>{{ element.email }}</strong>
         </td>
@@ -132,8 +141,11 @@
         <td
           mat-cell
           *matCellDef="let element"
-          (click)="selectCell(element.id)"
-          [ngClass]="{ 'highlighted-row': element.id === selectedId }"
+          (click)="selectCell(element.id, element.disabled)"
+          [ngClass]="{
+            'highlighted-row': element.id === selectedId,
+            'orange-row': this.element.disabled === true
+          }"
         >
           <strong>{{ element.phoneNumber }}</strong>
         </td>
@@ -152,8 +164,11 @@
         <td
           mat-cell
           *matCellDef="let element"
-          (click)="selectCell(element.id)"
-          [ngClass]="{ 'highlighted-row': element.id === selectedId }"
+          (click)="selectCell(element.id, element.disabled)"
+          [ngClass]="{
+            'highlighted-row': element.id === selectedId,
+            'orange-row': this.element.disabled === true
+          }"
         >
           <strong>{{ element.city }}</strong>
         </td>
