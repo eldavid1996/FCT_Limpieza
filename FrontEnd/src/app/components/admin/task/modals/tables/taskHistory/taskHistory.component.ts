@@ -188,7 +188,10 @@ export class TaskHistoryTableComponent implements OnInit, AfterViewInit {
           $this.paginationFilter = this.searchByUser(event.target.value);
         }
         if (this.searchRadioButtonValue === 'CreatedDate') {
-          $this.paginationFilter = this.searchByDate(event.target.value);
+          var selectedDate = new Date(event.target.value);
+          selectedDate.setDate(selectedDate.getDate() + 1);
+
+          $this.paginationFilter = this.searchByDate(selectedDate.toISOString());
         }
         this.paginationRequest.filter = $this.paginationFilter;
         $this.taskService.searchTasksFromHistory(this.paginationRequest);
