@@ -438,39 +438,61 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
     dialogRef
       .afterClosed()
       .pipe(delay(300))
-      .subscribe(() => {
-        let users: User[];
-        let rooms: Room[];
+      .subscribe((result) => {
+        if (result === 'confirm') {
+          let users: User[];
+          let rooms: Room[];
 
-        forkJoin([
-          this.userService.getAllUsers(),
-          this.roomService.getAllRooms(),
-        ]).subscribe(([usersResponse, roomsResponse]) => {
-          users = usersResponse;
-          rooms = roomsResponse;
+          forkJoin([
+            this.userService.getAllUsers(),
+            this.roomService.getAllRooms(),
+          ]).subscribe(([usersResponse, roomsResponse]) => {
+            users = usersResponse;
+            rooms = roomsResponse;
 
-          // Solo habitaciones no asignadas aún y ocupadas
-          rooms = rooms.filter((room) => {
-            return (
-              room.roomNumber !== undefined &&
-              !this.roomNumbers.includes(room.roomNumber) &&
-              room.status !== 'Vacía'
-            );
-          });
+            // Solo habitaciones no asignadas aún y ocupadas
+            rooms = rooms.filter((room) => {
+              return (
+                room.roomNumber !== undefined &&
+                !this.roomNumbers.includes(room.roomNumber) &&
+                room.status !== 'Vacía'
+              );
+            });
 
-          // Solo usuarios que no sean administradores y no esten deshabilitados
-          users = users.filter((user) => {
-            return (
-              user.roleAdmin !== undefined && !user.roleAdmin && !user.disabled
-            );
-          });
+            // Solo usuarios que no sean administradores y no esten deshabilitados
+            users = users.filter((user) => {
+              return (
+                user.roleAdmin !== undefined &&
+                !user.roleAdmin &&
+                !user.disabled
+              );
+            });
 
-          // More rooms than users
-          if (users.length < rooms.length) {
-            let index = 0;
+            // More rooms than users
+            if (users.length < rooms.length) {
+              let index = 0;
 
-            while (index < rooms.length) {
-              users.forEach((user) => {
+              while (index < rooms.length) {
+                users.forEach((user) => {
+                  if (rooms.length > 0 && index < rooms.length) {
+                    var newTask: Task = {
+                      Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
+                      User: { Id: user.id },
+                      Priority: '1',
+                      Status: 'Pendiente',
+                      Observations: '',
+                    };
+                    this.taskService.insertTask(newTask).subscribe(() => {
+                      this.taskService.searchTasks(this.paginationRequest);
+                      this.existingUsersAndRooms();
+                    });
+                    index++;
+                  }
+                });
+              }
+            } else {
+              // More users than rooms
+              users.forEach((user, index) => {
                 if (rooms.length > 0 && index < rooms.length) {
                   var newTask: Task = {
                     Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
@@ -483,29 +505,11 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
                     this.taskService.searchTasks(this.paginationRequest);
                     this.existingUsersAndRooms();
                   });
-                  index++;
                 }
               });
             }
-          } else {
-            // More users than rooms
-            users.forEach((user, index) => {
-              if (rooms.length > 0 && index < rooms.length) {
-                var newTask: Task = {
-                  Room: { Id: rooms[index].id, roomNumber: '', Floor: '' },
-                  User: { Id: user.id },
-                  Priority: '1',
-                  Status: 'Pendiente',
-                  Observations: '',
-                };
-                this.taskService.insertTask(newTask).subscribe(() => {
-                  this.taskService.searchTasks(this.paginationRequest);
-                  this.existingUsersAndRooms();
-                });
-              }
-            });
-          }
-        });
+          });
+        }
       });
   }
 
