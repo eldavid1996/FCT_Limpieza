@@ -49,7 +49,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
   pdfTasks: pdfTask | any;
 
   roomNumbers: string[] = [];
-
+  botonPulsado = false;
   automaticTaskControl: boolean;
 
   showActiveTasks: boolean = true;
@@ -269,6 +269,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasks(this.paginationRequest);
             this.existingUsersAndRooms();
+            this.botonPulsado = false;
+
           });
         }
       });
@@ -291,6 +293,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             this.taskService.searchTasksFromHistory(this.paginationRequest);
             this.taskService.searchAllHistory();
             this.existingUsersAndRooms();
+            this.botonPulsado = false;
+
           });
         }
       });
@@ -317,6 +321,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
+              this.botonPulsado = false;
+
             },
             error: () => {
               this.snackbar.open('Ocurrió un error inesperado.', 'Cerrar', {
@@ -325,6 +331,8 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               this.taskService.searchTasks(this.paginationRequest);
               this.taskService.searchAllHistory();
               this.existingUsersAndRooms();
+              this.botonPulsado = false;
+
             },
           });
         }
@@ -509,6 +517,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
               });
             }
             this.snackbar.open('Tareas añadidas automáticamente', 'Cerrar', { duration: 3000 });
+            this.botonPulsado = true;
           });
         }
       });
@@ -542,7 +551,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
       });
 
       // Si la longitud de users o rooms es 0, establecer result en false
-      if (users.length === 0 || rooms.length === 0) {
+      if (users.length === 0 || rooms.length === 0 || this.botonPulsado) {
         this.automaticTaskControl = false;
       } else {
         this.automaticTaskControl = true;
@@ -566,6 +575,7 @@ export class TaskTableComponent implements OnInit, AfterViewInit {
             // Then, get updated list tasks
             this.taskService.searchTasks(this.paginationRequest);
             this.existingUsersAndRooms();
+            this.botonPulsado = false;
           });
         }
       });
