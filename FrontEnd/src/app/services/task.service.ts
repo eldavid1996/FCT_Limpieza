@@ -15,9 +15,11 @@ export class TaskService {
 
   // Returned pagination model from request
   taskPagination: PaginationTask | undefined;
+  taskHiddenPagination: PaginationTask | undefined;
 
   // Observable for send the task request data to components
   taskPaginationSubject = new Subject<PaginationTask>();
+  taskHiddenPaginationSubject = new Subject<PaginationTask>();
 
   taskHistorySubject = new Subject<pdfTask>();
   taskHistory: pdfTask | undefined;
@@ -47,11 +49,23 @@ export class TaskService {
       });
   }
 
+  // Search all tasks with filters
+  searchAllTasks(paginationRequest: PaginationList): void {
+    this.http
+      .post<PaginationTask>(this.baseUrl + 'Task/pagination', paginationRequest)
+      .subscribe((response) => {
+        this.taskHiddenPagination = response;
+        this.taskHiddenPaginationSubject.next(this.taskHiddenPagination);
+      });
+  }
   // Get an observable with the tasks
   getTasks(): Observable<PaginationTask> {
     return this.taskPaginationSubject.asObservable();
   }
-
+  // Get an observable with the hidden tasks
+  getAllTasks(): Observable<PaginationTask> {
+    return this.taskHiddenPaginationSubject.asObservable();
+  }
   // Delete task by id
   deleteTask(id: string) {
     return this.http.delete(this.baseUrl + 'Task/' + id, {
