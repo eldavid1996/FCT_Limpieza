@@ -1,0 +1,12 @@
+{
+  "routes": [
+    "/",
+    "/calendario",
+    "/empleados",
+    "/habitaciones",
+    "/inicio",
+    "/mistareas",
+    "/perfil",
+    "/tareas"
+  ]
+}

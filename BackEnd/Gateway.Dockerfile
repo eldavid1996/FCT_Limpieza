@@ -1,10 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 3000
-ENV ASPNETCORE_HTTP_PORTS=3000
-
-COPY localhost.crt /app
-COPY localhost.key /app
+EXPOSE 443
+ENV ASPNETCORE_HTTP_PORTS=443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -21,8 +18,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENV ASPNETCORE_URLS=https://+:3000;
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/localhost.crt
-ENV ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/app/localhost.key
+ENV ASPNETCORE_URLS=http://+:443;
 
 ENTRYPOINT ["dotnet", "Services.API.Gateway.dll"]

@@ -1,6 +1,6 @@
 export const  environment = {
     production: false,
-    gatewayUrl: 'https://localhost:8561/',
-    hotelUrl: 'https://localhost:8562/',
-    securityUrl: 'https://localhost:8563/'
+    gatewayUrl: 'https://optimistic-knuth.87-106-236-123.plesk.page/api/',
+    // hotelUrl: 'https://localhost:8562/',
+    // securityUrl: 'https://localhost:8563/'
   }

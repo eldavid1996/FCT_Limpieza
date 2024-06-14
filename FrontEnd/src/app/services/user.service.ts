@@ -12,7 +12,6 @@ import { InsertOrUpdateUser } from '../models/userUpdateOrInsert.model';
 })
 export class UserService {
   baseUrl = environment.gatewayUrl;
-  photoUrl = environment.securityUrl;
 
   // Returned pagination model from request
   userPagination: PaginationUser | undefined;

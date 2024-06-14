@@ -16,8 +16,6 @@ services:
     environment:
       - APP_CONNECTION_STRING=mongodb://localhost:27017
       - APP_DATABASE=MongoDBHotel
-    depends_on:
-      - MongoDBHotel
 
   security:
     image: security
@@ -35,8 +33,6 @@ services:
       - backend_photos:/app/wwwroot/photos
     environment:
       - APP_CONNECTION_STRING=Data Source=localhost; Initial Catalog=Security; User Id=sa; Password=StrongPassword1!; TrustServerCertificate=true;
-    depends_on:
-      - SQLServerSecurity
 
   gateway:
     image: gateway

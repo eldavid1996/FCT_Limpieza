@@ -39,6 +39,7 @@ services:
       - APP_DATABASE=MongoDBHotel
     depends_on:
       - MongoDBHotel
+      - SQLServerSecurity
 
   security:
     image: security
@@ -58,7 +59,7 @@ services:
       - APP_CONNECTION_STRING=Data Source=SQLServerSecurity;Initial Catalog=Security; User Id=sa;Password=StrongPassword1!;TrustServerCertificate=true;
     depends_on:
       - SQLServerSecurity
-      - web
+      - MongoDBHotel
 
   gateway:
     image: gateway
@@ -71,25 +72,11 @@ services:
     #expose:
     #  - '3000'
     ports:
-      - '8561:3000'
+      - '8562:443'
     volumes:
       - backend_photos:/app/wwwroot/photos
     depends_on:
       - hotel
-
-  web:
-    image: web
-    container_name: web
-    hostname: web
-    build:
-      context: ./FrontEnd/
-      dockerfile: Web.Dockerfile
-    ports:
-      - "4200:4200"
-    restart: always
-    depends_on:
-      - hotel
-      - gateway
       - SQLServerSecurity
       - MongoDBHotel
 
