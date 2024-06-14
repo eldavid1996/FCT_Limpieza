@@ -27,7 +27,7 @@ services:
     container_name: hotel
     hostname: hotel
     build:
-      context: ./Backend/
+      context: ./BackEnd/
       dockerfile: Hotel.Dockerfile
     restart: always
     expose:
@@ -45,7 +45,7 @@ services:
     container_name: security
     hostname: security
     build:
-      context: ./Backend/
+      context: ./BackEnd/
       dockerfile: Security.Dockerfile
     restart: always
     expose:
@@ -65,7 +65,7 @@ services:
     container_name: gateway
     hostname: gateway
     build:
-      context: ./Backend/
+      context: ./BackEnd/
       dockerfile: Gateway.Dockerfile
     restart: always
     #expose:
@@ -82,7 +82,7 @@ services:
     container_name: web
     hostname: web
     build:
-      context: ./Frontend/
+      context: ./FrontEnd/
       dockerfile: Web.Dockerfile
     ports:
       - "4200:4200"

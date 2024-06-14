@@ -4,6 +4,6 @@ sleep 20
 
 docker-compose up -d hotel security gateway web
 
-sleep 10
+sleep 30
 
 start https://localhost:4200
