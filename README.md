@@ -48,6 +48,12 @@ Additionally, a web application made in ``Angular 17`` with standalone component
 
         run_and_open.sh
 
+**3º Login with the Admin account**
+    
+        admin@gmail.com
+****
+        StrongPassword1!
+
 ## ⭐️ GIVE IT A STAR
 
 If you found this Implementation useful for your Projects, please give it a star. Thank you!
