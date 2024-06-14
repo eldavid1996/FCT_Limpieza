@@ -50,6 +50,9 @@ export class UserService {
 
   // Update the selected user
   updateUser(Id: string, updatedUser: InsertOrUpdateUser) {
+    if(updatedUser.Disabled == null){
+      updatedUser.Disabled = false;
+    }
     const body = { ...updatedUser, Id };
     return this.http.put(this.baseUrl + 'User/' + Id, body);
   }
